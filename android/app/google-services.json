@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1087311522136",
+    "project_id": "ishq-askhalan",
+    "storage_bucket": "ishq-askhalan.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1087311522136:android:c8bbc7ac465cffb4cb1d2d",
+        "android_client_info": {
+          "package_name": "com.ishq.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB6pVT1a793gGTzcW_IgUJYVh1lY3Y7Qso"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

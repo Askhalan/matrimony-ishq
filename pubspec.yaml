@@ -39,6 +39,8 @@ dependencies:
   image_picker: ^1.0.7
   iconsax: ^0.0.8
   smooth_page_indicator: ^1.1.0
+  fpdart: ^1.1.0
+
 
 #---------------------- DEV PACKAGES ----------------------#
 dev_dependencies:

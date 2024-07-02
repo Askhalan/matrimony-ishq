@@ -28,7 +28,7 @@ class JTextFormFieldTheme {
       ),
       focusedBorder: const OutlineInputBorder().copyWith(
         borderRadius: BorderRadius.circular(JSize.inputFieldRadiusLg),
-        borderSide: const BorderSide(width: 1, color: JColor.dark),
+        borderSide: const BorderSide(width: 1, color: JColor.primary),
       ),
       errorBorder: const OutlineInputBorder().copyWith(
         borderRadius: BorderRadius.circular(JSize.inputFieldRadiusLg),
@@ -39,7 +39,7 @@ class JTextFormFieldTheme {
         borderSide: const BorderSide(width: 2, color: JColor.warning),
       ),
       filled: true,
-      fillColor: JColor.primary,
+      fillColor: JColor.secondary,
       contentPadding: const EdgeInsets.symmetric(
             vertical: 16.0,
             horizontal: 12.0),

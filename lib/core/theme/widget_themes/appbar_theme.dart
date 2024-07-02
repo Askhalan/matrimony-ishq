@@ -12,7 +12,7 @@ class JAppBarTheme{
     elevation: 0,
     centerTitle: false,
     scrolledUnderElevation: 0,
-    backgroundColor: Colors.transparent,
+    backgroundColor: JColor.primary,
     surfaceTintColor: Colors.transparent,
     iconTheme: IconThemeData(color: JColor.black, size: JSize.iconMd),
     actionsIconTheme: IconThemeData(color: JColor.black, size: JSize.iconMd),
