@@ -53,20 +53,32 @@ class JColor {
   static const Color textWhite = Colors.white;
   static const Color warning = Color(0xFFF57C00);
   static const Color white = Color(0xFFFFFFFF);
+
+  // static const Gradient gradient = LinearGradient(
+  //   begin: Alignment.topRight,
+  //   end: Alignment.bottomLeft,
+  //   colors: [ 
+  //     Color(0xFFFFC5E1),
+  //     Color(0xFFFF8383),
+  //   ],
+  // );
+  static const Gradient gradient = LinearGradient(
+    begin: Alignment.topCenter,
+    end: Alignment.bottomCenter,
+    colors: [ 
+      
+     Color.fromARGB(255, 84, 25, 53),
+     Color(0xFF953966)
+     
+    ],
+  );
 }
 
 
 
 // ======================================Gradient Colors===========================================
 
- const Gradient gradient = LinearGradient(
-    begin: Alignment.topRight,
-    end: Alignment.bottomLeft,
-    colors: [
-      Color(0xFFFF8383),
-      Color(0xFFFFC5E1),
-    ],
-  );
+ 
   const Gradient gradientBgTile = LinearGradient(
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,

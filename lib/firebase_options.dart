@@ -69,6 +69,6 @@ class DefaultFirebaseOptions {
     messagingSenderId: '1087311522136',
     projectId: 'ishq-askhalan',
     storageBucket: 'ishq-askhalan.appspot.com',
-    iosBundleId: 'com.example.ishq',
+    iosBundleId: 'com.ishq.app',
   );
 }

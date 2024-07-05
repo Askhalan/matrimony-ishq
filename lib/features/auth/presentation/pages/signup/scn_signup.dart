@@ -19,26 +19,23 @@ class ScnSignup extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Login"),
-        centerTitle: true,
-      ),
-      body: SingleChildScrollView(
-        child: Padding(
+      body:SingleChildScrollView(
+        child: 
+        Padding(
           padding: JSize.defaultPadding,
           child: Form(
             key: formKey,
             child: Column(
               children: [
                 SizedBox(
-                  height: 300,
+                  height: 200,
                 ),
                 TextFormField(
                     controller: nameController,
                     validator: (value) =>
                         JValidator.validateEmptyText("Name", value),
                     decoration: InputDecoration(
-                        hintText: "Name", prefixIcon: Icon(Iconsax.sms))),
+                        hintText: "Name", prefixIcon: Icon(Iconsax.user))),
                 JGap(h: JSize.spaceBtwInputFields),
                 TextFormField(
                     controller: mailController,
@@ -50,7 +47,9 @@ class ScnSignup extends StatelessWidget {
                     controller: passwordController,
                     validator: (value) => JValidator.validatePassword(value),
                     decoration: InputDecoration(
-                        hintText: "Password", prefixIcon: Icon(Iconsax.lock)),
+                        hintText: "Password",
+                        prefixIcon: Icon(Iconsax.lock),
+                        suffix: Icon(Iconsax.eye_slash)),
                     obscureText: true),
                 JGap(h: JSize.spaceBtwSections),
                 ElevatedButton(
@@ -63,7 +62,9 @@ class ScnSignup extends StatelessWidget {
                             ));
                       }
                     },
-                    child: Text("Login"))
+                    child: Text("Login")),
+
+                    JGap(h: 500,)
               ],
             ),
           ),
