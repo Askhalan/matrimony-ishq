@@ -52,20 +52,22 @@ class JColor {
   static const Color softGrey = Color(0xFFF4F4F4);
   static const Color lightGrey = Color(0xFFF9F9F9);
   static const Color white = Color(0xFFFFFFFF);
+
+   static const Gradient gradient = LinearGradient(
+    begin: Alignment.topRight,
+    end: Alignment.bottomLeft,
+    colors: [
+      Color.fromARGB(255, 108, 43, 74),
+      primary,
+    ],
+  );
 }
 
 
 
 // ======================================Gradient Colors===========================================
 
- const Gradient gradient = LinearGradient(
-    begin: Alignment.topRight,
-    end: Alignment.bottomLeft,
-    colors: [
-      Color(0xFFFF8383),
-      Color(0xFFFFC5E1),
-    ],
-  );
+
   const Gradient gradientBgTile = LinearGradient(
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,

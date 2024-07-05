@@ -35,6 +35,8 @@ class JSize {
   static const double borderRadMd = 7.0;
   static const double borderRadLg = 9.0;
   static const double borderRadXl = 15.0;
+  static const double appbarBorderRad = 55.0;
+  
 
 // Button Sizes
   static const double btnHeight = 40.0;
