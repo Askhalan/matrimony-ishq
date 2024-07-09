@@ -54,8 +54,8 @@ class JColor {
   static const Color white = Color(0xFFFFFFFF);
 
    static const Gradient gradient = LinearGradient(
-    begin: Alignment.topRight,
-    end: Alignment.bottomLeft,
+    begin: Alignment.topCenter,
+    end: Alignment.bottomCenter,
     colors: [
       Color.fromARGB(255, 108, 43, 74),
       primary,
