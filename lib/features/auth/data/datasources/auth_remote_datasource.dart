@@ -23,14 +23,9 @@ class AuthRemoteDataSourceImpl extends AuthRemoteDatasource {
   final FirebaseAuth authInstance;
 
   AuthRemoteDataSourceImpl({required this.authInstance});
-  @override
-  Future<String> loginWithEmailPassword(
-      {required String email, required String password}) {
-    // TODO: implement loginWithEmailPassword
-    throw UnimplementedError();
-  }
 
-  @override
+  //------------------- SIGNUP ----------------------
+    @override
   Future<String> signupWithEmailPassword({
     required String name,
     required String email,
@@ -53,4 +48,29 @@ class AuthRemoteDataSourceImpl extends AuthRemoteDatasource {
       throw JPlatformException(e.code).message;
     }
   }
+
+  //------------------- LOGIN ----------------------
+  @override
+  Future<String> loginWithEmailPassword(
+      {required String email, required String password}) async{
+    try{
+      final response = await authInstance.signInWithEmailAndPassword(
+          email: email, password: password);
+      if (response.user == null){
+        throw ServerException(message: 'User is null');
+      }
+      return response.user!.uid;
+    } on FirebaseAuthException catch (e) {
+      throw JFirebaseAuthException(e.code).message;
+    } on FirebaseException catch (e) {
+      throw JFirebaseException(e.code).message;
+    } on JFormatException catch (_) {
+      throw const JFormatException();
+    } on JPlatformException catch (e) {
+      throw JPlatformException(e.code).message;
+    }
+    
+  }
+
+
 }
