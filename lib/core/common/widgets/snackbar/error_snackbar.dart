@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ishq/utils/constants/colors.dart';
 
 class ErrorSnackBar extends StatelessWidget {
   final String message;
@@ -13,7 +14,7 @@ class ErrorSnackBar extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
       margin: EdgeInsets.all(16.0),
       decoration: BoxDecoration(
-        color: const Color.fromARGB(255, 186, 83, 83),
+        color: JColor.error,
         borderRadius: BorderRadius.circular(8.0),
       ),
       child: Row(

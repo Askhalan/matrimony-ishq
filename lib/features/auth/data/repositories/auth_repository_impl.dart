@@ -22,13 +22,11 @@ class AuthRepositoryImpl extends AuthRepository {
 
   @override
   Future<Either<Failure, String>> signupWithEmailAndPassword({
-    required String name,
     required String email,
     required String password,
   }) async {
     try {
       final userId = await remoteDataSource.signupWithEmailPassword(
-        name: name,
         email: email,
         password: password,
       );

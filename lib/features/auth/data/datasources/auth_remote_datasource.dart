@@ -9,7 +9,6 @@ import 'package:ishq/utils/exceptions/server_exception.dart';
 
 abstract interface class AuthRemoteDatasource {
   Future<String> signupWithEmailPassword({
-    required String name,
     required String email,
     required String password,
   });
@@ -25,16 +24,15 @@ class AuthRemoteDataSourceImpl extends AuthRemoteDatasource {
   AuthRemoteDataSourceImpl({required this.authInstance});
 
   //------------------- SIGNUP ----------------------
-    @override
+  @override
   Future<String> signupWithEmailPassword({
-    required String name,
     required String email,
     required String password,
   }) async {
     try {
       final response = await authInstance.createUserWithEmailAndPassword(
           email: email, password: password);
-      if (response.user == null){
+      if (response.user == null) {
         throw ServerException(message: 'User is null');
       }
       return response.user!.uid;
@@ -52,11 +50,11 @@ class AuthRemoteDataSourceImpl extends AuthRemoteDatasource {
   //------------------- LOGIN ----------------------
   @override
   Future<String> loginWithEmailPassword(
-      {required String email, required String password}) async{
-    try{
+      {required String email, required String password}) async {
+    try {
       final response = await authInstance.signInWithEmailAndPassword(
           email: email, password: password);
-      if (response.user == null){
+      if (response.user == null) {
         throw ServerException(message: 'User is null');
       }
       return response.user!.uid;
@@ -69,8 +67,5 @@ class AuthRemoteDataSourceImpl extends AuthRemoteDatasource {
     } on JPlatformException catch (e) {
       throw JPlatformException(e.code).message;
     }
-    
   }
-
-
 }

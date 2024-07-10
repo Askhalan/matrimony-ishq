@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
       title: 'Ishq Matrimony',
       theme: JAppTheme.lightTheme,
       darkTheme: JAppTheme.darkTheme,
-       initialRoute: Routes.loginScn,
+       initialRoute: Routes.authSelectionScn,
       routes: Routes.getRoutes(),
     );
   }

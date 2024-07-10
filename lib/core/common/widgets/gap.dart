@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:ishq/utils/constants/sizes.dart';
 
 class JGap extends StatelessWidget {
-   JGap({
+   const JGap({
     super.key, this.h=JSize.defaultSpace,  this.w =JSize.defaultSpace,
   });
 

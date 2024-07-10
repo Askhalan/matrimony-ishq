@@ -3,6 +3,8 @@ class JImages {
   static const String logoIcon = "";
   static const String logoText = "";
   static const String logoFull = "";
+  static const String logoGoogle = "assets/logos/logoGoogle.png";
+  static const String logoApple = "assets/logos/logoApple.png";
 
   // -- Annimated Giffs
   static const String createdSUccessfully = "";

@@ -16,6 +16,7 @@ class JTexts {
   static const String lastName = "Last Name";
   static const String email = "E-Mail";
   static const String password = "Password";
+  static const String confirmPassword = "Confirm Password";
   static const String newPassword = "New Password";
   static const String username = "Username";
   static const String phoneNo = "Phone Number";
@@ -23,6 +24,7 @@ class JTexts {
   static const String forgetPassword = "Forget Password?";
   static const String login = "Login";
   static const String signup = "Signup";
+  static const String processing = "Processing";
   static const String createAccount = "Create Account";
   static const String orLoginWith = "or login with";
   static const String orSignUpWith = "or register  with";
@@ -33,8 +35,11 @@ class JTexts {
   static const String resendEmail = "Resend Email";
   static const String resendEmailIn = "Resend email in";
   static const String haveAccount = "Aready have an account ?";
+  static const String needAccount = "Don't have an account ?";
   static const String loginNow = "Login Now";
   static const String title = "Title";
+  static const String authGoogle = "Sign in with Google";
+  static const String authApple = "Sign in with Apple";
 
 
   

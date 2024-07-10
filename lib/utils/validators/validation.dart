@@ -57,6 +57,20 @@ class JValidator {
     return null;
   }
 
+  //--------------------- Confirm Password Validator ---------------------
+
+  static String? validateConfirmPassword(String? password, String? confirmPassword) {
+    if (confirmPassword == null || confirmPassword.isEmpty) {
+      return 'Confirm Password is required.';
+    }
+
+    if (confirmPassword != password) {
+      return 'Passwords does not match.';
+    }
+
+    return null;
+  }
+
   
 
 
