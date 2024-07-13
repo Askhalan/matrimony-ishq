@@ -12,8 +12,7 @@ class JTexts {
   static const String choose = "Choose";
 
   // -- Authentication Forms
-  static const String firstname = "First Name";
-  static const String lastName = "Last Name";
+  static const String name = "Name";
   static const String email = "E-Mail";
   static const String password = "Password";
   static const String confirmPassword = "Confirm Password";

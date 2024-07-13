@@ -1,24 +1,30 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+
 import 'package:ishq/utils/constants/colors.dart';
 import 'package:ishq/utils/constants/sizes.dart';
 
 class JAppbar extends StatelessWidget {
-  const JAppbar({
-    super.key,
+  JAppbar({
+    Key? key,
+    this.body,
+    this.flexibleSpaceContent,
+    this.footerContent,
     this.centerTitle = false,
-    this.title,
-    this.actions,
     this.showBackArrow = false,
+    this.leading,
+    this.title,
     this.leadingIcon,
     this.leadingOnPressed,
+    this.actions,
     this.horizontalpadding = JSize.md,
-    this.body,
-    this.leading,
     this.floating = false,
-    this.elevation,
-  });
+    this.elevation,  this.expandedHeight = 180,  this.footerMaxHeight =45,
+  }) : super(key: key);
 
   final Widget? body;
+  final Widget? flexibleSpaceContent;
+  final Widget? footerContent;
   final bool centerTitle;
   final bool showBackArrow;
   final Widget? leading;
@@ -30,6 +36,9 @@ class JAppbar extends StatelessWidget {
   final bool floating;
   final double? elevation;
   final double hh = 15;
+  final double expandedHeight;
+  final double footerMaxHeight;
+
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +55,7 @@ class JAppbar extends StatelessWidget {
             pinned: true,
             floating: floating,
             collapsedHeight: 58,
-            expandedHeight: 180,
+            expandedHeight: expandedHeight,
             flexibleSpace: FlexibleSpaceBar(
               background: ClipRRect(
                 borderRadius: const BorderRadius.only(
@@ -55,16 +64,17 @@ class JAppbar extends StatelessWidget {
                 ),
                 child: Container(
                   decoration: const BoxDecoration(gradient: JColor.gradient),
+                  child: flexibleSpaceContent,
                 ),
               ),
             ),
           ),
            SliverPersistentHeader(
-            pinned: true,
+            pinned: false,
             delegate: _SliverAppBarDelegate(
               minHeight: hh,
-              maxHeight: hh*3,
-              child: const Text(""),
+              maxHeight: footerMaxHeight,
+              child: footerContent ?? SizedBox(),
             ),
           ),
           

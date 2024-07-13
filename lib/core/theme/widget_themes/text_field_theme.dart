@@ -40,9 +40,7 @@ class JTextFormFieldTheme {
       ),
       filled: true,
       fillColor: JColor.secondary,
-      contentPadding: const EdgeInsets.symmetric(
-            vertical: 16.0,
-            horizontal: 12.0),
+      contentPadding:JSize.inputFieldPadding 
       );
 
 //---------------------------------- Dark Theme ----------------------------------

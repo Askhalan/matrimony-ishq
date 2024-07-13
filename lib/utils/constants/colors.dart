@@ -29,6 +29,7 @@ class JColor {
   static const Color error = Color.fromARGB(255, 255, 77, 77);
 
   static const Color grey = Color(0xFFE0E0E0);
+  static const Color disabledGrey = Color.fromARGB(78, 224, 224, 224);
   // Icon Color
   static const Color icon = Color(0xFF797979);
 

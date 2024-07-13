@@ -39,7 +39,9 @@ dependencies:
   image_picker: ^1.0.7
   iconsax: ^0.0.8
   smooth_page_indicator: ^1.1.0
+  bottom_picker: ^2.8.0
   fpdart: ^1.1.0
+  country_state_city_pro: ^0.0.6
 
 
 #---------------------- DEV PACKAGES ----------------------#
@@ -54,6 +56,7 @@ flutter:
 #----------------------- LOCAL ASSETS ----------------------#
   assets:
         - assets/logos/
+        - assets/images/
 
 
 #----------------------- LOCAL FONTS -----------------------#
