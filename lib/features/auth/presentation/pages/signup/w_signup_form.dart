@@ -5,6 +5,7 @@ import 'package:ishq/core/common/widgets/gap.dart';
 import 'package:ishq/core/common/widgets/loader/button_loader.dart';
 import 'package:ishq/core/common/widgets/snackbar/error_snackbar.dart';
 import 'package:ishq/core/common/widgets/snackbar/show_snackbar.dart';
+import 'package:ishq/core/routes/routes.dart';
 import 'package:ishq/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:ishq/features/auth/presentation/pages/temp.dart';
 import 'package:ishq/utils/constants/sizes.dart';
@@ -91,6 +92,7 @@ class SignupForm extends StatelessWidget {
                                 password: passwordController.text,
                                 mail: mailController.text.trim(),
                               ));
+                              Navigator.pushNamed(context, Routes.basicDetailsScn);
                         }
                       },
                       child: Text(JTexts.signup));

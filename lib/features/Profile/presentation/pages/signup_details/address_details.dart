@@ -8,6 +8,7 @@ import 'package:ishq/utils/constants/sizes.dart';
 import 'package:ishq/utils/constants/text_strings.dart';
 import 'package:ishq/utils/validators/validation.dart';
 
+
 class ScnAddressDetails extends StatelessWidget {
   ScnAddressDetails({super.key});
 

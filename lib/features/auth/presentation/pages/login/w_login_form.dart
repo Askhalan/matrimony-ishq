@@ -38,7 +38,7 @@ class LoginForm extends StatelessWidget {
       builder: (context, state) {
         if (state is AuthSuccess) {
           WidgetsBinding.instance.addPostFrameCallback((_) {
-            Navigator.pushNamed(context, Routes.temp);
+            Navigator.pushNamed(context, Routes.navigationMenu);
           });
         }
 
@@ -82,12 +82,13 @@ class LoginForm extends StatelessWidget {
                         mailController.text ="test1@gmail.com";
                       },
                       onPressed: () {
-                        if (formKey.currentState!.validate()) {
-                          context.read<AuthBloc>().add(AuthLogin(
-                                password: passwordController.text.trim(),
-                                mail: mailController.text.trim(),
-                              ));
-                        }
+                        // if (formKey.currentState!.validate()) {
+                        //   context.read<AuthBloc>().add(AuthLogin(
+                        //         password: passwordController.text.trim(),
+                        //         mail: mailController.text.trim(),
+                        //       ));
+                        // }
+                        Navigator.pushNamed(context, Routes.navigationMenu);
                       },
                       child: const Text(JTexts.login));
                 },
