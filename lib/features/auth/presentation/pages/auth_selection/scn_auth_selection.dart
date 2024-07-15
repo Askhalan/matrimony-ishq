@@ -31,6 +31,7 @@ class ScnAuthSelection extends StatelessWidget {
                   color: Colors.amber,//need to add ISHQ logo
                   height: 190,
                   width: 300,
+                  child: Center(child: Text(" ISHQ Logo"),),
                 ),
 
                 //--------------------------------- GOOGLE AUTH -------------------------------

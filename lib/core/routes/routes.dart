@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ishq/core/routes/navigation_menu.dart';
 import 'package:ishq/features/Profile/presentation/pages/profile/scn_profile.dart';
 import 'package:ishq/features/Profile/presentation/pages/signup_details/address_details.dart';
 import 'package:ishq/features/Profile/presentation/pages/signup_details/basic_details.dart';
@@ -9,13 +10,14 @@ import 'package:ishq/features/auth/presentation/pages/signup/scn_signup.dart';
 import 'package:ishq/features/auth/presentation/pages/temp.dart';
 
 class Routes {
-  static const String temp = '/temp';
+
   static const String splashScn = '/';
   static const String authSelectionScn = '/authSelectionScn';
   static const String loginScn = '/loginScn';
   static const String signupScn = '/signupScn';
   static const String basicDetailsScn = '/basicDetailsScn';
   static const String addressDetailsScn = '/addressDetailsScn';
+  static const String navigationMenu = '/navigationMenu';
   static const String profileScn = '/profileScn';
 
 
@@ -27,9 +29,10 @@ class Routes {
       signupScn: (context) => ScnSignup(),
       basicDetailsScn: (context) => ScnBasicDetails(),
       addressDetailsScn: (context) => ScnAddressDetails(),
+      navigationMenu: (context) => NavigationMenu(),
       profileScn: (context) => ScnProfile(),
 
-      temp: (context) => Temp(),
+
     };
   }
 }
