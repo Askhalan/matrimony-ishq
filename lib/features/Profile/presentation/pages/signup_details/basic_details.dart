@@ -1,6 +1,5 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, must_be_immutable, avoid_print, library_private_types_in_public_api
 
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:ishq/core/common/widgets/appbar.dart';
