@@ -76,7 +76,7 @@ class JTextFormFieldTheme {
         borderRadius: BorderRadius.circular(JSize.inputFieldRadiusLg),
         borderSide: const BorderSide(width: 2, color: JColor.warning),
       ),
-      fillColor: JColor.bgSecondary,
+      fillColor: JColor.white,
       contentPadding: const EdgeInsets.symmetric(
             vertical: 16.0,
             horizontal: 12.0),

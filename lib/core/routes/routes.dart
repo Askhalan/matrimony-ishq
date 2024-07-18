@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:ishq/core/routes/navigation_menu.dart';
 import 'package:ishq/features/Profile/presentation/pages/profile/scn_profile.dart';
+import 'package:ishq/features/Profile/presentation/pages/settings/settings.dart';
 import 'package:ishq/features/Profile/presentation/pages/signup_details/address_details.dart';
 import 'package:ishq/features/Profile/presentation/pages/signup_details/basic_details.dart';
-
 import 'package:ishq/features/auth/presentation/pages/auth_selection/scn_auth_selection.dart';
 import 'package:ishq/features/auth/presentation/pages/login/scn_login.dart';
 import 'package:ishq/features/auth/presentation/pages/signup/scn_signup.dart';
-import 'package:ishq/features/auth/presentation/pages/temp.dart';
 
 class Routes {
 
@@ -19,6 +18,7 @@ class Routes {
   static const String addressDetailsScn = '/addressDetailsScn';
   static const String navigationMenu = '/navigationMenu';
   static const String profileScn = '/profileScn';
+  static const String settingsScn = '/settingsScn';
 
 
   static Map<String, WidgetBuilder> getRoutes() {
@@ -31,6 +31,7 @@ class Routes {
       addressDetailsScn: (context) => ScnAddressDetails(),
       navigationMenu: (context) => NavigationMenu(),
       profileScn: (context) => ScnProfile(),
+      settingsScn: (context) => ScnSettings(),
 
 
     };

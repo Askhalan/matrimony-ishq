@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ishq/core/common/widgets/appbar.dart';
-import 'package:ishq/core/common/widgets/gap.dart';
+import 'package:ishq/core/common/widgets/spaces/gap.dart';
 import 'package:ishq/features/auth/presentation/pages/signup/w_have_account.dart';
 import 'package:ishq/features/auth/presentation/pages/signup/w_signup_form.dart';
 import 'package:ishq/utils/constants/sizes.dart';

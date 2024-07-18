@@ -47,79 +47,76 @@ class NavigationMenuState extends State<NavigationMenu>
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        body: BottomBar(
-          fit: StackFit.expand,
-          borderRadius: BorderRadius.circular(JSize.borderRadLg),
-          duration: Duration(seconds: 1),
-          curve: Curves.decelerate,
-          showIcon: true,
-          width: MediaQuery.of(context).size.width * 0.9,
-          barColor: JColor.primary,
-          start: 2,
-          end: 0,
-          offset: 10,
-          barAlignment: Alignment.bottomCenter,
-          reverse: false,
-          hideOnScroll: true,
-          scrollOpposite: false,
-          onBottomBarHidden: () {},
-          onBottomBarShown: () {},
-          body: (context, controller) => TabBarView(
-            controller: tabController,
-            dragStartBehavior: DragStartBehavior.down,
-            physics: BouncingScrollPhysics(),
-            children: [
-              Scaffold(appBar: AppBar()),
-              Scaffold(appBar: AppBar()),
-              Scaffold(appBar: AppBar()),
-             
-              ScnProfile()
-            ],
-          ),
-          child: TabBar(
-            indicatorPadding: const EdgeInsets.fromLTRB(0, 3, 0, 3),
-            controller: tabController,
-            indicator: BoxDecoration(
-                border: Border.all(color: JColor.grey),
-                color: JColor.lightGrey,
-                borderRadius: BorderRadius.circular(5)),
-            tabs: [
-              SizedBox(
-                height: 55,
-                child: Center(
-                    child: Icon(
-                  Iconsax.home,
-                  color: currentPage == 0 ? JColor.primary : JColor.grey,
-                )),
-              ),
-              SizedBox(
-                height: 55,
-                child: Center(
-                    child: Icon(
-                  Iconsax.sms,
-                  color: currentPage == 1 ? JColor.primary : JColor.grey,
-                )),
-              ),
-              SizedBox(
-                height: 55,
-                child: Center(
-                    child: Icon(
-                  Iconsax.link,
-                  color: currentPage == 2 ? JColor.primary : JColor.grey,
-                )),
-              ),
-              SizedBox(
-                height: 55,
-                child: Center(
-                    child: Icon(
-                  Iconsax.user,
-                  color: currentPage == 3 ? JColor.primary : JColor.grey,
-                )),
-              ),
-            ],
-          ),
+    return Scaffold(
+      body: BottomBar(
+        fit: StackFit.expand,
+        borderRadius: BorderRadius.circular(JSize.borderRadLg),
+        duration: Duration(seconds: 1),
+        curve: Curves.decelerate,
+        width: MediaQuery.of(context).size.width * 0.9,
+        barColor: JColor.primary,
+        start: 1,
+        end: 0,
+        offset: 10,
+        barAlignment: Alignment.bottomCenter,
+        reverse: false,
+        hideOnScroll: true,
+        scrollOpposite: false,
+        onBottomBarHidden: () {},
+        onBottomBarShown: () {},
+        body: (context, controller) => TabBarView(
+          controller: tabController,
+          dragStartBehavior: DragStartBehavior.down,
+          physics: BouncingScrollPhysics(),
+          children: [
+            Scaffold(appBar: AppBar(automaticallyImplyLeading: false,)),
+            Scaffold(appBar: AppBar(automaticallyImplyLeading: false,)),
+            Scaffold(appBar: AppBar(automaticallyImplyLeading: false,)),
+           
+            ScnProfile()
+          ],
+        ),
+        child: TabBar(
+          indicatorPadding: const EdgeInsets.fromLTRB(0, 3, 0, 3),
+          controller: tabController,
+          indicator: BoxDecoration(
+              border: Border.all(color: JColor.grey),
+              color: JColor.softGrey,
+              borderRadius: BorderRadius.circular(5)),
+          tabs: [
+            SizedBox(
+              height: 55,
+              child: Center(
+                  child: Icon(
+                Iconsax.home,
+                color: currentPage == 0 ? JColor.primary : JColor.grey,
+              )),
+            ),
+            SizedBox(
+              height: 55,
+              child: Center(
+                  child: Icon(
+                Iconsax.sms,
+                color: currentPage == 1 ? JColor.primary : JColor.grey,
+              )),
+            ),
+            SizedBox(
+              height: 55,
+              child: Center(
+                  child: Icon(
+                Iconsax.link,
+                color: currentPage == 2 ? JColor.primary : JColor.grey,
+              )),
+            ),
+            SizedBox(
+              height: 55,
+              child: Center(
+                  child: Icon(
+                Iconsax.user,
+                color: currentPage == 3 ? JColor.primary : JColor.grey,
+              )),
+            ),
+          ],
         ),
       ),
     );

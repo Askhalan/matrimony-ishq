@@ -11,9 +11,9 @@ class JTextTheme {
     headlineMedium: const TextStyle().copyWith(fontSize: 24.0, fontWeight: FontWeight.w600, color: JColor.dark),
     headlineSmall: const TextStyle().copyWith(fontSize: 18.0, fontWeight: FontWeight.w600, color: JColor.dark),
 
-    titleLarge: const TextStyle().copyWith(fontSize: 16.0, fontWeight: FontWeight.w600, color: JColor.dark),
-    titleMedium: const TextStyle().copyWith(fontSize: 16.0, fontWeight: FontWeight.w500, color: JColor.dark),
-    titleSmall: const TextStyle().copyWith(fontSize: 16.0, fontWeight: FontWeight.w400, color: JColor.dark),
+    titleLarge: const TextStyle().copyWith(fontSize: 18.0, fontWeight: FontWeight.w600, color: JColor.dark),
+    titleMedium: const TextStyle().copyWith(fontSize: 18.0, fontWeight: FontWeight.w500, color: JColor.dark),
+    titleSmall: const TextStyle().copyWith(fontSize: 18.0, fontWeight: FontWeight.w400, color: JColor.dark),
 
     bodyLarge: const TextStyle().copyWith(fontSize: 14.0, fontWeight: FontWeight.w500, color: JColor.dark),
     bodyMedium: const TextStyle().copyWith(fontSize: 14.0, fontWeight: FontWeight.normal, color: JColor.dark),

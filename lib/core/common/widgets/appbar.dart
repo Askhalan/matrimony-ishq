@@ -1,12 +1,12 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
+// ignore_for_file: public_member_api_docs, sort_constructors_first, unused_local_variable, must_be_immutable
 import 'package:flutter/material.dart';
 
 import 'package:ishq/utils/constants/colors.dart';
 import 'package:ishq/utils/constants/sizes.dart';
 
 class JAppbar extends StatelessWidget {
-  JAppbar({
-    Key? key,
+   JAppbar({
+    super.key,
     this.body,
     this.flexibleSpaceContent,
     this.footerContent,
@@ -19,14 +19,17 @@ class JAppbar extends StatelessWidget {
     this.actions,
     this.horizontalpadding = JSize.md,
     this.floating = false,
-    this.elevation,  this.expandedHeight = 180,  this.footerMaxHeight =45,
-  }) : super(key: key);
+    this.elevation,  this.expandedHeight = 180,  this.footerMaxHeight =45, 
+    this.slivers,  this.footerPinned = true
+  });
 
   final Widget? body;
+ 
   final Widget? flexibleSpaceContent;
   final Widget? footerContent;
   final bool centerTitle;
   final bool showBackArrow;
+  final bool footerPinned;
   final Widget? leading;
   final Widget? title;
   final IconData? leadingIcon;
@@ -38,16 +41,21 @@ class JAppbar extends StatelessWidget {
   final double hh = 15;
   final double expandedHeight;
   final double footerMaxHeight;
+  Widget? slivers ;
 
 
   @override
   Widget build(BuildContext context) {
+     Widget sliver=SliverFillRemaining();
+     if(slivers != null){sliver = slivers!;}
+    
     return Scaffold(
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
+            automaticallyImplyLeading: showBackArrow,
             backgroundColor: JColor.primary,
-            leading: showBackArrow ? IconButton(icon: const Icon(Icons.arrow_back_ios), onPressed: leadingOnPressed) : leading,
+            // leading: showBackArrow ? IconButton(icon: const Icon(Icons.arrow_back_ios), onPressed: (){Navigator.pop(context);}) : leading,
             title: title,
             centerTitle: centerTitle,
             actions: actions,
@@ -57,20 +65,14 @@ class JAppbar extends StatelessWidget {
             collapsedHeight: 58,
             expandedHeight: expandedHeight,
             flexibleSpace: FlexibleSpaceBar(
-              background: ClipRRect(
-                borderRadius: const BorderRadius.only(
-                  // bottomLeft: Radius.circular(JSize.appbarBorderRad),
-                  // bottomRight: Radius.circular(JSize.appbarBorderRad),
-                ),
-                child: Container(
-                  decoration: const BoxDecoration(gradient: JColor.gradient),
-                  child: flexibleSpaceContent,
-                ),
+              background: Container(
+                decoration: const BoxDecoration(gradient: JColor.gradient),
+                child: flexibleSpaceContent,
               ),
             ),
           ),
            SliverPersistentHeader(
-            pinned: false,
+            pinned: footerPinned,
             delegate: _SliverAppBarDelegate(
               minHeight: hh,
               maxHeight: footerMaxHeight,
@@ -79,6 +81,7 @@ class JAppbar extends StatelessWidget {
           ),
           
           SliverToBoxAdapter(child: body),
+          sliver
         ],
       ),
     );

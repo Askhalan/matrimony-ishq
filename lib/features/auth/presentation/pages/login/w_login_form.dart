@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:ishq/core/common/widgets/gap.dart';
+import 'package:ishq/core/common/widgets/spaces/gap.dart';
 import 'package:ishq/core/common/widgets/loader/button_loader.dart';
 import 'package:ishq/core/common/widgets/snackbar/error_snackbar.dart';
 import 'package:ishq/core/common/widgets/snackbar/show_snackbar.dart';

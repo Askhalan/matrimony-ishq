@@ -20,6 +20,7 @@ class JSize {
 
 // Spacing
   static const double defaultSpace = 16.0;
+  static const double defaultSpace2 = 20.0;
   static const double spaceBtwItems = 24.0;
   static const double spaceBtwSections = 32.0;
 
@@ -61,7 +62,7 @@ class JSize {
 
 
 // Default Pading 
-static const double defaultPaddingValue = 20.0;
+  static const double defaultPaddingValue = 20.0;
   static EdgeInsets defaultPadding = const EdgeInsets.all(20);
   static EdgeInsets inputFieldPadding = const EdgeInsets.symmetric(vertical: 16,horizontal: 25);
   static EdgeInsets dropdownPading = const EdgeInsets.symmetric(horizontal: 25);

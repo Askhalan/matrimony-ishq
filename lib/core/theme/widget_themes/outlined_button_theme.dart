@@ -14,7 +14,7 @@ class JOutlinedButtonTheme {
   static final lightOutlinedButtonTheme  = OutlinedButtonThemeData(
     style: OutlinedButton.styleFrom(
      elevation: 0,
-    foregroundColor: JColor.light,
+    // foregroundColor: JColor.light,
     disabledForegroundColor: JColor.darkGrey,
     disabledBackgroundColor: JColor.buttonDisabled,
     side: const BorderSide(color: JColor.primary),
@@ -33,9 +33,9 @@ class JOutlinedButtonTheme {
     style: OutlinedButton.styleFrom(
      elevation: 0,
     // foregroundColor: JColor.light,
-    // disabledForegroundColor: JColor.darkGrey,
-    // disabledBackgroundColor: JColor.buttonDisabled,
-    // side: const BorderSide(color: JColor.primary),
+    disabledForegroundColor: JColor.darkGrey,
+    disabledBackgroundColor: JColor.buttonDisabled,
+    side: const BorderSide(color: JColor.primary),
     padding: const EdgeInsets.symmetric(vertical: JSize.buttonHeight),
     // textStyle: const TextStyle(fontSize: 16, color: JColor.primary, fontWeight: FontWeight.w600),
     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(JSize.buttonRadius)),

@@ -4,7 +4,7 @@
 import 'package:flutter/material.dart';
 import 'package:ishq/core/common/widgets/appbar.dart';
 import 'package:ishq/core/common/widgets/form/dropdown.dart';
-import 'package:ishq/core/common/widgets/gap.dart';
+import 'package:ishq/core/common/widgets/spaces/gap.dart';
 import 'package:ishq/core/common/widgets/form/dob_picker.dart';
 import 'package:ishq/core/routes/routes.dart';
 import 'package:ishq/features/Profile/presentation/widgets/gender_chip.dart';

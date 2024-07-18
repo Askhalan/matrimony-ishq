@@ -1,7 +1,7 @@
 import 'package:country_state_city_pro/country_state_city_pro.dart';
 import 'package:flutter/material.dart';
 import 'package:ishq/core/common/widgets/appbar.dart';
-import 'package:ishq/core/common/widgets/gap.dart';
+import 'package:ishq/core/common/widgets/spaces/gap.dart';
 import 'package:ishq/features/Profile/presentation/widgets/progress_indicator.dart';
 import 'package:ishq/utils/constants/colors.dart';
 import 'package:ishq/utils/constants/sizes.dart';
