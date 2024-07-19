@@ -68,4 +68,8 @@ class AuthRemoteDataSourceImpl extends AuthRemoteDatasource {
       throw JPlatformException(e.code).message;
     }
   }
+
+  //------------------- LOGOUT ----------------------
+
+  //---------------- DELETE ACCOUNT -----------------
 }
