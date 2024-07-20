@@ -1,11 +1,13 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, must_be_immutable, avoid_print, library_private_types_in_public_api
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ishq/core/common/widgets/appbar.dart';
 import 'package:ishq/core/common/widgets/form/dropdown.dart';
 import 'package:ishq/core/common/widgets/spaces/gap.dart';
 import 'package:ishq/core/common/widgets/form/dob_picker.dart';
 import 'package:ishq/core/routes/routes.dart';
+import 'package:ishq/features/auth/presentation/profile/bloc/profile_bloc.dart';
 import 'package:ishq/features/auth/presentation/profile/widgets/gender_chip.dart';
 import 'package:ishq/features/auth/presentation/profile/widgets/progress_indicator.dart';
 import 'package:ishq/utils/constants/sizes.dart';
@@ -80,7 +82,14 @@ class _ScnBasicDetailsState extends State<ScnBasicDetails> {
 
                   //---------------------------------------- GENDER ---------------------------------------
 
-                  GenderChip(selectedGender: selectedGender),
+                  GenderChip(
+                    selectedGender: selectedGender,
+                    onItemSelected: (value) {
+                      setState(() {
+                        selectedGender = value;
+                      });
+                    },
+                  ),
                   JGap(),
 
                   //------------------------------------------ DOB ----------------------------------------
@@ -95,7 +104,7 @@ class _ScnBasicDetailsState extends State<ScnBasicDetails> {
                   ),
                   JGap(),
 
-                  //------------------------------------- MARITAL STATUS -------------------------------------
+                  //------------------------------------- MARITAL STATUS -----------------------------------
                   JDropdown(
                     selectedItem: maritalStatus,
                     items: const ['Never Maried', 'Divorsed', 'Widow'],
@@ -124,14 +133,18 @@ class _ScnBasicDetailsState extends State<ScnBasicDetails> {
 
                   ElevatedButton(
                     onPressed: () {
-                      Navigator.pushNamed(context, Routes.addressDetailsScn,
-                          arguments: BasicDetailsArgs(
-                              dob: '',
-                              gender: selectedGender,
-                              maritalStatus: maritalStatus,
-                              name: nameController.text,
-                              physicalStatus: physicalStatus,
-                              profileFor: profileFor));
+                      context.read<ProfileBloc>().add(AddBasicDetails(
+                            profileFor: profileFor,
+                            name: nameController.text,
+                            gender: selectedGender,
+                            dob: selectedDate.toString(),
+                            maritalStatus: maritalStatus,
+                            physicalStatus: physicalStatus,
+                          ));
+                      Navigator.pushNamed(
+                        context,
+                        Routes.addressDetailsScn,
+                      );
                     },
                     child: Text(JTexts.next),
                   ),
@@ -146,6 +159,7 @@ class _ScnBasicDetailsState extends State<ScnBasicDetails> {
 }
 
 class BasicDetailsArgs {
+  final String mail;
   final String dob;
   final String gender;
   final String maritalStatus;
@@ -154,7 +168,8 @@ class BasicDetailsArgs {
   final String profileFor;
 
   BasicDetailsArgs(
-      {required this.dob,
+      {required this.mail,
+      required this.dob,
       required this.gender,
       required this.maritalStatus,
       required this.name,

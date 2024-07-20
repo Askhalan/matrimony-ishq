@@ -3,10 +3,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ishq/core/common/widgets/appbar.dart';
+import 'package:ishq/core/common/widgets/snackbar/error_snackbar.dart';
+import 'package:ishq/core/common/widgets/snackbar/show_snackbar.dart';
 import 'package:ishq/core/common/widgets/spaces/gap.dart';
 import 'package:ishq/core/routes/routes.dart';
 import 'package:ishq/features/auth/presentation/profile/bloc/profile_bloc.dart';
-import 'package:ishq/features/auth/presentation/profile/pages/add_details/basic_details.dart';
 import 'package:ishq/features/auth/presentation/profile/widgets/progress_indicator.dart';
 import 'package:ishq/utils/constants/colors.dart';
 import 'package:ishq/utils/constants/sizes.dart';
@@ -21,8 +22,6 @@ class ScnAddressDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final BasicDetailsArgs basicDetails =
-        ModalRoute.of(context)!.settings.arguments as BasicDetailsArgs;
     return Scaffold(
       body: JAppbar(
         flexibleSpaceContent: Column(
@@ -41,14 +40,16 @@ class ScnAddressDetails extends StatelessWidget {
             padding: JSize.defaultPadding,
             child: BlocConsumer<ProfileBloc, ProfileState>(
               listener: (context, state) {
-               if(state is ProfileSuccess){
-                Navigator.pushNamed(context, Routes.navigationMenu);
-               }
+                if (state is ProfileFailure) {
+                  showSnackBar(context, ErrorSnackBar(message: "${state.error} So please re verify your data before submitting again"));
+                  Navigator.pushNamed(context, Routes.basicDetailsScn);
+                }
+                if (state is ProfileSuccess) {
+                  Navigator.pushNamed(context, Routes.navigationMenu);
+                }
               },
               builder: (context, state) {
-                 if(state is ProfileLoading){
-                return Center(child: CircularProgressIndicator());
-               }
+               
                 return Column(
                   children: [
                     JGap(
@@ -58,7 +59,7 @@ class ScnAddressDetails extends StatelessWidget {
                     //------------------------------------- PHONE NUMBER ------------------------------------
 
                     TextFormField(
-                      controller: phoneNumberController,
+                        controller: phoneNumberController,
                         decoration: InputDecoration(
                           hintText: JTexts.phoneNo,
                         ),
@@ -90,21 +91,13 @@ class ScnAddressDetails extends StatelessWidget {
 
                     ElevatedButton(
                         onPressed: () {
-                          context.read<ProfileBloc>().add(SaveUser(
-                              uid: FirebaseAuth.instance.currentUser!.uid,
-                              profileFor: basicDetails.profileFor,
-                              name: basicDetails.name,
-                              gender: basicDetails.gender,
-                              dob: basicDetails.dob,
-                              maritalStatus: basicDetails.maritalStatus,
-                              email: '',
-                              physicalStatus: basicDetails.physicalStatus,
-                              phoneNo: phoneNumberController.text,
-                              country: countryController.text,
-                              state: stateController.text,
-                              city: cityController.text,
-                              bio: '',
-                              profileImage: ''));
+                          context.read<ProfileBloc>().add(AddAddressDetails(
+                                phoneNo: phoneNumberController.text,
+                                country: countryController.text,
+                                state: stateController.text,
+                                city: cityController.text,
+                              ));
+                          context.read<ProfileBloc>().add(SaveUser());
                         },
                         child: Text(JTexts.done))
                   ],

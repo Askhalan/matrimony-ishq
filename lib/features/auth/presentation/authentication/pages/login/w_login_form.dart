@@ -7,7 +7,7 @@ import 'package:ishq/core/common/widgets/snackbar/error_snackbar.dart';
 import 'package:ishq/core/common/widgets/snackbar/show_snackbar.dart';
 import 'package:ishq/core/routes/routes.dart';
 import 'package:ishq/features/auth/presentation/authentication/bloc/auth_bloc.dart';
-import 'package:ishq/features/auth/presentation/authentication/pages/temp.dart';
+
 import 'package:ishq/utils/constants/sizes.dart';
 import 'package:ishq/utils/constants/text_strings.dart';
 import 'package:ishq/utils/validators/validation.dart';
@@ -29,10 +29,7 @@ class LoginForm extends StatelessWidget {
           showSnackBar(context, ErrorSnackBar(message: state.message));
         }
         if (state is AuthSuccess) {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => Temp()),
-          );
+          Navigator.pushNamed(context, Routes.navigationMenu);
         }
       },
       builder: (context, state) {
@@ -79,7 +76,7 @@ class LoginForm extends StatelessWidget {
                   return ElevatedButton(
                       onLongPress: () {
                         passwordController.text = "Test@1";
-                        mailController.text ="test1@gmail.com";
+                        mailController.text = "test1@gmail.com";
                       },
                       onPressed: () {
                         // if (formKey.currentState!.validate()) {
@@ -88,7 +85,6 @@ class LoginForm extends StatelessWidget {
                         //         mail: mailController.text.trim(),
                         //       ));
                         // }
-                        Navigator.pushNamed(context, Routes.navigationMenu);
                       },
                       child: const Text(JTexts.login));
                 },

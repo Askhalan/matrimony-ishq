@@ -7,6 +7,7 @@ import 'package:ishq/core/common/widgets/snackbar/error_snackbar.dart';
 import 'package:ishq/core/common/widgets/snackbar/show_snackbar.dart';
 import 'package:ishq/core/routes/routes.dart';
 import 'package:ishq/features/auth/presentation/authentication/bloc/auth_bloc.dart';
+import 'package:ishq/features/auth/presentation/profile/bloc/profile_bloc.dart';
 import 'package:ishq/utils/constants/sizes.dart';
 import 'package:ishq/utils/constants/text_strings.dart';
 import 'package:ishq/utils/validators/validation.dart';
@@ -84,6 +85,7 @@ class SignupForm extends StatelessWidget {
                   return ElevatedButton(
                       onPressed: () {
                         if (formKey.currentState!.validate()) {
+                          context.read<ProfileBloc>().add(AddAuthDetails(email: mailController.text.trim()));
                           context.read<AuthBloc>().add(AuthSignup(
                                 password: passwordController.text,
                                 mail: mailController.text.trim(),
@@ -104,4 +106,3 @@ class SignupForm extends StatelessWidget {
 
 
 
-// v9cSJwXo5HYKGrheXpo5awkR6C33

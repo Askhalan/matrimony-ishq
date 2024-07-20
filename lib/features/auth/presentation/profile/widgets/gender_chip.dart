@@ -5,17 +5,19 @@ import 'package:ishq/utils/constants/sizes.dart';
 
 class GenderChip extends StatefulWidget {
   final String selectedGender;
+  final ValueChanged<String> onItemSelected;
 
   const GenderChip({
     super.key,
     required this.selectedGender,
+    required this.onItemSelected,
   });
 
   @override
-  _GenderChipState createState() => _GenderChipState();
+  GenderChipState createState() => GenderChipState();
 }
 
-class _GenderChipState extends State<GenderChip> {
+class GenderChipState extends State<GenderChip> {
   late String _selectedGender;
 
   @override
@@ -28,6 +30,7 @@ class _GenderChipState extends State<GenderChip> {
     setState(() {
       _selectedGender = gender;
     });
+    widget.onItemSelected(gender); // Trigger the callback to update the parent widget
   }
 
   @override
@@ -42,7 +45,7 @@ class _GenderChipState extends State<GenderChip> {
               width: double.infinity,
               height: 50,
               decoration: BoxDecoration(
-                color: _selectedGender == 'Male' ?  JColor.primary: JColor.secondary,
+                color: _selectedGender == 'Male' ? JColor.primary : JColor.secondary,
                 borderRadius: BorderRadius.circular(JSize.borderRadLg),
               ),
               child: Center(
@@ -64,7 +67,7 @@ class _GenderChipState extends State<GenderChip> {
               width: double.infinity,
               height: 50,
               decoration: BoxDecoration(
-                color: _selectedGender == 'Female' ?  JColor.primary: JColor.secondary,
+                color: _selectedGender == 'Female' ? JColor.primary : JColor.secondary,
                 borderRadius: BorderRadius.circular(JSize.borderRadLg),
               ),
               child: Center(
