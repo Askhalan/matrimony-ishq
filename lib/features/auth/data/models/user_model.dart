@@ -19,6 +19,40 @@ class UserModel extends UserEntity {
     required super.profileImage,
   });
 
+  UserModel copyWith({
+    String? uid,
+    String? profileFor,
+    String? name,
+    String? gender,
+    String? dob,
+    String? maritalStatus,
+    String? email,
+    String? physicalStatus,
+    String? phoneNo,
+    String? country,
+    String? state,
+    String? city,
+    String? bio,
+    String? profileImage,
+  }) {
+    return UserModel(
+      uid: uid ?? this.uid,
+      profileFor: profileFor ?? this.profileFor,
+      name: name ?? this.name,
+      gender: gender ?? this.gender,
+      dob: dob ?? this.dob,
+      maritalStatus: maritalStatus ?? this.maritalStatus,
+      email: email ?? this.email,
+      physicalStatus: physicalStatus ?? this.physicalStatus,
+      phoneNo: phoneNo ?? this.phoneNo,
+      country: country ?? this.country,
+      state: state ?? this.state,
+      city: city ?? this.city,
+      bio: bio ?? this.bio,
+      profileImage: profileImage ?? this.profileImage,
+    );
+  }
+
 //----------------------------------------- MODEL TO JSON DATA ------------------------------------
 
   Map<String, dynamic> tojson() => {

@@ -1,13 +1,11 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, must_be_immutable, avoid_print, library_private_types_in_public_api
 
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ishq/core/common/widgets/appbar.dart';
 import 'package:ishq/core/common/widgets/form/dropdown.dart';
 import 'package:ishq/core/common/widgets/spaces/gap.dart';
 import 'package:ishq/core/common/widgets/form/dob_picker.dart';
-import 'package:ishq/core/routes/routes.dart';
-import 'package:ishq/features/auth/presentation/profile/bloc/profile_bloc.dart';
+import 'package:ishq/features/auth/presentation/profile/pages/add_details/Basic_details/w_processing_button.dart';
 import 'package:ishq/features/auth/presentation/profile/widgets/gender_chip.dart';
 import 'package:ishq/features/auth/presentation/profile/widgets/progress_indicator.dart';
 import 'package:ishq/utils/constants/sizes.dart';
@@ -22,10 +20,10 @@ class ScnBasicDetails extends StatefulWidget {
 }
 
 class _ScnBasicDetailsState extends State<ScnBasicDetails> {
+  final nameController = TextEditingController();
   String physicalStatus = "";
   String profileFor = "";
   String selectedGender = "";
-  final nameController = TextEditingController();
   String maritalStatus = '';
   DateTime? selectedDate;
   GlobalKey formKey = GlobalKey();
@@ -131,23 +129,13 @@ class _ScnBasicDetailsState extends State<ScnBasicDetails> {
 
                   //-------------------------------------- NEXT BUTTON ------------------------------------
 
-                  ElevatedButton(
-                    onPressed: () {
-                      context.read<ProfileBloc>().add(AddBasicDetails(
-                            profileFor: profileFor,
-                            name: nameController.text,
-                            gender: selectedGender,
-                            dob: selectedDate.toString(),
-                            maritalStatus: maritalStatus,
-                            physicalStatus: physicalStatus,
-                          ));
-                      Navigator.pushNamed(
-                        context,
-                        Routes.addressDetailsScn,
-                      );
-                    },
-                    child: Text(JTexts.next),
-                  ),
+                  BasicDetailsProcessButton(
+                      physicalStatus: physicalStatus,
+                      profileFor: profileFor,
+                      selectedGender: selectedGender,
+                      maritalStatus: maritalStatus,
+                      selectedDate: selectedDate,
+                      nameController: nameController),
                 ],
               ),
             ),
@@ -158,21 +146,3 @@ class _ScnBasicDetailsState extends State<ScnBasicDetails> {
   }
 }
 
-class BasicDetailsArgs {
-  final String mail;
-  final String dob;
-  final String gender;
-  final String maritalStatus;
-  final String name;
-  final String physicalStatus;
-  final String profileFor;
-
-  BasicDetailsArgs(
-      {required this.mail,
-      required this.dob,
-      required this.gender,
-      required this.maritalStatus,
-      required this.name,
-      required this.physicalStatus,
-      required this.profileFor});
-}

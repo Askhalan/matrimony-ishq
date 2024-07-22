@@ -78,4 +78,10 @@ final class ProfileFailure extends ProfileState {
   ProfileFailure({required this.error});
 }
 
-final class ProfileSuccess extends ProfileState {}
+final class ProfileSuccess extends ProfileState {
+  void saveSession(){
+    CurrentUser()
+    ..uid = ''
+    ..profileFor='';
+  }
+}

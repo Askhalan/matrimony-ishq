@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:ishq/core/common/cubits/current_user.dart';
 import 'package:ishq/core/common/widgets/spaces/gap.dart';
 import 'package:ishq/features/auth/presentation/profile/pages/profile/widgets/w_profile_details_label.dart';
 import 'package:ishq/utils/constants/colors.dart';
 import 'package:ishq/utils/constants/sizes.dart';
 
 class ProfileAppbarHeader extends StatelessWidget {
-  const ProfileAppbarHeader({
+   ProfileAppbarHeader({
     super.key,
   });
-
+ final user = CurrentUser();
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -45,7 +46,7 @@ class ProfileAppbarHeader extends StatelessWidget {
     
                 //----------------- Name ----------------
                 Text(
-                  "Askhalan",
+                 user.name!,
                   style: Theme.of(context)
                       .textTheme
                       .headlineMedium!
@@ -54,11 +55,11 @@ class ProfileAppbarHeader extends StatelessWidget {
                 JGap(h: 10),
     
                 //----------------- Age -----------------
-                ProfileDetailsLabel(text: "23 years",icon: Iconsax.calendar),
+                ProfileDetailsLabel(text: "${user.dob} years",icon: Iconsax.calendar),
                 JGap(h: 5),
     
                 //----------------- Place ---------------
-                ProfileDetailsLabel(text: "Kozhicode",icon: Iconsax.location),
+                ProfileDetailsLabel(text: user.state!,icon: Iconsax.location),
                 JGap(h: 5),
     
                 //----------------- Caste ---------------
@@ -66,7 +67,7 @@ class ProfileAppbarHeader extends StatelessWidget {
                 JGap(h: 5),
     
                 //----------------- Marital Status ------
-                ProfileDetailsLabel(text: "Not Maried",icon: Iconsax.link),
+                ProfileDetailsLabel(text: user.maritalStatus!,icon: Iconsax.link),
               ],
             ),
           )

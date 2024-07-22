@@ -72,6 +72,23 @@ class JValidator {
   }
 
   
+  //--------------------- Basic Details Page Validator ---------------------
+ static bool areFormFieldsFilled({
+  required String physicalStatus,
+  required String profileFor,
+  required String selectedGender,
+  required String maritalStatus,
+  required DateTime? selectedDate,
+}) {
+  if (physicalStatus.isEmpty &&
+      profileFor.isEmpty &&
+      selectedGender.isEmpty &&
+      maritalStatus.isEmpty &&
+      selectedDate == null) {
+    return false;
+  }
+  return true;
+}
 
 
 }

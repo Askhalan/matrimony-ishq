@@ -28,12 +28,12 @@ class LoginForm extends StatelessWidget {
         if (state is AuthFailure) {
           showSnackBar(context, ErrorSnackBar(message: state.message));
         }
-        if (state is AuthSuccess) {
+        if (state is LoginSuccess) {
           Navigator.pushNamed(context, Routes.navigationMenu);
         }
       },
       builder: (context, state) {
-        if (state is AuthSuccess) {
+        if (state is LoginSuccess) {
           WidgetsBinding.instance.addPostFrameCallback((_) {
             Navigator.pushNamed(context, Routes.navigationMenu);
           });
@@ -57,7 +57,7 @@ class LoginForm extends StatelessWidget {
 
               TextFormField(
                   controller: passwordController,
-                  validator: (value) => JValidator.validatePassword(value),
+                  validator: (value) => JValidator.validateEmptyText("Password", value),
                   decoration: const InputDecoration(
                       hintText: JTexts.password,
                       prefixIcon: Icon(Iconsax.lock)),
@@ -79,12 +79,12 @@ class LoginForm extends StatelessWidget {
                         mailController.text = "test1@gmail.com";
                       },
                       onPressed: () {
-                        // if (formKey.currentState!.validate()) {
-                        //   context.read<AuthBloc>().add(AuthLogin(
-                        //         password: passwordController.text.trim(),
-                        //         mail: mailController.text.trim(),
-                        //       ));
-                        // }
+                        if (formKey.currentState!.validate()) {
+                          context.read<AuthBloc>().add(AuthLogin(
+                                password: passwordController.text.trim(),
+                                mail: mailController.text.trim(),
+                              ));
+                        }
                       },
                       child: const Text(JTexts.login));
                 },

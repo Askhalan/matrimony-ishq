@@ -29,7 +29,7 @@ class SignupForm extends StatelessWidget {
         if (state is AuthFailure) {
           showSnackBar(context, ErrorSnackBar(message: state.message));
         }
-        if (state is AuthSuccess) {
+        if (state is signUpSuccess) {
           Navigator.pushNamed(context, Routes.basicDetailsScn);
         }
       },

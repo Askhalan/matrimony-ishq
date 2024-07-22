@@ -1,5 +1,4 @@
 import 'package:country_state_city_pro/country_state_city_pro.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ishq/core/common/widgets/appbar.dart';
@@ -19,6 +18,8 @@ class ScnAddressDetails extends StatelessWidget {
   final TextEditingController countryController = TextEditingController();
   final TextEditingController stateController = TextEditingController();
   final TextEditingController cityController = TextEditingController();
+
+  ScnAddressDetails({super.key});
 
   @override
   Widget build(BuildContext context) {

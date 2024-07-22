@@ -9,6 +9,8 @@ class ProfileRepositoryImpl implements ProfileRepository {
 
   final ProfileRemoteDatasource profileDataSource;
 
+//==================================================================================================================
+
   @override
   Future<Either<Failure, Null>> createUser(
       {String? uid,
@@ -52,5 +54,14 @@ class ProfileRepositoryImpl implements ProfileRepository {
     }
   }
 
-  //-------------
+//==================================================================================================================
+
+  @override
+  Future<Either<Failure, UserModel>> fetchCurrentUser() async {
+    try{ final res = await profileDataSource.fetchCurrentUser();
+    return right(res);}
+     catch (e) {
+      return left(Failure(e.toString()));
+    }
+  }
 }

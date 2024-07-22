@@ -1,23 +1,16 @@
-
-import 'dart:developer';
-
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:ishq/core/common/usecase/usecase.dart';
 import 'package:ishq/features/auth/domain/repositories/profile_repository.dart';
 import 'package:ishq/utils/error/failure.dart';
 
 class SaveUserUsecase implements UseCase<Null, UserDataParams> {
-  SaveUserUsecase( {required this.profileRepository, required this.auth,});
+  SaveUserUsecase({required this.profileRepository});
   final ProfileRepository profileRepository;
-  final FirebaseAuth auth;
 
   @override
   Future<Either<Failure, Null>> call(UserDataParams parameters) async {
-
-    log(auth.currentUser!.uid);
     return await profileRepository.createUser(
-      uid: auth.currentUser!.uid,
+        uid: parameters.uid,
         profileFor: parameters.profileFor,
         name: parameters.name,
         gender: parameters.gender,
@@ -35,6 +28,7 @@ class SaveUserUsecase implements UseCase<Null, UserDataParams> {
 }
 
 class UserDataParams {
+  final String uid;
   final String profileFor;
   final String name;
   final String gender;
@@ -50,7 +44,7 @@ class UserDataParams {
   final String? profileImage;
 
   UserDataParams(
-      {
+      {required this.uid,
       required this.profileFor,
       required this.name,
       required this.gender,
@@ -65,8 +59,3 @@ class UserDataParams {
       required this.bio,
       required this.profileImage});
 }
-
-
-
-// T6r6dqKWg6MnrWCaJ3QTSWUvDp03
-// 8yGTHpXwRNdEtrjTm1zRdeemVFo2

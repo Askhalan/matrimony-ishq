@@ -1,7 +1,10 @@
 import 'package:fpdart/fpdart.dart';
+import 'package:ishq/features/auth/domain/entities/user_entity.dart';
 import 'package:ishq/utils/error/failure.dart';
 
 abstract class ProfileRepository {
+
+  //---------------- Save New User Data ----------------
   Future<Either<Failure, Null>> createUser({
     String? uid,
     required String profileFor,
@@ -18,4 +21,10 @@ abstract class ProfileRepository {
     required String bio,
     required String? profileImage,
   });
+
+  //-------------- Fetch Current User Data -------------
+
+  Future<Either<Failure, UserEntity>> fetchCurrentUser();
+
+
 }
