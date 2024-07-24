@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ishq/core/routes/navigation_menu.dart';
-import 'package:ishq/features/Profile/presentation/pages/profile/scn_profile.dart';
-import 'package:ishq/features/Profile/presentation/pages/settings/settings.dart';
-import 'package:ishq/features/Profile/presentation/pages/signup_details/address_details.dart';
-import 'package:ishq/features/Profile/presentation/pages/signup_details/basic_details.dart';
+
 import 'package:ishq/features/auth/presentation/pages/auth_selection/scn_auth_selection.dart';
 import 'package:ishq/features/auth/presentation/pages/login/scn_login.dart';
 import 'package:ishq/features/auth/presentation/pages/signup/scn_signup.dart';
@@ -27,11 +24,8 @@ class Routes {
       authSelectionScn: (context) => ScnAuthSelection(),
       loginScn: (context) => ScnLogin(),
       signupScn: (context) => ScnSignup(),
-      basicDetailsScn: (context) => ScnBasicDetails(),
-      addressDetailsScn: (context) => ScnAddressDetails(),
       navigationMenu: (context) => NavigationMenu(),
-      profileScn: (context) => ScnProfile(),
-      settingsScn: (context) => ScnSettings(),
+
 
 
     };
