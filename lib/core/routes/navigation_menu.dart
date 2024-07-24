@@ -2,6 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_floating_bottom_bar/flutter_floating_bottom_bar.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:ishq/features/auth/presentation/profile/pages/profile/scn_profile.dart';
 import 'package:ishq/utils/constants/colors.dart';
 import 'package:ishq/utils/constants/sizes.dart';
 
@@ -71,7 +72,7 @@ class NavigationMenuState extends State<NavigationMenu>
             Scaffold(appBar: AppBar(automaticallyImplyLeading: false,)),
             Scaffold(appBar: AppBar(automaticallyImplyLeading: false,)),
             Scaffold(appBar: AppBar(automaticallyImplyLeading: false,)),
-           
+            ScnProfile()
           
           ],
         ),

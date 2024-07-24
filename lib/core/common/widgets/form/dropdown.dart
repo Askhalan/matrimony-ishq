@@ -5,13 +5,13 @@ import 'package:flutter/material.dart';
 import 'package:ishq/utils/constants/colors.dart';
 import 'package:ishq/utils/constants/sizes.dart';
 
-class Dropdown extends StatefulWidget {
+class JDropdown extends StatefulWidget {
   final String selectedItem;
   final List<String> items;
   final String title;
   final ValueChanged<String> onItemSelected;
 
-  const Dropdown({
+  const JDropdown({
     super.key,
     required this.selectedItem,
     required this.items,
@@ -20,10 +20,10 @@ class Dropdown extends StatefulWidget {
   });
 
   @override
-  State<Dropdown> createState() => _DropdownState();
+  State<JDropdown> createState() => _DropdownState();
 }
 
-class _DropdownState extends State<Dropdown> {
+class _DropdownState extends State<JDropdown> {
   String? _selectedItem;
   String? _title;
 
