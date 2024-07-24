@@ -7,15 +7,18 @@ import 'package:ishq/core/dependencies/auth_dependencies.dart';
 import 'package:ishq/firebase_options.dart';
 
 final serviceLocator = GetIt.instance;
+
 final getStorage = GetStorage();
 Future<void> initDependencies() async {
+  await GetStorage.init(); 
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   serviceLocator.registerLazySingleton(() => FirebaseAuth.instance);
   serviceLocator.registerLazySingleton(() => FirebaseFirestore.instance);
-  serviceLocator.registerFactory(()=> getStorage );
+  serviceLocator.registerLazySingleton(()=> getStorage );
   //-----------------------------------------------------------------------------
   
+  AuthDependencies.initUserPref();
   AuthDependencies.initAuth();
   AuthDependencies.initProfile();
-  AuthDependencies.initUserPref();
+  
 }

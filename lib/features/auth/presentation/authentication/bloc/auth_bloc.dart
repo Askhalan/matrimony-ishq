@@ -1,5 +1,8 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first, unused_field
 
+import 'dart:async';
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ishq/core/common/cubits/current_user.dart';
@@ -17,6 +20,7 @@ part 'auth_state.dart';
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final UserSignup _userSignup;
   final UserLogin _userLogin;
+   
   final FetchCurrentUserUsecase _fetchCurrentUserUsecase;
   final CheckLogin _checkLogin;
   final SetLogin _setLogin;
@@ -33,6 +37,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         _checkLogin = checkLoginUsecse,
         _setLogin = setLoginUsecase,
         super(AuthInitial()) {
+    on<AuthCheckStatus>(_onAuthCheckStatus);
     on<AuthSignup>(_onAuthSIgnup);
     on<AuthLogin>(_onAuthLogin);
   }
@@ -56,7 +61,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     ));
 
     res.fold(
-        (l) => emit(AuthFailure(l.message)), (r) => emit(signUpSuccess(r)));
+        (l) => emit(AuthFailure(l.message)), (r) => emit(SignUpSuccess(r)));
   }
 
 //------------------------------------------------- Login ----------------------------------------------
@@ -85,5 +90,19 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         ..state = r.state;
     });
     await _setLogin(EmptyParams());
+  }
+
+//------------------------------------------------------------------------------
+
+  Future<void> _onAuthCheckStatus(
+      AuthCheckStatus event, Emitter<AuthState> emit) async {
+    log("enetered check Status ");
+    final status = await _checkLogin();
+        log(status.toString());
+    if ( status) {
+      emit(AuthAuthenticated());
+    }else {
+      emit(AuthUnauthenticated());
+    }
   }
 }

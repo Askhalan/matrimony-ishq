@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ishq/core/routes/navigation_menu.dart';
+import 'package:ishq/features/auth/presentation/authentication/pages/auth_selection/screen_redirect.dart';
 import 'package:ishq/features/auth/presentation/profile/pages/profile/scn_profile.dart';
 import 'package:ishq/features/auth/presentation/profile/pages/settings/settings.dart';
 import 'package:ishq/features/auth/presentation/authentication/pages/auth_selection/scn_auth_selection.dart';
@@ -11,7 +12,7 @@ import '../../features/auth/presentation/profile/pages/add_details/address_detai
 
 class Routes {
 
-  static const String splashScn = '/';
+  static const String screenRedirect = 'screenRedirect';
   static const String authSelectionScn = '/authSelectionScn';
   static const String loginScn = '/loginScn';
   static const String signupScn = '/signupScn';
@@ -24,7 +25,7 @@ class Routes {
 
   static Map<String, WidgetBuilder> getRoutes() {
     return {
-      // splashScn: (context) => HomePage(),
+      screenRedirect: (context) => ScreenRedirect(),
       authSelectionScn: (context) => ScnAuthSelection(),
       loginScn: (context) => ScnLogin(),
       signupScn: (context) => ScnSignup(),

@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:get_storage/get_storage.dart';
 abstract class LocalPrefDatasource{
   Future<void> setUserLogedIn();
@@ -13,16 +15,20 @@ class LocalPreferenceDatasourceImpl extends LocalPrefDatasource{
   LocalPreferenceDatasourceImpl({required this.preference});
 
   //---------------------------------------------------
-  @override
-  Future<bool> getUserLogedIn() {
-    return preference.read('isLogedin');
-  }
+@override
+Future<bool> getUserLogedIn() async {
+  log(preference.read('isLogedin').toString());
+  final bool? isLoggedIn = preference.read('isLogedin');
+  return isLoggedIn ?? false;
+}
 
   //---------------------------------------------------
   @override
   Future<void> setUserLogedIn() async {
     try{
      await preference.writeIfNull('isLogedin', true);
+     log("------------------- in ssetUserLogin");
+     log(preference.read('isLogedin').toString());
     }catch (e){
       throw 'Login not saved';
     }

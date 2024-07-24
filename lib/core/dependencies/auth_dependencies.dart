@@ -20,13 +20,13 @@ import 'package:ishq/features/auth/presentation/profile/bloc/profile_bloc.dart';
 class AuthDependencies {
   static void initUserPref() {
     serviceLocator
-      ..registerFactory<LocalPrefDatasource>(
+      ..registerLazySingleton<LocalPrefDatasource>(
           () => LocalPreferenceDatasourceImpl(preference: serviceLocator()))
-      ..registerFactory<UserSessionRepository>(() =>
+      ..registerLazySingleton<UserSessionRepository>(() =>
           UserSessionRepositoryImpl(localPrefDatasource: serviceLocator()))
-      ..registerFactory(
+      ..registerLazySingleton(
           () => CheckLogin(userSessionRepository: serviceLocator()))
-      ..registerFactory(
+      ..registerLazySingleton(
           () => SetLogin(userSessionRepository: serviceLocator()));
   }
 

@@ -7,6 +7,7 @@ import 'package:ishq/core/dependencies/init_dependencies.dart';
 import 'package:ishq/features/auth/presentation/authentication/bloc/auth_bloc.dart';
 import 'package:ishq/features/auth/presentation/profile/bloc/profile_bloc.dart';
 
+
 void main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
@@ -17,7 +18,7 @@ void main() async {
   runApp(
     MultiBlocProvider(
     providers: [
-      BlocProvider(create: (_) => serviceLocator<AuthBloc>()),
+      BlocProvider(create: (_) => serviceLocator<AuthBloc>()..add(AuthCheckStatus())),
       BlocProvider(create: (_)=> serviceLocator<ProfileBloc>())
     ],
     child: MyApp(),
