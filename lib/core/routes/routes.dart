@@ -11,7 +11,6 @@ import 'package:ishq/features/auth/presentation/profile/pages/add_details/Basic_
 import '../../features/auth/presentation/profile/pages/add_details/address_details.dart';
 
 class Routes {
-
   static const String screenRedirect = 'screenRedirect';
   static const String authSelectionScn = '/authSelectionScn';
   static const String loginScn = '/loginScn';
@@ -22,17 +21,17 @@ class Routes {
   static const String profileScn = '/profileScn';
   static const String settingsScn = '/settingsScn';
 
-
   static Map<String, WidgetBuilder> getRoutes() {
     return {
       screenRedirect: (context) => ScreenRedirect(),
       authSelectionScn: (context) => ScnAuthSelection(),
       loginScn: (context) => ScnLogin(),
       signupScn: (context) => ScnSignup(),
+      basicDetailsScn: (context) => ScnBasicDetails(),
+      addressDetailsScn: (context) => ScnAddressDetails(),
       navigationMenu: (context) => NavigationMenu(),
-
-
-
+      profileScn: (context) => ScnProfile(),
+      settingsScn: (context) => ScnSettings(),
     };
   }
 }

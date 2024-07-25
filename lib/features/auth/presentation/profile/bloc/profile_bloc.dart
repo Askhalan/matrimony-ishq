@@ -39,6 +39,9 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     if (transition.nextState is ProfileSuccess) {
       handleprofileSuccess();
     }
+    if (transition.nextState is ProfileSuccess) {
+      handleprofileSuccess();
+    }
   }
 
 //------------------------------------------------------------------------------

@@ -50,6 +50,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     if (transition.nextState is LoginSuccess) {
       handleprofileSuccess();
     }
+    if (transition.nextState is AuthAuthenticated) {
+      log("enetred auth authenticated transition");
+      handleprofileSuccess();
+    }
   }
 //------------------------------------------------- Signup ---------------------------------------------
 
