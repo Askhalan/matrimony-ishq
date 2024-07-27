@@ -1,6 +1,6 @@
 
 import 'package:flutter/material.dart';
-import 'package:ishq/core/common/widgets/appbar.dart';
+import 'package:ishq/core/common/widgets/appbar/appbar.dart';
 import 'package:ishq/core/common/widgets/spaces/gap_2.dart';
 import 'package:ishq/features/auth/presentation/profile/pages/settings/s_profile_suite_details.dart';
 import 'package:ishq/features/auth/presentation/profile/pages/settings/w_settings_button.dart';

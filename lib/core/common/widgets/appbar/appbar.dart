@@ -5,26 +5,29 @@ import 'package:ishq/utils/constants/colors.dart';
 import 'package:ishq/utils/constants/sizes.dart';
 
 class JAppbar extends StatelessWidget {
-   JAppbar({
-    super.key,
-    this.body,
-    this.flexibleSpaceContent,
-    this.footerContent,
-    this.centerTitle = false,
-    this.showBackArrow = false,
-    this.leading,
-    this.title,
-    this.leadingIcon,
-    this.leadingOnPressed,
-    this.actions,
-    this.horizontalpadding = JSize.md,
-    this.floating = false,
-    this.elevation,  this.expandedHeight = 180,  this.footerMaxHeight =45, 
-    this.slivers,  this.footerPinned = true
-  });
+  const JAppbar(
+      {super.key,
+      this.body,
+      this.flexibleSpaceContent,
+      this.footerContent,
+      this.centerTitle = false,
+      this.showBackArrow = false,
+      this.leading,
+      this.title,
+      this.leadingIcon,
+      this.leadingOnPressed,
+      this.actions,
+      this.horizontalpadding = JSize.md,
+      this.floating = false,
+      this.elevation,
+      this.expandedHeight = 180,
+      this.footerMaxHeight = 45,
+      this.slivers,
+      this.footerPinned = true,
+      this.scrollChild = const SizedBox()});
 
   final Widget? body;
- 
+
   final Widget? flexibleSpaceContent;
   final Widget? footerContent;
   final bool centerTitle;
@@ -41,14 +44,11 @@ class JAppbar extends StatelessWidget {
   final double hh = 15;
   final double expandedHeight;
   final double footerMaxHeight;
-  Widget? slivers ;
-
+  final Widget? slivers;
+  final Widget scrollChild;
 
   @override
   Widget build(BuildContext context) {
-     Widget sliver=SliverFillRemaining();
-     if(slivers != null){sliver = slivers!;}
-    
     return Scaffold(
       body: CustomScrollView(
         slivers: [
@@ -71,7 +71,7 @@ class JAppbar extends StatelessWidget {
               ),
             ),
           ),
-           SliverPersistentHeader(
+          SliverPersistentHeader(
             pinned: footerPinned,
             delegate: _SliverAppBarDelegate(
               minHeight: hh,
@@ -79,9 +79,11 @@ class JAppbar extends StatelessWidget {
               child: footerContent ?? SizedBox(),
             ),
           ),
-          
           SliverToBoxAdapter(child: body),
-          sliver
+          SliverFillRemaining(
+            hasScrollBody: false,
+            child: scrollChild,
+          )
         ],
       ),
     );
@@ -106,16 +108,17 @@ class _SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
   double get maxExtent => maxHeight;
 
   @override
-  Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
+  Widget build(
+      BuildContext context, double shrinkOffset, bool overlapsContent) {
     // Determine the radius based on the shrinkOffset
     double radius = shrinkOffset > 3 ? 20 : 55;
 
     return AnimatedContainer(
       decoration: BoxDecoration(
-         color:  JColor.primary,
-         borderRadius: BorderRadius.only(bottomLeft: Radius.circular(radius),bottomRight: Radius.circular(radius))
-      ),
-     
+          color: JColor.primary,
+          borderRadius: BorderRadius.only(
+              bottomLeft: Radius.circular(radius),
+              bottomRight: Radius.circular(radius))),
       duration: const Duration(seconds: 5),
       child: Center(child: child),
     );
@@ -123,9 +126,8 @@ class _SliverAppBarDelegate extends SliverPersistentHeaderDelegate {
 
   @override
   bool shouldRebuild(covariant _SliverAppBarDelegate oldDelegate) {
-    return maxHeight != oldDelegate.maxHeight || minHeight != oldDelegate.minHeight || child != oldDelegate.child;
+    return maxHeight != oldDelegate.maxHeight ||
+        minHeight != oldDelegate.minHeight ||
+        child != oldDelegate.child;
   }
 }
-
-
-

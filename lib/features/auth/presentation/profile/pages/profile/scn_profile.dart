@@ -1,7 +1,7 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
-import 'package:ishq/core/common/widgets/appbar.dart';
+import 'package:ishq/core/common/widgets/appbar/appbar.dart';
 import 'package:ishq/core/routes/routes.dart';
 import 'package:ishq/features/auth/presentation/profile/pages/profile/widgets/s_other_profile_details.dart';
 import 'package:ishq/features/auth/presentation/profile/pages/profile/widgets/s_profile_appbar_footer.dart';

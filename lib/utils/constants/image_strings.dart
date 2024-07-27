@@ -16,4 +16,17 @@ class JImages {
   static const String searching2 = "";
   static const String empty = "a";
   static const String emptyGif = "";
+
+  // -- Default Images
+  static const String defaultUser = "assets/images/default/defaultUserImages.jpeg";
+
+
+
+  // -- Temp Images
+  static const String user1 =
+      "assets/images/temp/pexels-danangwicaksono-539727.jpg";
+  static const String user2 =
+      "assets/images/temp/pexels-moh-adbelghaffar-922962.jpg";
+  static const String user3 =
+      "assets/images/temp/pexels-soldiervip-1382732.jpg";
 }

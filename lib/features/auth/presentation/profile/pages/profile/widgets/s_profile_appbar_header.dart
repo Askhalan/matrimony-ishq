@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:ishq/core/common/cubits/current_user.dart';
+import 'package:ishq/core/common/widgets/profile_details_labe.dart';
 import 'package:ishq/core/common/widgets/spaces/gap.dart';
-import 'package:ishq/features/auth/presentation/profile/pages/profile/widgets/w_profile_details_label.dart';
 import 'package:ishq/utils/constants/colors.dart';
 import 'package:ishq/utils/constants/sizes.dart';
 

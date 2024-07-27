@@ -64,7 +64,10 @@ class JSize {
 // Default Pading 
   static const double defaultPaddingValue = 20.0;
   static EdgeInsets defaultPadding = const EdgeInsets.all(20);
+  //-------
+  static EdgeInsets userCardInPad = const EdgeInsets.all(10);
   static EdgeInsets inputFieldPadding = const EdgeInsets.symmetric(vertical: 16,horizontal: 25);
+  static EdgeInsets sessionLabelPad = const EdgeInsets.only(top: 20,left: 20,right: 20,bottom: 10);
   static EdgeInsets dropdownPading = const EdgeInsets.symmetric(horizontal: 25);
 }
 

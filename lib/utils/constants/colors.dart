@@ -77,6 +77,18 @@ class JColor {
       Color(0xFFC69338),
     ],
   );
+
+  static const Gradient blackGradient = LinearGradient(
+    begin: Alignment.bottomCenter,
+    end: Alignment.topCenter,
+    colors: [
+      Color.fromARGB(255, 43, 43, 43),
+      Color.fromARGB(200, 43, 43, 43),
+       Color.fromARGB(150, 43, 43, 43),
+      Color.fromARGB(20, 43, 43, 43),
+     
+    ],
+  );
   
 
   //BOX-Shadow
@@ -85,6 +97,13 @@ class JColor {
     spreadRadius: 2, 
     blurRadius: 7, 
     offset: Offset(0, 3), 
+  );
+
+  static BoxShadow tileShadow = BoxShadow(
+    color: Colors.grey.withOpacity(0.3), 
+    spreadRadius: 5, 
+    blurRadius: 2, 
+    offset: Offset(0, 1), 
   );
 }
 

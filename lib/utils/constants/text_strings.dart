@@ -1,3 +1,5 @@
+// ignore_for_file: constant_identifier_names
+
 class JTexts {
   // -- GLOBAL Texts
   static const String and = "and";
@@ -10,6 +12,7 @@ class JTexts {
   static const String appName = "T-Store";
   static const String tContinue = "Continue";
   static const String choose = "Choose";
+  static const String SEE_MORE = "See more";
 
   // -- Authentication Forms
   static const String name = "Name";
@@ -41,5 +44,16 @@ class JTexts {
   static const String authApple = "Sign in with Apple";
 
 
+  static const String lorem = "'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis '";
+
+  //-------- Home
+  static const String homeappBarTitle = "Welcome back";
+  static const String homeappBarSubtitle ="Let's find your better half";
+
+  static const String TOP_MATCHES = "Top Matches";
+  static const String PROFESSIONAL_MATCHES = 'Professional Matches';
+  static const String LIFESTYLE_MATCHES = 'Lifestyle Matches';
+  static const String FAMILY_MATCHES = 'Family Matches';
+  static const String SUCCESS_STORY = "Success Stories";
   
 }
