@@ -9,9 +9,11 @@ import 'package:ishq/features/auth/domain/repositories/auth_repository.dart';
 import 'package:ishq/features/auth/domain/repositories/profile_repository.dart';
 import 'package:ishq/features/auth/domain/repositories/user_session_repository.dart';
 import 'package:ishq/features/auth/domain/usecases/caches/check_login.dart';
+import 'package:ishq/features/auth/domain/usecases/caches/remove_session_usecase.dart';
 import 'package:ishq/features/auth/domain/usecases/caches/set_login_usecase.dart';
 import 'package:ishq/features/auth/domain/usecases/fetch_current_user_usecase.dart';
 import 'package:ishq/features/auth/domain/usecases/login_usecae.dart';
+import 'package:ishq/features/auth/domain/usecases/logout_usecase.dart';
 import 'package:ishq/features/auth/domain/usecases/save_user_data_usecase.dart';
 import 'package:ishq/features/auth/domain/usecases/signup_usecase.dart';
 import 'package:ishq/features/auth/presentation/authentication/bloc/auth_bloc.dart';
@@ -38,12 +40,16 @@ class AuthDependencies {
           () => AuthRepositoryImpl(remoteDataSource: serviceLocator()))
       ..registerFactory(() => UserSignup(serviceLocator()))
       ..registerFactory(() => UserLogin(serviceLocator()))
+      ..registerFactory(() => RemoveSessionUC(serviceLocator()))
+      ..registerFactory(() => LogoutUC(serviceLocator()))
       ..registerLazySingleton(() => AuthBloc(
           userSignup: serviceLocator(),
           userLogin: serviceLocator(),
           fetchCurrentUser: serviceLocator(),
           checkLoginUsecse: serviceLocator(),
-          setLoginUsecase: serviceLocator()));
+          setLoginUsecase: serviceLocator(),
+          logoutUsecase: serviceLocator(),
+          removeSessionUC: serviceLocator()));
     // Here we are using lazysingleto to maintain the state of block
   }
 

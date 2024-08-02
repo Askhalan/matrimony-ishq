@@ -35,4 +35,14 @@ class AuthRepositoryImpl extends AuthRepository {
       return left(Failure(e.toString()));
     }
   }
+  
+  @override
+  Future<void> logout() async {
+    try{
+      remoteDataSource.logoutUser();
+    } catch (e){
+      throw ();
+    }
+    
+  }
 }

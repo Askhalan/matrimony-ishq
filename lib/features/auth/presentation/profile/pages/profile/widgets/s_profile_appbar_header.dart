@@ -4,6 +4,7 @@ import 'package:ishq/core/common/cubits/current_user.dart';
 import 'package:ishq/core/common/widgets/profile_details_labe.dart';
 import 'package:ishq/core/common/widgets/spaces/gap.dart';
 import 'package:ishq/utils/constants/colors.dart';
+import 'package:ishq/utils/constants/image_strings.dart';
 import 'package:ishq/utils/constants/sizes.dart';
 
 class ProfileAppbarHeader extends StatelessWidget {
@@ -31,7 +32,7 @@ class ProfileAppbarHeader extends StatelessWidget {
     
                 //----------------- Profile Image --------
                   child: Image.asset(
-                    "assets/images/defaultUserImages.jpeg",
+                    JImages.defaultUser,
                     fit: BoxFit.cover,
                   )),
             ),

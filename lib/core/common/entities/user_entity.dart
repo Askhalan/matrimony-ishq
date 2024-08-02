@@ -1,5 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 
+import 'package:ishq/core/common/entities/pref_entity.dart';
+
 class UserEntity {
   final String? uid;
   final String profileFor;
@@ -15,8 +17,9 @@ class UserEntity {
   final String city;
   final String bio;
   final String? profileImage;
+  final PrefEntity? preferences;
 
-  UserEntity( {
+  UserEntity({
     this.uid,
     required this.profileFor,
     required this.name,
@@ -31,6 +34,6 @@ class UserEntity {
     required this.city,
     required this.bio,
     required this.profileImage,
+    this.preferences,
   });
-
 }

@@ -19,7 +19,7 @@ class JCheckboxTheme {
     }),
     fillColor: WidgetStateProperty.resolveWith((states) {
       if (states.contains(WidgetState.selected)) {
-        return JColor.primary;
+        return JColor.secondary;
       } else {
         return Colors.transparent;
       }
@@ -39,7 +39,7 @@ class JCheckboxTheme {
     }),
     fillColor: WidgetStateProperty.resolveWith((states) {
       if (states.contains(WidgetState.selected)) {
-        return JColor.primary;
+        return JColor.secondary;
       } else {
         return Colors.transparent;
       }

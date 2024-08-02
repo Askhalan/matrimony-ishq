@@ -16,6 +16,7 @@ abstract interface class AuthRemoteDatasource {
     required String email,
     required String password,
   });
+  Future logoutUser();
 }
 
 class AuthRemoteDataSourceImpl extends AuthRemoteDatasource {
@@ -70,6 +71,22 @@ class AuthRemoteDataSourceImpl extends AuthRemoteDatasource {
   }
 
   //------------------- LOGOUT ----------------------
+  @override
+  Future logoutUser() async {
+    try {
+      await FirebaseAuth.instance.signOut();
+    } on FirebaseAuthException catch (e) {
+      throw JFirebaseAuthException(e.code).message;
+    } on FirebaseException catch (e) {
+      throw JFirebaseException(e.code).message;
+    } on JFormatException catch (_) {
+      throw const JFormatException();
+    } on JPlatformException catch (e) {
+      throw JPlatformException(e.code).message;
+    } catch (e) {
+      throw 'something went wrong . Please try again';
+    }
+  }
 
   //---------------- DELETE ACCOUNT -----------------
 }

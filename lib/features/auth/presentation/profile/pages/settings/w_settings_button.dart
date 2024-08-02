@@ -12,6 +12,7 @@ class SettingsButtons extends StatelessWidget {
     this.height = 80.0,
     this.icon,
     this.image,  this.isLabel=false,
+    this.onTap
   });
 
   final String text;

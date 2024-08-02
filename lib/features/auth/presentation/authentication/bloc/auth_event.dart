@@ -18,3 +18,6 @@ final class AuthLogin extends AuthEvent {
   final String mail;
   AuthLogin({required this.password, required this.mail});
 }
+
+
+final class AuthLogout extends AuthEvent {}

@@ -8,9 +8,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ishq/core/common/cubits/current_user.dart';
 import 'package:ishq/core/common/usecase/empty_params.dart';
 import 'package:ishq/features/auth/domain/usecases/caches/check_login.dart';
+import 'package:ishq/features/auth/domain/usecases/caches/remove_session_usecase.dart';
 import 'package:ishq/features/auth/domain/usecases/caches/set_login_usecase.dart';
 import 'package:ishq/features/auth/domain/usecases/fetch_current_user_usecase.dart';
 import 'package:ishq/features/auth/domain/usecases/login_usecae.dart';
+import 'package:ishq/features/auth/domain/usecases/logout_usecase.dart';
 
 import 'package:ishq/features/auth/domain/usecases/signup_usecase.dart';
 
@@ -20,26 +22,32 @@ part 'auth_state.dart';
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final UserSignup _userSignup;
   final UserLogin _userLogin;
-   
   final FetchCurrentUserUsecase _fetchCurrentUserUsecase;
   final CheckLogin _checkLogin;
   final SetLogin _setLogin;
+  final LogoutUC _logoutUsecase;
+  final RemoveSessionUC _removeSessionUC;
 
   AuthBloc(
       {required UserSignup userSignup,
       required UserLogin userLogin,
       required FetchCurrentUserUsecase fetchCurrentUser,
       required CheckLogin checkLoginUsecse,
-      required SetLogin setLoginUsecase})
+      required SetLogin setLoginUsecase,
+      required LogoutUC logoutUsecase,
+      required RemoveSessionUC removeSessionUC})
       : _userSignup = userSignup,
         _userLogin = userLogin,
         _fetchCurrentUserUsecase = fetchCurrentUser,
         _checkLogin = checkLoginUsecse,
         _setLogin = setLoginUsecase,
+        _logoutUsecase = logoutUsecase,
+        _removeSessionUC = removeSessionUC,
         super(AuthInitial()) {
     on<AuthCheckStatus>(_onAuthCheckStatus);
     on<AuthSignup>(_onAuthSIgnup);
     on<AuthLogin>(_onAuthLogin);
+    on<AuthLogout>(_onAuthLogout);
   }
 
   @override
@@ -100,13 +108,22 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
   Future<void> _onAuthCheckStatus(
       AuthCheckStatus event, Emitter<AuthState> emit) async {
-    log("enetered check Status ");
     final status = await _checkLogin();
-        log(status.toString());
-    if ( status) {
+    log(status.toString());
+    if (status) {
       emit(AuthAuthenticated());
-    }else {
+    } else {
       emit(AuthUnauthenticated());
     }
+  }
+
+  //------------------------------------------------- Logout ----------------------------------------------
+
+  FutureOr<void> _onAuthLogout(
+      AuthLogout event, Emitter<AuthState> emit) async {
+    emit(AuthLoading());
+    await _logoutUsecase();
+    await _removeSessionUC();
+    emit(AuthLogedOut());
   }
 }

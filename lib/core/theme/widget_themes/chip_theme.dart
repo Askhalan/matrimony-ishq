@@ -7,7 +7,7 @@ class JChipTheme {
   static ChipThemeData lightChipTheme = ChipThemeData(
     disabledColor: JColor.grey.withOpacity(0.4),
     labelStyle: const TextStyle(color: JColor.black),
-    selectedColor: JColor.primary,
+    selectedColor: JColor.secondary,
     padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 12),
     checkmarkColor: JColor.white,
   );
@@ -15,7 +15,7 @@ class JChipTheme {
   static ChipThemeData darkChipTheme = const ChipThemeData(
     disabledColor: JColor.darkerGrey,
     labelStyle: TextStyle(color: JColor.white),
-    selectedColor: JColor.primary,
+    selectedColor: JColor.secondary,
     padding: EdgeInsets.symmetric(horizontal: 12.0, vertical: 12),
     checkmarkColor: JColor.white,
   );

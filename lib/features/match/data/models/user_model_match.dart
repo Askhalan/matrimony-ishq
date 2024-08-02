@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:ishq/core/common/entities/user_entity.dart';
 
-class UserModel extends UserEntity {
-  UserModel({
+class UserModelMatch extends UserEntity {
+  UserModelMatch({
     super.uid,
     required super.profileFor,
     required super.name,
@@ -17,10 +17,9 @@ class UserModel extends UserEntity {
     required super.city,
     required super.bio,
     required super.profileImage,
- 
   });
 
-  UserModel copyWith({
+  UserModelMatch copyWith({
     String? uid,
     String? profileFor,
     String? name,
@@ -36,7 +35,7 @@ class UserModel extends UserEntity {
     String? bio,
     String? profileImage,
   }) {
-    return UserModel(
+    return UserModelMatch(
       uid: uid ?? this.uid,
       profileFor: profileFor ?? this.profileFor,
       name: name ?? this.name,
@@ -73,7 +72,7 @@ class UserModel extends UserEntity {
         'ProfileImage': profileImage
       };
 
-  static UserModel empty() => UserModel(
+  static UserModelMatch empty() => UserModelMatch(
       profileFor: '',
       name: '',
       gender: '',
@@ -90,10 +89,10 @@ class UserModel extends UserEntity {
 
 // //------------------------------------ CONSTRUCTOR WHICH JSON TO MODEL ---------------------------
 
-  factory UserModel.fromJson(DocumentSnapshot<Map<String, dynamic>> document) {
+  factory UserModelMatch.fromJson(DocumentSnapshot<Map<String, dynamic>> document) {
     if (document.data() != null) {
       final data = document.data()!;
-      return UserModel(
+      return UserModelMatch(
         uid: document.id,
         profileFor: data['ProfileFor'] ?? '',
         name: data['Name'] ?? '',
@@ -110,7 +109,7 @@ class UserModel extends UserEntity {
         profileImage: data['ProfileImage'] ?? '',
       );
     } else {
-      return UserModel.empty();
+      return UserModelMatch.empty();
     }
   }
 }
