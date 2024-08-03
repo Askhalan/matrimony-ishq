@@ -47,5 +47,9 @@
 		<true/>
 		<key>UIStatusBarHidden</key>
 		<false/>
+		<key>NSPhotoLibraryUsageDescription</key>
+		<string>Photos from gallery is required</string>
+		<key>NSCameraUsageDescription</key>
+		<string>Photos from camera is required</string>
 	</dict>
 </plist>

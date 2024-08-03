@@ -1,11 +1,16 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first, avoid_print
 
+import 'dart:async';
+import 'dart:io';
+
 import 'package:bloc/bloc.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:ishq/core/common/cubits/current_user.dart';
 import 'package:ishq/core/common/usecase/empty_params.dart';
+import 'package:ishq/features/auth/domain/usecases/add_preferences.dart';
 import 'package:ishq/features/auth/domain/usecases/caches/set_login_usecase.dart';
-import 'package:ishq/features/auth/domain/usecases/fetch_current_user_usecase.dart';
-import 'package:ishq/features/auth/domain/usecases/save_user_data_usecase.dart';
+import 'package:ishq/features/auth/domain/usecases/fetch_current_user.dart';
+import 'package:ishq/features/auth/domain/usecases/save_user_data.dart';
 
 part 'profile_event.dart';
 part 'profile_state.dart';
@@ -14,21 +19,25 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   final SaveUserUsecase _saveUserUsecase;
   final FetchCurrentUserUsecase _fetchCurrentUserUsecase;
   final SetLogin _setLogin;
+  final AddPreferencesUC _addPreferencesUC;
 
   ProfileBloc(
       {required SaveUserUsecase saveUser,
       required FetchCurrentUserUsecase fetchCurrentUser,
-      required SetLogin setLoginUsecase})
+      required SetLogin setLoginUsecase,
+      required AddPreferencesUC addPreferenceUC})
       : _saveUserUsecase = saveUser,
         _fetchCurrentUserUsecase = fetchCurrentUser,
         _setLogin = setLoginUsecase,
+        _addPreferencesUC = addPreferenceUC,
         super(ProfileInitial()) {
     // on<ProfileEvent>((event, emit) => emit(ProfileLoading()));
     on<AddAuthDetails>(_onAddAuthDetails);
     on<AddBasicDetails>(_onAddBasicDetails);
     on<AddAddressDetails>(_onAddAddressDetails);
-    on<AddPhotos>(_onAddPhotos);
+    // on<AddProfilePhoto>(_onAddPhotos);
     on<SaveUser>(_onSaveUser);
+    on<AddPreferences>(_onAddPreferences);
   }
 
   @override
@@ -62,7 +71,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
           state: '',
           city: '',
           bio: '',
-          profileImage: ''));
+          profileImage: null));
     }
   }
 
@@ -100,12 +109,12 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
 
 //------------------------------------------------------------------------------
 
-  void _onAddPhotos(AddPhotos event, Emitter<ProfileState> emit) {
-    if (state is SignupData) {
-      final currentState = state as SignupData;
-      emit(currentState.copyWith(profileImage: event.profileImage));
-    }
-  }
+  // void _onAddPhotos(AddProfilePhoto event, Emitter<ProfileState> emit) {
+  //   if (state is SignupData) {
+  //     final currentState = state as SignupData;
+  //     emit(currentState.copyWith(profileImage: event.profileImage));
+  //   }
+  // }
 
 //------------------------------------------------------------------------------
 
@@ -146,5 +155,22 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
         ..state = r.state;
     });
     await _setLogin(EmptyParams());
+  }
+
+  FutureOr<void> _onAddPreferences(
+      AddPreferences event, Emitter<ProfileState> emit) async {
+    emit(ProfileLoading());
+    final res = await _addPreferencesUC(PreferencesParams(
+      uid: event.uid,
+      ageStart: event.ageStart,
+      ageEnd: event.ageEnd,
+      heightStart: event.heightStart,
+      heightEnd: event.heightEnd,
+      maritalStatusPref: event.maritalStatusPref,
+      educationPref: event.educationPref,
+      jobPref: event.jobPref,
+    ));
+    res.fold((l) => emit(AddPreferencesFailure(error: l.message)),
+        (r) => emit(AddPreferencesSuccess()));
   }
 }

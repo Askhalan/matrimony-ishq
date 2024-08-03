@@ -10,7 +10,7 @@ import 'package:ishq/core/common/usecase/empty_params.dart';
 import 'package:ishq/features/auth/domain/usecases/caches/check_login.dart';
 import 'package:ishq/features/auth/domain/usecases/caches/remove_session_usecase.dart';
 import 'package:ishq/features/auth/domain/usecases/caches/set_login_usecase.dart';
-import 'package:ishq/features/auth/domain/usecases/fetch_current_user_usecase.dart';
+import 'package:ishq/features/auth/domain/usecases/fetch_current_user.dart';
 import 'package:ishq/features/auth/domain/usecases/login_usecae.dart';
 import 'package:ishq/features/auth/domain/usecases/logout_usecase.dart';
 

@@ -1,4 +1,5 @@
 import 'package:fpdart/fpdart.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:ishq/core/common/usecase/usecase.dart';
 import 'package:ishq/features/auth/domain/repositories/profile_repository.dart';
 import 'package:ishq/utils/error/failure.dart';
@@ -41,7 +42,7 @@ class UserDataParams {
   final String state;
   final String city;
   final String bio;
-  final String? profileImage;
+  final XFile? profileImage;
 
   UserDataParams(
       {required this.uid,

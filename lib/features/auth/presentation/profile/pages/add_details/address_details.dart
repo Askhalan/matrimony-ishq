@@ -42,11 +42,11 @@ class ScnAddressDetails extends StatelessWidget {
             child: BlocConsumer<ProfileBloc, ProfileState>(
               listener: (context, state) {
                 if (state is ProfileFailure) {
-                  showSnackBar(context, ErrorSnackBar(message: "${state.error} So please re verify your data before submitting again"));
+                  showSnackBar(context, ErrorSnackBar(message: "${state.error}, So please re verify your data before submitting again"));
                   Navigator.pushNamed(context, Routes.basicDetailsScn);
                 }
                 if (state is ProfileSuccess) {
-                  Navigator.pushNamed(context, Routes.navigationMenu);
+                  Navigator.pushNamed(context, Routes.addProfileImgScn);
                 }
               },
               builder: (context, state) {
@@ -98,9 +98,9 @@ class ScnAddressDetails extends StatelessWidget {
                                 state: stateController.text,
                                 city: cityController.text,
                               ));
-                          context.read<ProfileBloc>().add(SaveUser());
+                          // context.read<ProfileBloc>().add(SaveUser());
                         },
-                        child: Text(JTexts.done))
+                        child: Text(JTexts.next))
                   ],
                 );
               },

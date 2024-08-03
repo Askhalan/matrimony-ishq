@@ -20,7 +20,7 @@ final class SignupData extends ProfileState {
   final String state;
   final String city;
   final String bio;
-  final String? profileImage;
+  final XFile? profileImage;
 
   SignupData(
       {required this.uid,
@@ -52,7 +52,7 @@ final class SignupData extends ProfileState {
     String? state,
     String? city,
     String? bio,
-    String? profileImage,
+    XFile? profileImage,
   }) {
     return SignupData(
         uid: uid ?? this.uid,
@@ -85,3 +85,14 @@ final class ProfileSuccess extends ProfileState {
     ..profileFor='';
   }
 }
+
+
+final class AddPreferencesSuccess extends ProfileState {}
+
+final class AddPreferencesFailure extends ProfileState {
+  final String error;
+
+  AddPreferencesFailure({required this.error});
+}
+
+

@@ -55,7 +55,7 @@ class JAppbar extends StatelessWidget {
           SliverAppBar(
             automaticallyImplyLeading: showBackArrow,
             backgroundColor: JColor.primary,
-            // leading: showBackArrow ? IconButton(icon: const Icon(Icons.arrow_back_ios), onPressed: (){Navigator.pop(context);}) : leading,
+            leading: showBackArrow ? IconButton(icon: const Icon(Icons.arrow_back_ios), onPressed: (){Navigator.pop(context);}) : leading,
             title: title,
             centerTitle: centerTitle,
             actions: actions,

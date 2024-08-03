@@ -8,13 +8,14 @@ import 'package:ishq/features/auth/data/repositories/user_sesion_repository_impl
 import 'package:ishq/features/auth/domain/repositories/auth_repository.dart';
 import 'package:ishq/features/auth/domain/repositories/profile_repository.dart';
 import 'package:ishq/features/auth/domain/repositories/user_session_repository.dart';
+import 'package:ishq/features/auth/domain/usecases/add_preferences.dart';
 import 'package:ishq/features/auth/domain/usecases/caches/check_login.dart';
 import 'package:ishq/features/auth/domain/usecases/caches/remove_session_usecase.dart';
 import 'package:ishq/features/auth/domain/usecases/caches/set_login_usecase.dart';
-import 'package:ishq/features/auth/domain/usecases/fetch_current_user_usecase.dart';
+import 'package:ishq/features/auth/domain/usecases/fetch_current_user.dart';
 import 'package:ishq/features/auth/domain/usecases/login_usecae.dart';
 import 'package:ishq/features/auth/domain/usecases/logout_usecase.dart';
-import 'package:ishq/features/auth/domain/usecases/save_user_data_usecase.dart';
+import 'package:ishq/features/auth/domain/usecases/save_user_data.dart';
 import 'package:ishq/features/auth/domain/usecases/signup_usecase.dart';
 import 'package:ishq/features/auth/presentation/authentication/bloc/auth_bloc.dart';
 import 'package:ishq/features/auth/presentation/profile/bloc/profile_bloc.dart';
@@ -64,9 +65,12 @@ class AuthDependencies {
           () => SaveUserUsecase(profileRepository: serviceLocator()))
       ..registerFactory(
           () => FetchCurrentUserUsecase(profileRepository: serviceLocator()))
+      ..registerFactory(
+          () => AddPreferencesUC(profileRepository: serviceLocator()))
       ..registerLazySingleton(() => ProfileBloc(
           saveUser: serviceLocator(),
           fetchCurrentUser: serviceLocator(),
-          setLoginUsecase: serviceLocator()));
+          setLoginUsecase: serviceLocator(),
+          addPreferenceUC: serviceLocator()));
   }
 }

@@ -6,12 +6,16 @@ import 'package:ishq/utils/constants/sizes.dart';
 
 class SectionWraperContainer extends StatelessWidget {
   const SectionWraperContainer({
-    super.key, required this.children,
-
+    super.key,
+    required this.children,
+    this.mainAxisAlignment = MainAxisAlignment.start,
+    this.crossAxisAlignment = CrossAxisAlignment.center,
   });
 
+  final List<Widget> children;
  
- final List<Widget> children;
+  final MainAxisAlignment mainAxisAlignment;
+  final CrossAxisAlignment crossAxisAlignment;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -20,12 +24,13 @@ class SectionWraperContainer extends StatelessWidget {
           horizontal: JSize.defaultPaddingValue * 0.5,
           vertical: JSize.defaultPaddingValue * 0.5),
       decoration: BoxDecoration(
-          border:
-              Border.all(width: 0.5, color: JColor.borderSecondary),
+          // color: JColor.softGrey,
+          border: Border.all(width: 0.8, color: JColor.borderSecondary),
           borderRadius: BorderRadius.circular(JSize.borderRadLg)),
       child: Column(
-        children: children
-      ),
+          mainAxisAlignment: mainAxisAlignment,
+          crossAxisAlignment: crossAxisAlignment,
+          children: children),
     );
   }
 }

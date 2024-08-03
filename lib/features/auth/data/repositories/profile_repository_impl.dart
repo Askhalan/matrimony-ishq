@@ -1,5 +1,7 @@
 import 'package:fpdart/fpdart.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:ishq/features/auth/data/datasources/profile_remote_datasource.dart';
+import 'package:ishq/features/auth/data/models/pref_model.dart';
 import 'package:ishq/features/auth/data/models/user_model.dart';
 import 'package:ishq/features/auth/domain/repositories/profile_repository.dart';
 import 'package:ishq/utils/error/failure.dart';
@@ -26,7 +28,7 @@ class ProfileRepositoryImpl implements ProfileRepository {
       required String state,
       required String city,
       required String bio,
-      required String? profileImage}) async {
+      required XFile? profileImage}) async {
     try {
       //--- Create a new UserModel class
       UserModel newUser = UserModel(
@@ -43,7 +45,7 @@ class ProfileRepositoryImpl implements ProfileRepository {
           state: state,
           city: city,
           bio: bio,
-          profileImage: profileImage);
+          profileImage: '');
 
       //--- Now svaing the record using fn from DataSource
       await profileDataSource.saveUserRecord(user: newUser);
@@ -58,9 +60,38 @@ class ProfileRepositoryImpl implements ProfileRepository {
 
   @override
   Future<Either<Failure, UserModel>> fetchCurrentUser() async {
-    try{ final res = await profileDataSource.fetchCurrentUser();
-    return right(res);}
-     catch (e) {
+    try {
+      final res = await profileDataSource.fetchCurrentUser();
+      return right(res);
+    } catch (e) {
+      return left(Failure(e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, Null>> addUserPreference(
+      {String? uid,
+      required String ageStart,
+      required String ageEnd,
+      required String heightStart,
+      required String heightEnd,
+      required List<String> maritalStatusPref,
+      required List<String> educationPref,
+      required List<String> jobPref}) async {
+    try {
+      PrefModel preferences = PrefModel(
+        uid: uid,
+        ageStart: ageStart,
+        ageEnd: ageEnd,
+        heightStart: heightStart,
+        heightEnd: heightEnd,
+        maritalStatusPref: maritalStatusPref,
+        educationPref: educationPref,
+        jobPref: jobPref,
+      );
+      await profileDataSource.addPreference(preferences: preferences);
+      return right(null);
+    } catch (e) {
       return left(Failure(e.toString()));
     }
   }

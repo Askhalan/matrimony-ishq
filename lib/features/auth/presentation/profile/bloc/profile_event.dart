@@ -46,12 +46,34 @@ final class AddAddressDetails extends ProfileEvent {
 
 //---------------- Add Photo Details ---------------
 
-final class AddPhotos extends ProfileEvent {
-  final String profileImage;
-
-  AddPhotos({required this.profileImage});
+final class AddProfilePhoto extends ProfileEvent {
+  final File? profileImage;
+  AddProfilePhoto({required this.profileImage});
 }
 
 //---------------- Save User Record ----------------
 
 final class SaveUser extends ProfileEvent {}
+
+//---------------- Add Basic Details ---------------
+
+final class AddPreferences extends ProfileEvent {
+  final String? uid;
+  final String ageStart;
+  final String ageEnd;
+  final String heightStart;
+  final String heightEnd;
+  final List<String> maritalStatusPref;
+  final List<String> educationPref;
+  final List<String> jobPref;
+
+  AddPreferences(
+      {required this.uid,
+      required this.ageStart,
+      required this.ageEnd,
+      required this.heightStart,
+      required this.heightEnd,
+      required this.maritalStatusPref,
+      required this.educationPref,
+      required this.jobPref});
+}
