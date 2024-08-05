@@ -24,14 +24,15 @@ class ScnAuthSelection extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-
                 //------------------------------------ LOGO ------------------------------------
 
-                Container(
-                  color: Colors.amber,//need to add ISHQ logo
+                SizedBox(
                   height: 190,
                   width: 300,
-                  child: Center(child: Text(" ISHQ Logo"),),
+                  child: Image.asset(
+                    JImages.logoTextTag,
+                    fit: BoxFit.cover,
+                  ),
                 ),
 
                 //--------------------------------- GOOGLE AUTH -------------------------------

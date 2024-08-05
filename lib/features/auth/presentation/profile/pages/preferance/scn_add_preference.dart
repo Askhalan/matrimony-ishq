@@ -9,7 +9,6 @@ import 'package:ishq/core/common/widgets/appbar/appbar.dart';
 import 'package:ishq/core/common/widgets/loader/button_loader.dart';
 import 'package:ishq/core/common/widgets/spaces/gap.dart';
 import 'package:ishq/core/common/widgets/spaces/gap_inside_card.dart';
-import 'package:ishq/core/routes/routes.dart';
 import 'package:ishq/features/auth/presentation/profile/bloc/profile_bloc.dart';
 import 'package:ishq/features/auth/presentation/profile/pages/preferance/widgets/w_age_range.dart';
 import 'package:ishq/features/auth/presentation/profile/pages/preferance/widgets/w_education.dart';
@@ -41,7 +40,8 @@ class _ScnAddPreferenceState extends State<ScnAddPreference> {
     return BlocListener<ProfileBloc, ProfileState>(
       listener: (context, state) {
         if (state is AddPreferencesSuccess) {
-          Navigator.pushReplacementNamed(context, Routes.addProfileImgScn);
+          // Navigator.pushReplacementNamed(context, Routes.addProfileImgScn);
+          Navigator.pop(context);
         }
       },
       child: Scaffold(

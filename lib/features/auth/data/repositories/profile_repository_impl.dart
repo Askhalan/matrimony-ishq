@@ -30,6 +30,8 @@ class ProfileRepositoryImpl implements ProfileRepository {
       required String bio,
       required XFile? profileImage}) async {
     try {
+      final savedprovileImage = await profileDataSource.uploadImage(
+          path: "Users/Images/Profile/", image: profileImage!);
       //--- Create a new UserModel class
       UserModel newUser = UserModel(
           uid: uid,
@@ -45,7 +47,7 @@ class ProfileRepositoryImpl implements ProfileRepository {
           state: state,
           city: city,
           bio: bio,
-          profileImage: '');
+          profileImage: savedprovileImage);
 
       //--- Now svaing the record using fn from DataSource
       await profileDataSource.saveUserRecord(user: newUser);

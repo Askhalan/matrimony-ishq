@@ -1,3 +1,5 @@
+
+
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:ishq/core/common/cubits/current_user.dart';
@@ -14,6 +16,8 @@ class ProfileAppbarHeader extends StatelessWidget {
  final user = CurrentUser();
   @override
   Widget build(BuildContext context) {
+
+  // log(user.profileImage!);
     return Padding(
       padding: EdgeInsets.only(
           left: JSize.defaultPaddingValue,
@@ -31,7 +35,7 @@ class ProfileAppbarHeader extends StatelessWidget {
                   borderRadius: BorderRadius.circular(10), 
     
                 //----------------- Profile Image --------
-                  child: Image.asset(
+                  child: user.profileImage != null ? Image.network(user.profileImage!,fit: BoxFit.cover) : Image.asset(
                     JImages.defaultUser,
                     fit: BoxFit.cover,
                   )),

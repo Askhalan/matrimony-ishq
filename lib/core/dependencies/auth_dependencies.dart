@@ -58,7 +58,9 @@ class AuthDependencies {
     serviceLocator
       ..registerFactory<ProfileRemoteDatasource>(() =>
           ProfileRemoteDatasourceImpl(
-              db: serviceLocator(), auth: serviceLocator()))
+              db: serviceLocator(),
+              auth: serviceLocator(),
+              storage: serviceLocator()))
       ..registerFactory<ProfileRepository>(
           () => ProfileRepositoryImpl(profileDataSource: serviceLocator()))
       ..registerFactory(

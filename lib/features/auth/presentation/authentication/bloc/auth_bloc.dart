@@ -56,6 +56,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
     // Perform an action when transitioning to ProfileSuccess state
     if (transition.nextState is LoginSuccess) {
+      log("enetred Login Success transition");
       handleprofileSuccess();
     }
     if (transition.nextState is AuthAuthenticated) {
@@ -89,6 +90,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   }
 
   //------------------------------------------------------------------------------
+  
   void handleprofileSuccess() async {
     final res = await _fetchCurrentUserUsecase(EmptyParams());
     res.fold((l) => throw l, (r) {
@@ -99,7 +101,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         ..dob = r.dob
         ..maritalStatus = r.maritalStatus
         ..country = r.country
-        ..state = r.state;
+        ..state = r.state
+        ..profileImage = r.profileImage;
     });
     await _setLogin(EmptyParams());
   }

@@ -47,7 +47,7 @@ final class AddAddressDetails extends ProfileEvent {
 //---------------- Add Photo Details ---------------
 
 final class AddProfilePhoto extends ProfileEvent {
-  final File? profileImage;
+  final XFile? profileImage;
   AddProfilePhoto({required this.profileImage});
 }
 

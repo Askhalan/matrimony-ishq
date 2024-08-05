@@ -10,7 +10,7 @@ class JImages {
 
   // -- Annimated Giffs
   static const String createdSUccessfully = "";
-  static const String loading = "";
+  static const String loading = "assets/animations/Animation - 1722833414565.json";
   static const String searching = "";
   static const String searchingGif = "";
   static const String searching2 = "";

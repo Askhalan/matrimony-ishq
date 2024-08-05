@@ -1,7 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first, avoid_print
 
 import 'dart:async';
-import 'dart:io';
+import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import 'package:image_picker/image_picker.dart';
@@ -11,6 +11,7 @@ import 'package:ishq/features/auth/domain/usecases/add_preferences.dart';
 import 'package:ishq/features/auth/domain/usecases/caches/set_login_usecase.dart';
 import 'package:ishq/features/auth/domain/usecases/fetch_current_user.dart';
 import 'package:ishq/features/auth/domain/usecases/save_user_data.dart';
+
 
 part 'profile_event.dart';
 part 'profile_state.dart';
@@ -35,7 +36,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     on<AddAuthDetails>(_onAddAuthDetails);
     on<AddBasicDetails>(_onAddBasicDetails);
     on<AddAddressDetails>(_onAddAddressDetails);
-    // on<AddProfilePhoto>(_onAddPhotos);
+    on<AddProfilePhoto>(_onAddPhotos);
     on<SaveUser>(_onSaveUser);
     on<AddPreferences>(_onAddPreferences);
   }
@@ -46,12 +47,33 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
 
     // Perform an action when transitioning to ProfileSuccess state
     if (transition.nextState is ProfileSuccess) {
-      handleprofileSuccess();
+      handleProfileSuccess();
     }
-    if (transition.nextState is ProfileSuccess) {
-      handleprofileSuccess();
-    }
+
   }
+  
+
+    // Function to initialize the user profile
+  // void _initializeProfile() async {
+  //   final res = await _fetchCurrentUserUsecase(EmptyParams());
+  //   res.fold(
+  //     (error) => print(error),
+  //     (user) {
+  //       CurrentUser()
+  //         ..uid = user.uid
+  //         ..profileFor = user.profileFor
+  //         ..name = user.name
+  //         ..dob = user.dob
+  //         ..maritalStatus = user.maritalStatus
+  //         ..country = user.country
+  //         ..state = user.state
+  //         ..profileImage = user.profileImage;
+        
+  //       // add(InitializeProfileSuccess()); // Emit an event to update the state
+  //     },
+  //   );
+  //   log('User Initialization Completed');
+  // }
 
 //------------------------------------------------------------------------------
 
@@ -109,17 +131,19 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
 
 //------------------------------------------------------------------------------
 
-  // void _onAddPhotos(AddProfilePhoto event, Emitter<ProfileState> emit) {
-  //   if (state is SignupData) {
-  //     final currentState = state as SignupData;
-  //     emit(currentState.copyWith(profileImage: event.profileImage));
-  //   }
-  // }
+  void _onAddPhotos(AddProfilePhoto event, Emitter<ProfileState> emit) {
+    if (state is SignupData) {
+      final currentState = state as SignupData;
+      log(event.profileImage!.path);
+      emit(currentState.copyWith(profileImage: event.profileImage));
+    }
+  }
 
 //------------------------------------------------------------------------------
 
   void _onSaveUser(SaveUser event, Emitter<ProfileState> emit) async {
     final currentState = state as SignupData;
+    emit(ProfileLoading());
     final res = await _saveUserUsecase(UserDataParams(
       uid: currentState.uid ?? '',
       profileFor: currentState.profileFor,
@@ -142,7 +166,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   }
 
   //------------------------------------------------------------------------------
-  void handleprofileSuccess() async {
+  void handleProfileSuccess() async {
     final res = await _fetchCurrentUserUsecase(EmptyParams());
     res.fold((error) => print(error), (r) {
       CurrentUser()
@@ -152,11 +176,27 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
         ..dob = r.dob
         ..maritalStatus = r.maritalStatus
         ..country = r.country
-        ..state = r.state;
+        ..state = r.state
+        ..profileImage = r.profileImage;
     });
     await _setLogin(EmptyParams());
   }
 
+  void initializeProfile() async {
+    final res = await _fetchCurrentUserUsecase(EmptyParams());
+    res.fold((error) => print(error), (r) {
+      CurrentUser()
+        ..uid = r.uid
+        ..profileFor = r.profileFor
+        ..name = r.name
+        ..dob = r.dob
+        ..maritalStatus = r.maritalStatus
+        ..country = r.country
+        ..state = r.state
+        ..profileImage = r.profileImage;
+    });
+  }
+  
   FutureOr<void> _onAddPreferences(
       AddPreferences event, Emitter<ProfileState> emit) async {
     emit(ProfileLoading());
@@ -173,4 +213,5 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     res.fold((l) => emit(AddPreferencesFailure(error: l.message)),
         (r) => emit(AddPreferencesSuccess()));
   }
+
 }
