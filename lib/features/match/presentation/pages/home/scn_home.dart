@@ -27,7 +27,7 @@ class ScnHome extends StatelessWidget {
             onTap: () {},
           )
         ],
-        showBackArrow: true,
+        showBackArrow: false,
         title: HomeAppbarTitle(),
         flexibleSpaceContent: const HomeFlexibleSpace(),
         body: const Column(children: [
