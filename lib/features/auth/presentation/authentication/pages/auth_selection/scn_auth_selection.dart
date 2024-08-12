@@ -41,7 +41,9 @@ class ScnAuthSelection extends StatelessWidget {
                   h: JSize.spaceBtwSections * 8,
                 ),
                 OutlinedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.pushNamed(context, Routes.addProfessionalDetailsScn);
+                    },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [

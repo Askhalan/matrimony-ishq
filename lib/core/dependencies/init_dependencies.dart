@@ -5,6 +5,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:get_it/get_it.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:ishq/core/dependencies/auth_dependencies.dart';
+import 'package:ishq/core/dependencies/match_dependencies.dart';
 import 'package:ishq/firebase_options.dart';
 
 final serviceLocator = GetIt.instance;
@@ -22,5 +23,6 @@ Future<void> initDependencies() async {
   AuthDependencies.initUserPref();
   AuthDependencies.initAuth();
   AuthDependencies.initProfile();
+  MatchDependencies.initMatchData();
   
 }

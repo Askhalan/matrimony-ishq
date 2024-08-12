@@ -43,8 +43,38 @@ final class AddAddressDetails extends ProfileEvent {
       required this.state,
       required this.city});
 }
+//------------- Add Professional Details -----------
 
-//---------------- Add Photo Details ---------------
+final class AddProfessionalDetails extends ProfileEvent {
+  final String education;
+  final String college;
+  final String employedIn;
+  final String occupation;
+  final String organization;
+
+  AddProfessionalDetails(
+      {required this.education,
+      required this.college,
+      required this.employedIn,
+      required this.occupation,
+      required this.organization});
+}
+//----------------- Add Family Details ------------
+
+final class AddFamilyDetails extends ProfileEvent {
+  final String familyValues;
+  final String familyStatus;
+  final String familyType;
+  final String familyAbout;
+
+  AddFamilyDetails({
+    required this.familyValues,
+    required this.familyStatus,
+    required this.familyType,
+    required this.familyAbout,
+  });
+}
+//---------------- Add Photo Details --------------
 
 final class AddProfilePhoto extends ProfileEvent {
   final XFile? profileImage;
@@ -63,9 +93,9 @@ final class AddPreferences extends ProfileEvent {
   final String ageEnd;
   final String heightStart;
   final String heightEnd;
-  final List<String> maritalStatusPref;
-  final List<String> educationPref;
-  final List<String> jobPref;
+  final List<dynamic> maritalStatusPref;
+  final List<dynamic> educationPref;
+  final List<dynamic> jobPref;
 
   AddPreferences(
       {required this.uid,

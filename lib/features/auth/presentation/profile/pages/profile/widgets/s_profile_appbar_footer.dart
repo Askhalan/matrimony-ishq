@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:ishq/core/common/widgets/spaces/gap.dart';
+import 'package:ishq/core/routes/routes.dart';
 
 import 'package:ishq/utils/constants/colors.dart';
-import 'package:ishq/utils/constants/sizes.dart';
+
 
 class ProfileAppbarFooter extends StatelessWidget {
   const ProfileAppbarFooter({
@@ -31,43 +32,61 @@ class ProfileAppbarFooter extends StatelessWidget {
           ),
           JGap(),
 
-          //-------------------------- UPGRADE PLAN --------------------------
+          //------------------------- EDIT Preferences -------------------------
 
           Flexible(
             flex: 3,
-            child: InkWell(
-              onTap: () {},
-              child: Container(
-                height: 50,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                    gradient: JColor.goldGradient,
-                    borderRadius: BorderRadius.circular(JSize.borderRadLg)),
-                child: Center(
-                  child: Text(
-                    "Upgrade plan",
-                    style: Theme.of(context).textTheme.bodyLarge,
-                  ),
-                ),
+            child: ElevatedButton(
+              onPressed: () {
+                Navigator.pushNamed(context, Routes.editPreferenceScn);
+              },
+              style: ButtonStyle(
+                  backgroundColor: WidgetStatePropertyAll(JColor.white)),
+              child: Text(
+                "Edit Preferences",
+                style: Theme.of(context).textTheme.bodyLarge,
               ),
             ),
           ),
           JGap(),
 
+          //-------------------------- UPGRADE PLAN --------------------------
+
+          // Flexible(
+          //   flex: 3,
+          //   child: InkWell(
+          //     onTap: () {},
+          //     child: Container(
+          //       height: 50,
+          //       width: double.infinity,
+          //       decoration: BoxDecoration(
+          //           gradient: JColor.goldGradient,
+          //           borderRadius: BorderRadius.circular(JSize.borderRadLg)),
+          //       child: Center(
+          //         child: Text(
+          //           "Upgrade plan",
+          //           style: Theme.of(context).textTheme.bodyLarge,
+          //         ),
+          //       ),
+          //     ),
+          //   ),
+          // ),
+          // JGap(),
+
           //------------------------------ SHARE ------------------------------
 
-          Flexible(
-            flex: 2,
-            child: ElevatedButton(
-              onPressed: () {},
-              style: ButtonStyle(
-                  backgroundColor: WidgetStatePropertyAll(JColor.white)),
-              child: Text(
-                "Share",
-                style: Theme.of(context).textTheme.bodyLarge,
-              ),
-            ),
-          )
+          // Flexible(
+          //   flex: 2,
+          //   child: ElevatedButton(
+          //     onPressed: () {},
+          //     style: ButtonStyle(
+          //         backgroundColor: WidgetStatePropertyAll(JColor.white)),
+          //     child: Text(
+          //       "Share",
+          //       style: Theme.of(context).textTheme.bodyLarge,
+          //     ),
+          //   ),
+          // )
         ],
       ),
     );

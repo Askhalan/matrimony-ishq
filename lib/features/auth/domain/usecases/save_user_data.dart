@@ -11,20 +11,30 @@ class SaveUserUsecase implements UseCase<Null, UserDataParams> {
   @override
   Future<Either<Failure, Null>> call(UserDataParams parameters) async {
     return await profileRepository.createUser(
-        uid: parameters.uid,
-        profileFor: parameters.profileFor,
-        name: parameters.name,
-        gender: parameters.gender,
-        dob: parameters.dob,
-        maritalStatus: parameters.maritalStatus,
-        email: parameters.email,
-        physicalStatus: parameters.physicalStatus,
-        phoneNo: parameters.phoneNo,
-        country: parameters.country,
-        state: parameters.state,
-        city: parameters.city,
-        bio: parameters.bio,
-        profileImage: parameters.profileImage);
+      uid: parameters.uid,
+      profileFor: parameters.profileFor,
+      name: parameters.name,
+      gender: parameters.gender,
+      dob: parameters.dob,
+      maritalStatus: parameters.maritalStatus,
+      email: parameters.email,
+      physicalStatus: parameters.physicalStatus,
+      phoneNo: parameters.phoneNo,
+      country: parameters.country,
+      state: parameters.state,
+      city: parameters.city,
+      bio: parameters.bio,
+      profileImage: parameters.profileImage,
+      education: parameters.education,
+      college: parameters.college,
+      employedIn: parameters.employedIn,
+      occupation: parameters.occupation,
+      organization: parameters.organization,
+      familyValues: parameters.familyValues,
+      familyStatus: parameters.familyStatus,
+      familyType: parameters.familyType,
+      familyAbout: parameters.familyAbout,
+    );
   }
 }
 
@@ -42,6 +52,15 @@ class UserDataParams {
   final String state;
   final String city;
   final String bio;
+  final String education;
+  final String college;
+  final String employedIn;
+  final String occupation;
+  final String organization;
+  final String familyValues;
+  final String familyStatus;
+  final String familyType;
+  final String familyAbout;
   final XFile? profileImage;
 
   UserDataParams(
@@ -53,6 +72,15 @@ class UserDataParams {
       required this.maritalStatus,
       required this.email,
       required this.physicalStatus,
+      required this.education,
+      required this.college,
+      required this.employedIn,
+      required this.occupation,
+      required this.organization,
+      required this.familyValues,
+      required this.familyStatus,
+      required this.familyType,
+      required this.familyAbout,
       required this.phoneNo,
       required this.country,
       required this.state,

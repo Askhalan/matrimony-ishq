@@ -83,7 +83,8 @@ class ScnAddressDetails extends StatelessWidget {
                               state: stateController.text,
                               city: cityController.text,
                             ));
-                        Navigator.pushNamed(context, Routes.addProfileImgScn);
+                        Navigator.pushNamed(
+                            context, Routes.addProfessionalDetailsScn);
                       },
                       child: Text(JTexts.next))
                 ],

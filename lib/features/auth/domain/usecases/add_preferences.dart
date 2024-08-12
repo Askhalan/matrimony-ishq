@@ -28,9 +28,9 @@ class PreferencesParams {
   final String ageEnd;
   final String heightStart;
   final String heightEnd;
-  final List<String> maritalStatusPref;
-  final List<String> educationPref;
-  final List<String> jobPref;
+  final List<dynamic> maritalStatusPref;
+  final List<dynamic> educationPref;
+  final List<dynamic> jobPref;
 
   PreferencesParams(
       {required this.uid,

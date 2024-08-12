@@ -5,7 +5,7 @@ import 'package:ishq/core/common/widgets/appbar/appbar.dart';
 import 'package:ishq/core/common/widgets/form/dropdown.dart';
 import 'package:ishq/core/common/widgets/spaces/gap.dart';
 import 'package:ishq/core/common/widgets/form/dob_picker.dart';
-import 'package:ishq/features/auth/presentation/profile/pages/add_details/Basic_details/w_processing_button.dart';
+import 'package:ishq/features/auth/presentation/profile/pages/add_details/basic_details/w_processing_button.dart';
 import 'package:ishq/features/auth/presentation/profile/widgets/gender_chip.dart';
 import 'package:ishq/features/auth/presentation/profile/widgets/progress_indicator.dart';
 import 'package:ishq/utils/constants/sizes.dart';

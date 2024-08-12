@@ -1,3 +1,4 @@
+
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -13,6 +14,7 @@ import 'package:ishq/utils/exceptions/platform_exceptions.dart';
 abstract interface class ProfileRemoteDatasource {
   Future<void> saveUserRecord({required UserModel user});
   Future<UserModel> fetchCurrentUser();
+  Future<PrefModel> fetchCurrentUserPreference();
   Future addPreference({required PrefModel preferences});
   Future<String> uploadImage({required String path, required XFile image});
 }
@@ -74,7 +76,7 @@ class ProfileRemoteDatasourceImpl extends ProfileRemoteDatasource {
           .collection('users')
           .doc(preferences.uid)
           .collection('preferences')
-          .doc()
+          .doc(auth.currentUser!.uid)
           .set(preferences.toJson());
     } on FirebaseException catch (e) {
       throw JFirebaseException(e.code).message;
@@ -84,6 +86,34 @@ class ProfileRemoteDatasourceImpl extends ProfileRemoteDatasource {
       throw JPlatformException(e.code).message;
     } catch (e) {
       throw 'something went wrong . Please try again';
+    }
+  }
+
+//-------- Fetch Current User Preferences
+  @override
+  Future<PrefModel> fetchCurrentUserPreference() async {
+   
+    try {
+      final response = await db
+          .collection("users")
+          .doc(auth.currentUser!.uid)
+          .collection('preferences')
+          .doc(auth.currentUser!.uid)
+          .get();
+      if (response.exists) {
+        return PrefModel.fromJson(response);
+      } else {
+       
+        return PrefModel.empty();
+      }
+    } on FirebaseException catch (e) {
+      throw JFirebaseException(e.code).message;
+    } on JFormatException catch (_) {
+      throw const JFormatException();
+    } on JPlatformException catch (e) {
+      throw JPlatformException(e.code).message;
+    } catch (e) {
+      throw 'something went wrong . Please try again $e';
     }
   }
 

@@ -13,6 +13,7 @@ import 'package:ishq/features/auth/domain/usecases/caches/check_login.dart';
 import 'package:ishq/features/auth/domain/usecases/caches/remove_session_usecase.dart';
 import 'package:ishq/features/auth/domain/usecases/caches/set_login_usecase.dart';
 import 'package:ishq/features/auth/domain/usecases/fetch_current_user.dart';
+import 'package:ishq/features/auth/domain/usecases/fetch_current_user_preferences.dart';
 import 'package:ishq/features/auth/domain/usecases/login_usecae.dart';
 import 'package:ishq/features/auth/domain/usecases/logout_usecase.dart';
 import 'package:ishq/features/auth/domain/usecases/save_user_data.dart';
@@ -25,7 +26,7 @@ class AuthDependencies {
     serviceLocator
       ..registerLazySingleton<LocalPrefDatasource>(
           () => LocalPreferenceDatasourceImpl(preference: serviceLocator()))
-      ..registerLazySingleton<UserSessionRepository>(() =>
+      ..registerFactory<UserSessionRepository>(() =>
           UserSessionRepositoryImpl(localPrefDatasource: serviceLocator()))
       ..registerLazySingleton(
           () => CheckLogin(userSessionRepository: serviceLocator()))
@@ -50,7 +51,7 @@ class AuthDependencies {
           checkLoginUsecse: serviceLocator(),
           setLoginUsecase: serviceLocator(),
           logoutUsecase: serviceLocator(),
-          removeSessionUC: serviceLocator()));
+          removeSessionUC: serviceLocator(), fetchCurrentUserPreference: serviceLocator()));
     // Here we are using lazysingleto to maintain the state of block
   }
 
@@ -69,10 +70,13 @@ class AuthDependencies {
           () => FetchCurrentUserUsecase(profileRepository: serviceLocator()))
       ..registerFactory(
           () => AddPreferencesUC(profileRepository: serviceLocator()))
+      ..registerFactory(() =>
+          FetchCurrentUserPreferencesUC(profileRepository: serviceLocator()))
       ..registerLazySingleton(() => ProfileBloc(
           saveUser: serviceLocator(),
           fetchCurrentUser: serviceLocator(),
           setLoginUsecase: serviceLocator(),
-          addPreferenceUC: serviceLocator()));
+          addPreferenceUC: serviceLocator(),
+          fetchCurrentUserPreference: serviceLocator()));
   }
 }

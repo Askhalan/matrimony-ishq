@@ -1,3 +1,5 @@
+
+
 import 'package:fpdart/fpdart.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:ishq/features/auth/data/datasources/profile_remote_datasource.dart';
@@ -28,9 +30,18 @@ class ProfileRepositoryImpl implements ProfileRepository {
       required String state,
       required String city,
       required String bio,
+      required String education,
+      required String college,
+      required String employedIn,
+      required String occupation,
+      required String organization,
+      required String familyValues,
+      required String familyStatus,
+      required String familyType,
+      required String familyAbout,
       required XFile? profileImage}) async {
     try {
-      final savedprovileImage = await profileDataSource.uploadImage(
+      final savedProfileImage = await profileDataSource.uploadImage(
           path: "Users/Images/Profile/", image: profileImage!);
       //--- Create a new UserModel class
       UserModel newUser = UserModel(
@@ -47,7 +58,16 @@ class ProfileRepositoryImpl implements ProfileRepository {
           state: state,
           city: city,
           bio: bio,
-          profileImage: savedprovileImage);
+          profileImage: savedProfileImage,
+          education: education,
+          college: college,
+          employedIn: employedIn,
+          occupation: occupation,
+          organization: organization,
+          familyValues: familyValues,
+          familyStatus: familyStatus,
+          familyType: familyType,
+          familyAbout: familyAbout);
 
       //--- Now svaing the record using fn from DataSource
       await profileDataSource.saveUserRecord(user: newUser);
@@ -70,6 +90,8 @@ class ProfileRepositoryImpl implements ProfileRepository {
     }
   }
 
+//==================================================================================================================
+
   @override
   Future<Either<Failure, Null>> addUserPreference(
       {String? uid,
@@ -77,9 +99,9 @@ class ProfileRepositoryImpl implements ProfileRepository {
       required String ageEnd,
       required String heightStart,
       required String heightEnd,
-      required List<String> maritalStatusPref,
-      required List<String> educationPref,
-      required List<String> jobPref}) async {
+      required List<dynamic> maritalStatusPref,
+      required List<dynamic> educationPref,
+      required List<dynamic> jobPref}) async {
     try {
       PrefModel preferences = PrefModel(
         uid: uid,
@@ -93,6 +115,19 @@ class ProfileRepositoryImpl implements ProfileRepository {
       );
       await profileDataSource.addPreference(preferences: preferences);
       return right(null);
+    } catch (e) {
+      return left(Failure(e.toString()));
+    }
+  }
+
+//==================================================================================================================
+
+  @override
+  Future<Either<Failure, PrefModel>> fetchCurrentUserPreferences() async {
+    
+    try {
+      final res = await profileDataSource.fetchCurrentUserPreference();
+      return right(res);
     } catch (e) {
       return left(Failure(e.toString()));
     }

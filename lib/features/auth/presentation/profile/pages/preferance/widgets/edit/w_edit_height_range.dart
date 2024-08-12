@@ -1,43 +1,40 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:ishq/utils/constants/colors.dart';
 import 'package:ishq/utils/constants/sizes.dart';
 import 'package:syncfusion_flutter_sliders/sliders.dart';
 
 // ignore: must_be_immutable
-class AgeRange extends StatefulWidget {
-  AgeRange({super.key, required this.ageRange});
-  SfRangeValues ageRange;
+class HeightRangeSelectorEdit extends StatefulWidget {
+  HeightRangeSelectorEdit({super.key, required this.heightRange});
+  SfRangeValues heightRange;
   @override
-  State<AgeRange> createState() => _AgeRangeState();
+  State<HeightRangeSelectorEdit> createState() => _HeightRangeSelectorState();
 }
 
-class _AgeRangeState extends State<AgeRange> {
+class _HeightRangeSelectorState extends State<HeightRangeSelectorEdit> {
   @override
   Widget build(BuildContext context) {
     return Row(
       children: [
         Container(
-          width: 130,
           padding: EdgeInsets.all(10),
           decoration: BoxDecoration(
               color: JColor.secondary,
               borderRadius: BorderRadius.circular(JSize.borderRadMd)),
           child: Text(
-              'Age: ${widget.ageRange.start.toString().substring(0, 2)} - ${widget.ageRange.end.toString().substring(0, 2)}'),
+              'Height: ${widget.heightRange.start.toString().substring(0, 3)} - ${widget.heightRange.end.toString().substring(0, 3)}'),
         ),
         Flexible(
           child: SfRangeSlider(
-            min: 18,
-            max: 60,
-            values: widget.ageRange,
-            stepSize: 1.0,
+            min: 4,
+            max: 7,
+            values: widget.heightRange,
+            stepSize: 0.5,
             showTicks: true,
             enableTooltip: true,
             onChanged: (SfRangeValues values) {
               setState(() {
-                widget.ageRange = values;
+                widget.heightRange = values;
               });
             },
             activeColor: JColor.secondary,

@@ -19,9 +19,9 @@ class PrefModel extends PrefEntity {
     String? ageEnd,
     String? heightStart,
     String? heightEnd,
-    List<String>? maritalStatusPref,
-    List<String>? educationPref,
-    List<String>? jobPref,
+    List<dynamic>? maritalStatusPref,
+    List<dynamic>? educationPref,
+    List<dynamic>? jobPref,
   }) {
     return PrefModel(
       uid: uid ?? this.uid,
@@ -60,7 +60,7 @@ class PrefModel extends PrefEntity {
 
 // //------------------------------------ CONSTRUCTOR WHICH JSON TO MODEL ---------------------------
 
-  factory PrefModel.fromMap(DocumentSnapshot<Map<String, dynamic>> document) {
+  factory PrefModel.fromJson(DocumentSnapshot<Map<String, dynamic>> document) {
     if (document.data() != null) {
       final data = document.data()!;
       return PrefModel(
@@ -69,9 +69,10 @@ class PrefModel extends PrefEntity {
         ageEnd: data['ageEnd'] ?? '',
         heightStart: data['heightStart'] ?? '',
         heightEnd: data['heightEnd'] ?? '',
-        maritalStatusPref: data['maritalStatusPref'] ?? [],
+        maritalStatusPref: data['maritalStatusPref'] ?? [] ,
         educationPref: data['educationPref'] ?? [],
         jobPref: data['jobPref'] ?? [],
+        
       );
     } else {
       return PrefModel.empty();

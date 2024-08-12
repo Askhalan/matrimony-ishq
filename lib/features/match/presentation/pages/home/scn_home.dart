@@ -3,6 +3,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:ishq/core/common/sessions/current_user_prefs.dart';
 import 'package:ishq/core/common/widgets/appbar/appbar.dart';
 import 'package:ishq/core/common/widgets/spaces/gap.dart';
 import 'package:ishq/features/match/presentation/pages/home/widgets/s_appbar_title.dart';
@@ -28,6 +29,7 @@ class ScnHome extends StatelessWidget {
           )
         ],
         showBackArrow: false,
+        expandedHeight: CurrentUserPreferences().isPrefAdded ? 180 : 0,
         title: HomeAppbarTitle(),
         flexibleSpaceContent: const HomeFlexibleSpace(),
         body: const Column(children: [
@@ -37,9 +39,9 @@ class ScnHome extends StatelessWidget {
         ]),
         scrollChild: Column(
           children: [
-            //------------------------ PROFESSIONAL MATCHES ---------------------
+            //------------------------ PROFESSIONAL MATCHES -------------------
 
-            SecProfessionalMatches(),
+            SecProfessionalMatches(), //Temp as age Match
 
             //------------------------ LIFESTYLE MATCHES ---------------------
 
@@ -52,17 +54,12 @@ class ScnHome extends StatelessWidget {
             //------------------------ FAMILY MATCHES ---------------------
 
             SecFamilyMatches(),
-            JGap(h: 70,)
+            JGap(
+              h: 70,
+            )
           ],
         ),
       ),
     );
   }
 }
-
-
-
-
-
-
-

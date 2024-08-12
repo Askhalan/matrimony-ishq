@@ -6,7 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:ishq/core/common/widgets/appbar/appbar.dart';
-import 'package:ishq/core/common/widgets/loader/button_loader.dart';
+import 'package:ishq/core/common/widgets/loader/fullscreen_loadder.dart';
 import 'package:ishq/core/common/widgets/snackbar/error_snackbar.dart';
 import 'package:ishq/core/common/widgets/snackbar/show_snackbar.dart';
 import 'package:ishq/core/common/widgets/spaces/gap.dart';
@@ -43,13 +43,17 @@ class _ScnAddProfileImgState extends State<ScnAddProfileImg> {
       body: BlocConsumer<ProfileBloc, ProfileState>(
         listener: (context, state) {
           if (state is ProfileSuccess) {
-            Navigator.pushReplacementNamed(context, Routes.navigationMenu);
+            Navigator.pushReplacementNamed(context, Routes.addPreferenceScn);
           }
           if (state is ProfileFailure) {
             showSnackBar(context, ErrorSnackBar(message: 'Try Again'));
           }
         },
         builder: (context, state) {
+           if(state is ProfileLoading){
+            return Center(child: const JFullscreenLoader());
+            
+          }
           return JAppbar(
             expandedHeight: 0,
             title: AppbarTitle(
@@ -101,9 +105,7 @@ class _ScnAddProfileImgState extends State<ScnAddProfileImg> {
                         heightFactor: 4,
                         child: BlocBuilder<ProfileBloc, ProfileState>(
                           builder: (context, state) {
-                            if(state is ProfileLoading){
-                             return ButtonLoader();
-                            }
+                            
                             return ElevatedButton(
                                 onPressed: () {
                                   context.read<ProfileBloc>().add(

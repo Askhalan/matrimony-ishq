@@ -14,12 +14,11 @@ class ScnProfile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: JAppbar(
-        footerPinned: true,
-        floating: true,
+        footerPinned: false,
+        floating: false,
         showBackArrow: false,
-        footerMaxHeight: 100,
-        expandedHeight: 250,
-
+        footerMaxHeight: 80,
+        expandedHeight: 220,
         actions: [
           IconButton(
               onPressed: () {
@@ -39,7 +38,8 @@ class ScnProfile extends StatelessWidget {
         body: SingleChildScrollView(
           child: Column(
             children: [
-              ProfileOtherDetails(),
+              ProfileOtherDetails()
+              
             ],
           ),
         ),

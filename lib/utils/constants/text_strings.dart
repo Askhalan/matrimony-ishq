@@ -42,6 +42,18 @@ class JTexts {
   static const String title = "Title";
   static const String authGoogle = "Sign in with Google";
   static const String authApple = "Sign in with Apple";
+  static const String COLLEGE = "College";
+  static const String EDUCATION = "Education";
+  static const String EMPLOYED_IN = "Employed in";
+  static const String OCUUPATION = "Occupation";
+  static const String ORGANIZATION = "Organization";
+  static const String PROFESSIONAL_DETAILS = 'Professional Details';
+  //------------
+  static const String FAMILY_DETAILS = 'Family Details';
+  static const String FAMILY_VALUES = 'Family Values';
+  static const String FAMILY_TYPE = 'Family Type';
+  static const String FAMILY_STATUS = 'Family Status';
+  static const String ABOUT_FAMILY = 'About your family ';
 
 
   static const String lorem = "'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis '";
@@ -55,5 +67,6 @@ class JTexts {
   static const String LIFESTYLE_MATCHES = 'Lifestyle Matches';
   static const String FAMILY_MATCHES = 'Family Matches';
   static const String SUCCESS_STORY = "Success Stories";
+  static const String MATCHES_EMPTY_MESSAGE = 'Currently you are not having any Matches here';
   
 }

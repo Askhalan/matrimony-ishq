@@ -6,6 +6,7 @@ import 'package:ishq/utils/exceptions/firebase_exceptions.dart';
 import 'package:ishq/utils/exceptions/format_exceptions.dart';
 import 'package:ishq/utils/exceptions/platform_exceptions.dart';
 
+
 abstract interface class MatchDatasource {
   Future<List<UserModelMatch>> getAllUser();
 }

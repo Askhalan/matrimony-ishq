@@ -1,13 +1,10 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:ishq/core/common/cubits/current_user.dart';
+import 'package:ishq/core/common/sessions/current_user.dart';
 import 'package:ishq/core/common/widgets/images/cached_network_image.dart';
 import 'package:ishq/core/common/widgets/profile_details_labe.dart';
 import 'package:ishq/core/common/widgets/spaces/gap.dart';
 import 'package:ishq/utils/constants/colors.dart';
-import 'package:ishq/utils/constants/image_strings.dart';
 import 'package:ishq/utils/constants/sizes.dart';
 
 class ProfileAppbarHeader extends StatelessWidget {
@@ -17,7 +14,6 @@ class ProfileAppbarHeader extends StatelessWidget {
   final user = CurrentUser();
   @override
   Widget build(BuildContext context) {
-    log(user.profileImage!);
     return Padding(
       padding: EdgeInsets.only(
           left: JSize.defaultPaddingValue,
@@ -58,6 +54,11 @@ class ProfileAppbarHeader extends StatelessWidget {
                 ),
                 JGap(h: 10),
 
+                //----------------- Gender ---------------
+                ProfileDetailsLabel(
+                    text: user.gender!,
+                    icon: user.gender! == 'Male' ? Iconsax.man : Iconsax.woman),
+                JGap(h: 5),
                 //----------------- Age -----------------
                 ProfileDetailsLabel(
                     text: "${user.dob} years", icon: Iconsax.calendar),
@@ -65,10 +66,6 @@ class ProfileAppbarHeader extends StatelessWidget {
 
                 //----------------- Place ---------------
                 ProfileDetailsLabel(text: user.state!, icon: Iconsax.location),
-                JGap(h: 5),
-
-                //----------------- Caste ---------------
-                ProfileDetailsLabel(text: "Sunni", icon: Iconsax.moon),
                 JGap(h: 5),
 
                 //----------------- Marital Status ------
