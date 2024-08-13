@@ -11,9 +11,11 @@ import 'package:ishq/core/common/widgets/spaces/gap_inside_card.dart';
 import 'package:ishq/features/auth/presentation/profile/bloc/profile_bloc.dart';
 import 'package:ishq/features/auth/presentation/profile/pages/preferance/widgets/edit/w_edit_age_range.dart';
 import 'package:ishq/features/auth/presentation/profile/pages/preferance/widgets/edit/w_edit_height_range.dart';
+import 'package:ishq/features/auth/presentation/profile/pages/preferance/widgets/edit/w_edit_marital_status.dart';
 import 'package:ishq/features/auth/presentation/profile/widgets/w_section_wraper_container.dart';
 import 'package:ishq/features/match/presentation/widgets/w_appbar_title.dart';
 import 'package:ishq/utils/constants/sizes.dart';
+import 'package:multi_dropdown/multi_dropdown.dart';
 // import 'package:multi_dropdown/multi_dropdown.dart';
 
 
@@ -31,7 +33,7 @@ class _ScnEditPreferenceState extends State<ScnEditPreference> {
 
   // final MultiSelectController educationController = MultiSelectController();
   // final MultiSelectController jobController = MultiSelectController();
-  // final MultiSelectController maritalStatusController = MultiSelectController();
+  final MultiSelectController<String> maritalStatusController = MultiSelectController();
   int ageStart = int.parse(CurrentUserPreferences().ageStart!);
   int ageEnd = int.parse(CurrentUserPreferences().ageEnd!);
   double heightStart = double.parse(CurrentUserPreferences().heightStart!);
@@ -78,7 +80,7 @@ class _ScnEditPreferenceState extends State<ScnEditPreference> {
 
                     //----------------------------------- MARITAL STATUS --------------------------------
 
-                    // MaritalStatusEdit(controller: maritalStatusController),
+                    MaritalStatusEdit(controller: maritalStatusController),
                     JGap10(),
                   ],
                 ),
