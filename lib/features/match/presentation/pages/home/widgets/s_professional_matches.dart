@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:ishq/core/dependencies/init_dependencies.dart';
+import 'package:ishq/features/match/data/datasources/match_datasource.dart';
+import 'package:ishq/features/match/data/repositories/match_repository_impl.dart';
+import 'package:ishq/features/match/domain/usecases/categeory_usecases/age_match_uc.dart';
 import 'package:ishq/features/match/presentation/bloc/match_bloc.dart';
 import 'package:ishq/features/match/presentation/widgets/user_card/s_user_vertical_card.dart';
 import 'package:ishq/features/match/presentation/widgets/user_card/vertical_user_card_loader.dart';
@@ -8,10 +12,12 @@ import 'package:ishq/utils/constants/sizes.dart';
 import 'package:ishq/utils/constants/text_strings.dart';
 
 class SecProfessionalMatches extends StatelessWidget {
-  const SecProfessionalMatches({
+  SecProfessionalMatches({
     super.key,
   });
-
+  final MatchDataSourceImpl dataSource =
+      MatchDataSourceImpl(db: serviceLocator());
+     final MatchRepositoryImpl agee = MatchRepositoryImpl(matchDataSource: serviceLocator());
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -40,12 +46,20 @@ class SecProfessionalMatches extends StatelessWidget {
                 final ageMatchUsers = state.ageMatches;
                 return ageMatchUsers.isEmpty
                     ? Center(child: Text(JTexts.MATCHES_EMPTY_MESSAGE))
-                    : ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        itemCount: ageMatchUsers.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          return UserVerticalCard(
-                            user: ageMatchUsers[index],
+                    : FutureBuilder(
+                        future: agee.fetchAgeMatchUsers(),
+                        builder: (context, snapshot) {
+                          if(snapshot.data!.isEmpty){
+                            return Text('Yoy dont ahve any match here');
+                          }
+                          return ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            itemCount: ageMatchUsers.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              return UserVerticalCard(
+                                user: ageMatchUsers[index],
+                              );
+                            },
                           );
                         },
                       );

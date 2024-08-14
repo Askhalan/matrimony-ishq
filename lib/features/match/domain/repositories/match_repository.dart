@@ -7,7 +7,8 @@ abstract class MatchRepository {
 
   Future<Either<Failure, Map<String, List<UserEntity>>>> fetchAndCategorizeUsers();
 
-  Future<Either<Failure, List<UserEntity>>> fetchAgeMatchUsers();
+  // Future<Either<Failure, List<UserEntity>>> fetchAgeMatchUsers();
+  Future<List<UserEntity>> fetchAgeMatchUsers();
   Future<Either<Failure, List<UserEntity>>> fetchMritalStatusMatchUsers();
   // Future<Either<Failure, List<UserEntity>>> fetchProfessionalMatchUsers();
 

@@ -64,8 +64,36 @@ class MatchRepositoryImpl implements MatchRepository {
 
 //--------------------------------- Age Based Categeorization -------------------------------------
 
+  // @override
+  // Future<Either<Failure, List<UserEntity>>> fetchAgeMatchUsers() async {
+  //   try {
+  //     log(int.parse(CurrentUserPreferences().ageStart ?? '0').toString());
+  //     final users = await matchDataSource.getAllUser();
+  //     final List<UserModelMatch> ageMachedUsers = [];
+  //     //----- Implementing categorization logics
+  //     for (final user in users) {
+  //       log('${int.parse(user.dob)} > ${DataHelper.safeParseInt(CurrentUserPreferences().ageStart, defaultValue: 18)}');
+  //       log('${int.parse(user.dob)} < ${DataHelper.safeParseInt(CurrentUserPreferences().ageEnd, defaultValue: 60)}');
+  //       if (int.parse(user.dob) >
+  //               DataHelper.safeParseInt(CurrentUserPreferences().ageStart,
+  //                   defaultValue: 18) &&
+  //           int.parse(user.dob) <
+  //               DataHelper.safeParseInt(CurrentUserPreferences().ageEnd,
+  //                   defaultValue: 60)) {
+  //         ageMachedUsers.add(user);
+  //       }
+  //     }
+
+  //     log(ageMachedUsers.toString());
+  //     return right(ageMachedUsers);
+  //   } catch (e) {
+  //     return left(Failure(e.toString()));
+  //   }
+  // }
+
   @override
-  Future<Either<Failure, List<UserEntity>>> fetchAgeMatchUsers() async {
+  Future<List<UserEntity>> fetchAgeMatchUsers() async {
+    log('Calling function');
     try {
       log(int.parse(CurrentUserPreferences().ageStart ?? '0').toString());
       final users = await matchDataSource.getAllUser();
@@ -84,13 +112,12 @@ class MatchRepositoryImpl implements MatchRepository {
         }
       }
 
-      log(ageMachedUsers.toString());
-      return right(ageMachedUsers);
+      return ageMachedUsers;
     } catch (e) {
-      return left(Failure(e.toString()));
+      log('e');
+      throw ();
     }
   }
-
 //---------------------------- Marital Status Based Categeorization -------------------------------------
 
   @override
