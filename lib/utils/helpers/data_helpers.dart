@@ -10,4 +10,15 @@ class DataHelper{
   }
   return age;
 }
+
+
+
+static int safeParseInt(String? value, {int defaultValue = 0}) {
+  if (value == null || value.isEmpty) return defaultValue;
+  return int.tryParse(value) ?? defaultValue;
+}
+static double safeParseDouble(String? value, {double defaultValue = 0}) {
+  if (value == null || value.isEmpty) return defaultValue;
+  return double.tryParse(value) ?? defaultValue;
+}
 }

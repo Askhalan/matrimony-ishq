@@ -5,8 +5,14 @@ import 'package:syncfusion_flutter_sliders/sliders.dart';
 
 // ignore: must_be_immutable
 class HeightRangeSelectorEdit extends StatefulWidget {
-  HeightRangeSelectorEdit({super.key, required this.heightRange});
+  HeightRangeSelectorEdit({
+    super.key,
+    required this.heightRange,
+    required this.onRangeChanged, // Callback to notify changes
+  });
   SfRangeValues heightRange;
+  final void Function(SfRangeValues) onRangeChanged; 
+
   @override
   State<HeightRangeSelectorEdit> createState() => _HeightRangeSelectorState();
 }
@@ -19,10 +25,12 @@ class _HeightRangeSelectorState extends State<HeightRangeSelectorEdit> {
         Container(
           padding: EdgeInsets.all(10),
           decoration: BoxDecoration(
-              color: JColor.secondary,
-              borderRadius: BorderRadius.circular(JSize.borderRadMd)),
+            color: JColor.secondary,
+            borderRadius: BorderRadius.circular(JSize.borderRadMd),
+          ),
           child: Text(
-              'Height: ${widget.heightRange.start.toString().substring(0, 3)} - ${widget.heightRange.end.toString().substring(0, 3)}'),
+            'Height: ${widget.heightRange.start.toStringAsFixed(1)} - ${widget.heightRange.end.toStringAsFixed(1)}',
+          ),
         ),
         Flexible(
           child: SfRangeSlider(
@@ -35,6 +43,7 @@ class _HeightRangeSelectorState extends State<HeightRangeSelectorEdit> {
             onChanged: (SfRangeValues values) {
               setState(() {
                 widget.heightRange = values;
+                widget.onRangeChanged(values);
               });
             },
             activeColor: JColor.secondary,

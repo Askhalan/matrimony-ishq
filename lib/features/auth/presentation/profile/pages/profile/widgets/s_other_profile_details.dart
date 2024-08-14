@@ -45,12 +45,12 @@ class ProfileOtherDetails extends StatelessWidget {
               children: [
                 JAcoordianItem(
                     label: "Age",
-                    value: '${userPref.ageStart}-${userPref.ageEnd} Yrs'),
+                    value: '${userPref.ageStart!.substring(0,2)}-${userPref.ageEnd!.substring(0,2)} Yrs'),
                 JAcoordianItem(
                     label: "Height",
                     value:
                         '${userPref.heightStart}ft -${userPref.heightEnd}ft'),
-                JAcoordianItem(label: "Job", value: userPref.jobPref!.join(',')),
+                JAcoordianItem(label: "Job", value: userPref.jobPref!.join(',') ),
                 JAcoordianItem(
                     label: "Education",
                     value: userPref.educationPref!.join(',')),

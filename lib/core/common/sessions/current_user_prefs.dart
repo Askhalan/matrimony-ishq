@@ -14,8 +14,8 @@ class CurrentUserPreferences {
   String? ageEnd ;
   String? heightStart;
   String? heightEnd;
-  List<dynamic>? maritalStatusPref;
-  List<dynamic>? educationPref;
-  List<dynamic>? jobPref;
+  List<String>? maritalStatusPref;
+  List<String>? educationPref;
+  List<String>? jobPref;
   bool isPrefAdded = false;
 }

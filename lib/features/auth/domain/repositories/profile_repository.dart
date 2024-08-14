@@ -44,11 +44,23 @@ abstract class ProfileRepository {
       required String ageEnd,
       required String heightStart,
       required String heightEnd,
-      required List<dynamic> maritalStatusPref,
-      required List<dynamic> educationPref,
-      required List<dynamic> jobPref});
+      required List<String> maritalStatusPref,
+      required List<String> educationPref,
+      required List<String> jobPref});
 
-  //-------------- Fetch Current User Data -------------
+  //-------------- Fetch Current User Preference -------------
 
   Future<Either<Failure, PrefEntity>> fetchCurrentUserPreferences();
+
+    //---------------- Add User Presference --------------
+
+  Future<Either<Failure, Null>> editUserPreference(
+      {String? uid,
+      required String? ageStart,
+      required String? ageEnd,
+      required String? heightStart,
+      required String? heightEnd,
+      required List<String>? maritalStatusPref,
+      required List<String>? educationPref,
+      required List<String>? jobPref});
 }

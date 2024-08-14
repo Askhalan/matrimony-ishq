@@ -3,13 +3,13 @@ import 'package:ishq/core/common/usecase/usecase.dart';
 import 'package:ishq/features/auth/domain/repositories/profile_repository.dart';
 import 'package:ishq/utils/error/failure.dart';
 
-class AddPreferencesUC implements UseCase<Null, PreferencesParams> {
-  AddPreferencesUC({required this.profileRepository});
+class EditPreferencesUC implements UseCase<Null, EditPreferencesParams> {
+  EditPreferencesUC({required this.profileRepository});
   final ProfileRepository profileRepository;
 
   @override
-  Future<Either<Failure, Null>> call(PreferencesParams parameters) async {
-    return await profileRepository.addUserPreference(
+  Future<Either<Failure, Null>> call(EditPreferencesParams parameters) async {
+    return await profileRepository.editUserPreference(
       uid: parameters.uid,
       ageStart: parameters.ageStart,
       ageEnd: parameters.ageEnd,
@@ -22,17 +22,17 @@ class AddPreferencesUC implements UseCase<Null, PreferencesParams> {
   }
 }
 
-class PreferencesParams {
+class EditPreferencesParams {
   final String? uid;
-  final String ageStart;
-  final String ageEnd;
-  final String heightStart;
-  final String heightEnd;
-  final List<String> maritalStatusPref;
-  final List<String> educationPref;
-  final List<String> jobPref;
+  final String? ageStart;
+  final String? ageEnd;
+  final String? heightStart;
+  final String? heightEnd;
+  final List<String>? maritalStatusPref;
+  final List<String>? educationPref;
+  final List<String>? jobPref;
 
-  PreferencesParams(
+  EditPreferencesParams(
       {required this.uid,
       required this.ageStart,
       required this.ageEnd,

@@ -1,37 +1,37 @@
 
 
-// import 'package:flutter/material.dart';
-// import 'package:multi_dropdown/multiselect_dropdown.dart';
+import 'package:flutter/material.dart';
+import 'package:ishq/utils/constants/colors.dart';
+import 'package:ishq/utils/constants/sizes.dart';
+import 'package:multi_dropdown/multi_dropdown.dart';
 
-// class EducationPref extends StatelessWidget {
-//    EducationPref({
-//     super.key,
-//     required MultiSelectController controller,
-//   }) : _controller = controller;
+class EducationPref extends StatelessWidget {
+   EducationPref({
+    super.key,
+    required MultiSelectController<String> controller,
+  }) : _controller = controller;
 
-//   final List<String> items = ['B-Tec', 'Degree', 'Diploma', 'It'];
-//   final MultiSelectController _controller;
+  final List<String> items = ['B-Tec', 'Degree', 'Diploma', 'It'];
+  final MultiSelectController<String> _controller;
 
-//   @override
-//   Widget build(BuildContext context) {
-//     // creating a list of valueItem widget from the values.
-//     List<ValueItem> valueItems = items
-//         .map((item) => ValueItem(label: item, value: item)) 
-//         .toList();
-//     return MultiSelectDropDown(
-      
-//       // searchEnabled: true,
-//       hint: 'Education',
-//       controller: _controller,
-//       onOptionSelected: (List<ValueItem> selectedOptions) {
-//       },
-//       options:valueItems,
-//       selectionType: SelectionType.multi,
-//       chipConfig: const ChipConfig(wrapType: WrapType.wrap),
-//       dropdownHeight: 300,
-//       optionTextStyle: const TextStyle(fontSize: 16),
-//       selectedOptionIcon: const Icon(Icons.check_circle),
-    
-//     );
-//   }
-// }
+  @override
+  Widget build(BuildContext context) {
+    // creating a list of valueItem widget from the values.
+   List<DropdownItem<String>> valueItems =
+        items.map((item) => DropdownItem(label: item, value: item)).toList();
+    return MultiDropdown<String>(
+      items: valueItems,
+      controller: _controller,
+      chipDecoration: ChipDecoration(
+          borderRadius: BorderRadius.circular(JSize.borderRadMd),
+          backgroundColor: JColor.secondary),
+      fieldDecoration: FieldDecoration(hintText: 'Education'),
+      dropdownDecoration: DropdownDecoration(
+        elevation: 1,
+        maxHeight: 300,
+      ),
+      dropdownItemDecoration:
+          DropdownItemDecoration(selectedTextColor: JColor.success),
+    );
+  }
+}

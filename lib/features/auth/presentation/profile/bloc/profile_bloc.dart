@@ -10,6 +10,7 @@ import 'package:ishq/core/common/sessions/current_user_prefs.dart';
 import 'package:ishq/core/common/usecase/empty_params.dart';
 import 'package:ishq/features/auth/domain/usecases/add_preferences.dart';
 import 'package:ishq/features/auth/domain/usecases/caches/set_login_usecase.dart';
+import 'package:ishq/features/auth/domain/usecases/edit_preferences.dart';
 import 'package:ishq/features/auth/domain/usecases/fetch_current_user.dart';
 import 'package:ishq/features/auth/domain/usecases/fetch_current_user_preferences.dart';
 import 'package:ishq/features/auth/domain/usecases/save_user_data.dart';
@@ -21,6 +22,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   final FetchCurrentUserUsecase _fetchCurrentUserUsecase;
   final SetLogin _setLogin;
   final AddPreferencesUC _addPreferencesUC;
+  final EditPreferencesUC _editPreferencesUC;
   final FetchCurrentUserPreferencesUC _currentUserPreferencesUC;
 
   ProfileBloc(
@@ -28,11 +30,13 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
       required FetchCurrentUserUsecase fetchCurrentUser,
       required SetLogin setLoginUsecase,
       required AddPreferencesUC addPreferenceUC,
+      required EditPreferencesUC editPreferenceUC,
       required FetchCurrentUserPreferencesUC fetchCurrentUserPreference})
       : _saveUserUsecase = saveUser,
         _fetchCurrentUserUsecase = fetchCurrentUser,
         _setLogin = setLoginUsecase,
         _addPreferencesUC = addPreferenceUC,
+        _editPreferencesUC = editPreferenceUC,
         _currentUserPreferencesUC = fetchCurrentUserPreference,
         super(ProfileInitial()) {
     // on<ProfileEvent>((event, emit) => emit(ProfileLoading()));
@@ -44,6 +48,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     on<AddProfilePhoto>(_onAddPhotos);
     on<SaveUser>(_onSaveUser);
     on<AddPreferences>(_onAddPreferences);
+    on<EditPreferences>(_onEditPreferences);
   }
 
   @override
@@ -230,6 +235,8 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
         ..maritalStatusPref = pref.maritalStatusPref
         ..jobPref = pref.jobPref
         ..isPrefAdded = true;
+
+        log('Preferences have been updated');
     });
   }
 
@@ -255,6 +262,47 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
       ..maritalStatusPref = event.maritalStatusPref
       ..jobPref = event.jobPref
       ..isPrefAdded = true;
+    final preferences = await _currentUserPreferencesUC(EmptyParams());
+    preferences.fold((error) => null, (pref) {
+      CurrentUserPreferences()
+        ..ageStart = pref.ageStart
+        ..ageEnd = pref.ageEnd
+        ..heightStart = pref.heightStart
+        ..heightEnd = pref.heightEnd
+        ..educationPref = pref.educationPref
+        ..maritalStatusPref = pref.maritalStatusPref
+        ..jobPref = pref.jobPref
+        ..isPrefAdded = true;
+    });
+    res.fold((l) => emit(AddPreferencesFailure(error: l.message)),
+        (r) => emit(AddPreferencesSuccess()));
+  }
+
+// -----------------------------------------------------------------------------------------------
+
+  FutureOr<void> _onEditPreferences(
+      EditPreferences event, Emitter<ProfileState> emit) async {
+    emit(ProfileLoading());
+    final res = await _editPreferencesUC(EditPreferencesParams(
+      uid: event.uid,
+      ageStart: event.ageStart,
+      ageEnd: event.ageEnd,
+      heightStart: event.heightStart,
+      heightEnd: event.heightEnd,
+      maritalStatusPref: event.maritalStatusPref,
+      educationPref: event.educationPref,
+      jobPref: event.jobPref,
+    ));
+     CurrentUserPreferences()
+      ..ageStart = event.ageStart ?? '18'
+      ..ageEnd = event.ageEnd ?? '60'
+      ..heightStart = event.heightStart ?? '4.0'
+      ..heightEnd = event.heightEnd ?? '7.0'
+      ..educationPref = event.educationPref ?? ['Any']
+      ..maritalStatusPref = event.maritalStatusPref ?? ['Any']
+      ..jobPref = event.jobPref ?? ['Any']
+      ..isPrefAdded = true;
+
     final preferences = await _currentUserPreferencesUC(EmptyParams());
     preferences.fold((error) => null, (pref) {
       CurrentUserPreferences()

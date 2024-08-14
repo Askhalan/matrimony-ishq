@@ -16,6 +16,7 @@ abstract interface class ProfileRemoteDatasource {
   Future<UserModel> fetchCurrentUser();
   Future<PrefModel> fetchCurrentUserPreference();
   Future addPreference({required PrefModel preferences});
+  Future editPreference({required PrefModel preferences});
   Future<String> uploadImage({required String path, required XFile image});
 }
 
@@ -74,7 +75,7 @@ class ProfileRemoteDatasourceImpl extends ProfileRemoteDatasource {
     try {
       await db
           .collection('users')
-          .doc(preferences.uid)
+          .doc(auth.currentUser!.uid)
           .collection('preferences')
           .doc(auth.currentUser!.uid)
           .set(preferences.toJson());
@@ -113,7 +114,7 @@ class ProfileRemoteDatasourceImpl extends ProfileRemoteDatasource {
     } on JPlatformException catch (e) {
       throw JPlatformException(e.code).message;
     } catch (e) {
-      throw 'something went wrong . Please try again $e';
+      throw 'something went wrong .Please try again $e';
     }
   }
 
@@ -126,6 +127,26 @@ class ProfileRemoteDatasourceImpl extends ProfileRemoteDatasource {
       await ref.putFile(File(image.path));
       final url = await ref.getDownloadURL();
       return url;
+    } on FirebaseException catch (e) {
+      throw JFirebaseException(e.code).message;
+    } on JFormatException catch (_) {
+      throw const JFormatException();
+    } on JPlatformException catch (e) {
+      throw JPlatformException(e.code).message;
+    } catch (e) {
+      throw 'something went wrong . Please try again';
+    }
+  }
+  
+  @override
+  Future editPreference({required PrefModel preferences}) async {
+   try {
+      await db
+          .collection('users')
+          .doc(auth.currentUser!.uid)
+          .collection('preferences')
+          .doc(auth.currentUser!.uid)
+          .update(preferences.toJson());
     } on FirebaseException catch (e) {
       throw JFirebaseException(e.code).message;
     } on JFormatException catch (_) {

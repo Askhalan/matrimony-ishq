@@ -12,6 +12,7 @@ import 'package:ishq/features/auth/domain/usecases/add_preferences.dart';
 import 'package:ishq/features/auth/domain/usecases/caches/check_login.dart';
 import 'package:ishq/features/auth/domain/usecases/caches/remove_session_usecase.dart';
 import 'package:ishq/features/auth/domain/usecases/caches/set_login_usecase.dart';
+import 'package:ishq/features/auth/domain/usecases/edit_preferences.dart';
 import 'package:ishq/features/auth/domain/usecases/fetch_current_user.dart';
 import 'package:ishq/features/auth/domain/usecases/fetch_current_user_preferences.dart';
 import 'package:ishq/features/auth/domain/usecases/login_usecae.dart';
@@ -51,7 +52,8 @@ class AuthDependencies {
           checkLoginUsecse: serviceLocator(),
           setLoginUsecase: serviceLocator(),
           logoutUsecase: serviceLocator(),
-          removeSessionUC: serviceLocator(), fetchCurrentUserPreference: serviceLocator()));
+          removeSessionUC: serviceLocator(),
+          fetchCurrentUserPreference: serviceLocator()));
     // Here we are using lazysingleto to maintain the state of block
   }
 
@@ -72,11 +74,14 @@ class AuthDependencies {
           () => AddPreferencesUC(profileRepository: serviceLocator()))
       ..registerFactory(() =>
           FetchCurrentUserPreferencesUC(profileRepository: serviceLocator()))
+          ..registerFactory(() =>
+          EditPreferencesUC(profileRepository: serviceLocator()))
       ..registerLazySingleton(() => ProfileBloc(
           saveUser: serviceLocator(),
           fetchCurrentUser: serviceLocator(),
           setLoginUsecase: serviceLocator(),
           addPreferenceUC: serviceLocator(),
+          editPreferenceUC: serviceLocator(),
           fetchCurrentUserPreference: serviceLocator()));
   }
 }

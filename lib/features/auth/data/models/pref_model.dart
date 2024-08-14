@@ -19,9 +19,9 @@ class PrefModel extends PrefEntity {
     String? ageEnd,
     String? heightStart,
     String? heightEnd,
-    List<dynamic>? maritalStatusPref,
-    List<dynamic>? educationPref,
-    List<dynamic>? jobPref,
+    List<String>? maritalStatusPref,
+    List<String>? educationPref,
+    List<String>? jobPref,
   }) {
     return PrefModel(
       uid: uid ?? this.uid,
@@ -69,9 +69,9 @@ class PrefModel extends PrefEntity {
         ageEnd: data['ageEnd'] ?? '',
         heightStart: data['heightStart'] ?? '',
         heightEnd: data['heightEnd'] ?? '',
-        maritalStatusPref: data['maritalStatusPref'] ?? [] ,
-        educationPref: data['educationPref'] ?? [],
-        jobPref: data['jobPref'] ?? [],
+       maritalStatusPref: (data['maritalStatusPref'] as List<dynamic>?)?.cast<String>() ?? [],
+      educationPref: (data['educationPref'] as List<dynamic>?)?.cast<String>() ?? [],
+      jobPref: (data['jobPref'] as List<dynamic>?)?.cast<String>() ?? [],
         
       );
     } else {

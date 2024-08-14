@@ -25,6 +25,17 @@ class MatchBloc extends Bloc<MatchEvent, MatchState> {
     on<LoadAllCategories>(_onLoadAllCategeories);
   }
 
+
+ @override
+  void onTransition(Transition<MatchEvent, MatchState> transition) {
+    super.onTransition(transition);
+
+    // Perform an action when transitioning to ProfileSuccess state
+    if (transition.nextState is FetchUsersSuccessfull) {
+      
+    }
+    
+  }
   Future<void> _onGetAllUser(
       GetAllusers event, Emitter<MatchState> emit) async {
     emit(FetchUserLoading());

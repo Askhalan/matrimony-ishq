@@ -85,7 +85,7 @@ final class AddProfilePhoto extends ProfileEvent {
 
 final class SaveUser extends ProfileEvent {}
 
-//---------------- Add Basic Details ---------------
+//---------------- Add Preferences ---------------
 
 final class AddPreferences extends ProfileEvent {
   final String? uid;
@@ -93,12 +93,34 @@ final class AddPreferences extends ProfileEvent {
   final String ageEnd;
   final String heightStart;
   final String heightEnd;
-  final List<dynamic> maritalStatusPref;
-  final List<dynamic> educationPref;
-  final List<dynamic> jobPref;
+  final List<String> maritalStatusPref;
+  final List<String> educationPref;
+  final List<String> jobPref;
 
   AddPreferences(
       {required this.uid,
+      required this.ageStart,
+      required this.ageEnd,
+      required this.heightStart,
+      required this.heightEnd,
+      required this.maritalStatusPref,
+      required this.educationPref,
+      required this.jobPref});
+}
+
+//---------------- Edit Preferences ---------------
+
+final class EditPreferences extends ProfileEvent {
+  final String? uid;
+  final String? ageStart;
+  final String? ageEnd;
+  final String? heightStart;
+  final String? heightEnd;
+  final List<String>? maritalStatusPref;
+  final List<String>? educationPref;
+  final List<String>? jobPref;
+
+  EditPreferences({required this.uid,
       required this.ageStart,
       required this.ageEnd,
       required this.heightStart,

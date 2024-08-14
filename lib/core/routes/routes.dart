@@ -29,6 +29,7 @@ class Routes {
   static const String addPreferenceScn = '/addPreferenceScn';
   static const String editPreferenceScn = '/editPreferenceScn';
   static const String addProfileImgScn = '/addProfileImgScn';
+ 
   
   
 
@@ -49,6 +50,8 @@ class Routes {
       addPreferenceScn: (context) => ScnAddPreference(),
       editPreferenceScn: (context) => ScnEditPreference(),
       addProfileImgScn: (context) => ScnAddProfileImg(),
+     
+
     };
   }
 }

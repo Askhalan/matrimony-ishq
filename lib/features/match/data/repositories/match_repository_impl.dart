@@ -7,6 +7,7 @@ import 'package:ishq/features/match/data/datasources/match_datasource.dart';
 import 'package:ishq/features/match/data/models/user_model_match.dart';
 import 'package:ishq/features/match/domain/repositories/match_repository.dart';
 import 'package:ishq/utils/error/failure.dart';
+import 'package:ishq/utils/helpers/data_helpers.dart';
 
 class MatchRepositoryImpl implements MatchRepository {
   final MatchDatasource matchDataSource;
@@ -66,35 +67,43 @@ class MatchRepositoryImpl implements MatchRepository {
   @override
   Future<Either<Failure, List<UserEntity>>> fetchAgeMatchUsers() async {
     try {
-      log( int.parse(CurrentUserPreferences().ageStart ?? '0').toString());
+      log(int.parse(CurrentUserPreferences().ageStart ?? '0').toString());
       final users = await matchDataSource.getAllUser();
       final List<UserModelMatch> ageMachedUsers = [];
       //----- Implementing categorization logics
       for (final user in users) {
+        log('${int.parse(user.dob)} > ${DataHelper.safeParseInt(CurrentUserPreferences().ageStart, defaultValue: 18)}');
+        log('${int.parse(user.dob)} < ${DataHelper.safeParseInt(CurrentUserPreferences().ageEnd, defaultValue: 60)}');
         if (int.parse(user.dob) >
-                int.parse(CurrentUserPreferences().ageStart ?? '0') 
-                // && int.parse(user.dob) < int.parse(CurrentUserPreferences().ageEnd)
-            ) {
+                DataHelper.safeParseInt(CurrentUserPreferences().ageStart,
+                    defaultValue: 18) &&
+            int.parse(user.dob) <
+                DataHelper.safeParseInt(CurrentUserPreferences().ageEnd,
+                    defaultValue: 60)) {
           ageMachedUsers.add(user);
         }
       }
+
+      log(ageMachedUsers.toString());
       return right(ageMachedUsers);
     } catch (e) {
       return left(Failure(e.toString()));
     }
   }
 
-
 //---------------------------- Marital Status Based Categeorization -------------------------------------
 
   @override
-  Future<Either<Failure, List<UserEntity>>> fetchMritalStatusMatchUsers() async {
+  Future<Either<Failure, List<UserEntity>>>
+      fetchMritalStatusMatchUsers() async {
     try {
       final users = await matchDataSource.getAllUser();
       final List<UserModelMatch> locationMachedUsers = [];
       //----- Implementing categorization logics
       for (final user in users) {
-        if (CurrentUserPreferences().maritalStatusPref!.contains(user.maritalStatus)) {
+        if (CurrentUserPreferences()
+            .maritalStatusPref!
+            .contains(user.maritalStatus)) {
           locationMachedUsers.add(user);
         }
       }

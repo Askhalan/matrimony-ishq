@@ -1,7 +1,6 @@
-
-
 import 'package:fpdart/fpdart.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:ishq/core/common/sessions/current_user_prefs.dart';
 import 'package:ishq/features/auth/data/datasources/profile_remote_datasource.dart';
 import 'package:ishq/features/auth/data/models/pref_model.dart';
 import 'package:ishq/features/auth/data/models/user_model.dart';
@@ -99,9 +98,9 @@ class ProfileRepositoryImpl implements ProfileRepository {
       required String ageEnd,
       required String heightStart,
       required String heightEnd,
-      required List<dynamic> maritalStatusPref,
-      required List<dynamic> educationPref,
-      required List<dynamic> jobPref}) async {
+      required List<String> maritalStatusPref,
+      required List<String> educationPref,
+      required List<String> jobPref}) async {
     try {
       PrefModel preferences = PrefModel(
         uid: uid,
@@ -124,10 +123,39 @@ class ProfileRepositoryImpl implements ProfileRepository {
 
   @override
   Future<Either<Failure, PrefModel>> fetchCurrentUserPreferences() async {
-    
     try {
       final res = await profileDataSource.fetchCurrentUserPreference();
       return right(res);
+    } catch (e) {
+      return left(Failure(e.toString()));
+    }
+  }
+
+//==================================================================================================================
+
+  @override
+  Future<Either<Failure, Null>> editUserPreference(
+      {String? uid,
+      required String? ageStart,
+      required String? ageEnd,
+      required String? heightStart,
+      required String? heightEnd,
+      required List<String>? maritalStatusPref,
+      required List<String>? educationPref,
+      required List<String>? jobPref}) async {
+    try {
+      PrefModel preferences = PrefModel(
+        ageStart: ageStart ?? CurrentUserPreferences().ageStart!,
+        ageEnd: ageEnd ?? CurrentUserPreferences().ageEnd!,
+        heightStart: heightStart ?? CurrentUserPreferences().heightStart!,
+        heightEnd: heightEnd ?? CurrentUserPreferences().heightEnd!,
+        maritalStatusPref:
+            maritalStatusPref ?? CurrentUserPreferences().maritalStatusPref!,
+        educationPref: educationPref ?? CurrentUserPreferences().educationPref!,
+        jobPref: jobPref ?? CurrentUserPreferences().jobPref!,
+      );
+      await profileDataSource.editPreference(preferences: preferences);
+      return right(null);
     } catch (e) {
       return left(Failure(e.toString()));
     }

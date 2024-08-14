@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ishq/features/match/presentation/bloc/match_bloc.dart';
@@ -39,20 +37,20 @@ class SecProfessionalMatches extends StatelessWidget {
                 );
               }
               if (state is HomeSuccess) {
-                final allUsers = state.ageMatches;
-                return allUsers.isEmpty
+                final ageMatchUsers = state.ageMatches;
+                return ageMatchUsers.isEmpty
                     ? Center(child: Text(JTexts.MATCHES_EMPTY_MESSAGE))
                     : ListView.builder(
                         scrollDirection: Axis.horizontal,
-                        itemCount: allUsers.length,
+                        itemCount: ageMatchUsers.length,
                         itemBuilder: (BuildContext context, int index) {
                           return UserVerticalCard(
-                            user: allUsers[index],
+                            user: ageMatchUsers[index],
                           );
                         },
                       );
               }
-              if(state is HomeFailure){
+              if (state is HomeFailure) {
                 return Center(child: Text(state.message));
               }
               return SizedBox();

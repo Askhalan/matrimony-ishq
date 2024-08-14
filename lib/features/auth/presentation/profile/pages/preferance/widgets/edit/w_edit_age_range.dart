@@ -1,14 +1,21 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 import 'package:ishq/core/common/sessions/current_user_prefs.dart';
 import 'package:ishq/utils/constants/colors.dart';
 import 'package:ishq/utils/constants/sizes.dart';
 import 'package:syncfusion_flutter_sliders/sliders.dart';
 
-// ignore: must_be_immutable
 class AgeRangeEdit extends StatefulWidget {
-  AgeRangeEdit({super.key, required this.ageRange});
+  AgeRangeEdit({
+    super.key,
+    required this.ageRange,
+    required this.onRangeChanged, // Callback to notify changes
+  });
   SfRangeValues ageRange;
-  final userPref =CurrentUserPreferences();
+  final void Function(SfRangeValues) onRangeChanged; // Callback
+  final userPref = CurrentUserPreferences();
+
   @override
   State<AgeRangeEdit> createState() => _AgeRangeState();
 }
@@ -16,17 +23,18 @@ class AgeRangeEdit extends StatefulWidget {
 class _AgeRangeState extends State<AgeRangeEdit> {
   @override
   Widget build(BuildContext context) {
-   
     return Row(
       children: [
         Container(
           width: 130,
           padding: EdgeInsets.all(10),
           decoration: BoxDecoration(
-              color: JColor.secondary,
-              borderRadius: BorderRadius.circular(JSize.borderRadMd)),
+            color: JColor.secondary,
+            borderRadius: BorderRadius.circular(JSize.borderRadMd),
+          ),
           child: Text(
-              'Age: ${widget.ageRange.start.toString().substring(0, 2)} - ${widget.ageRange.end.toString().substring(0, 2)}'),
+            'Age: ${widget.ageRange.start.toString().substring(0, 2)} - ${widget.ageRange.end.toString().substring(0, 2)}',
+          ),
         ),
         Flexible(
           child: SfRangeSlider(
@@ -39,6 +47,7 @@ class _AgeRangeState extends State<AgeRangeEdit> {
             onChanged: (SfRangeValues values) {
               setState(() {
                 widget.ageRange = values;
+                widget.onRangeChanged(values); // Notify parent of the change
               });
             },
             activeColor: JColor.secondary,
