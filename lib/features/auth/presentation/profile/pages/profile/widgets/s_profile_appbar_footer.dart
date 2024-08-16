@@ -13,7 +13,7 @@ class ProfileAppbarFooter extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 25),
+      padding: EdgeInsets.symmetric(horizontal: 35),
       child: Row(
         children: [
           //------------------------- EDIT PROFILE -------------------------
@@ -48,7 +48,7 @@ class ProfileAppbarFooter extends StatelessWidget {
               ),
             ),
           ),
-          JGap(),
+          // JGap(),
 
           //-------------------------- UPGRADE PLAN --------------------------
 

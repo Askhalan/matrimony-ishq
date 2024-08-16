@@ -95,6 +95,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   //------------------------------------------------------------------------------
 
   void handleprofileSuccess() async {
+    log('handle Profile success working ');
     final res = await _fetchCurrentUserUsecase(EmptyParams());
     res.fold((l) => throw l, (r) {
       CurrentUser()

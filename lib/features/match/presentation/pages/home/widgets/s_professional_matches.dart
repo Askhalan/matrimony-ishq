@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:ishq/core/dependencies/init_dependencies.dart';
-import 'package:ishq/features/match/data/datasources/match_datasource.dart';
-import 'package:ishq/features/match/data/repositories/match_repository_impl.dart';
-import 'package:ishq/features/match/domain/usecases/categeory_usecases/age_match_uc.dart';
 import 'package:ishq/features/match/presentation/bloc/match_bloc.dart';
 import 'package:ishq/features/match/presentation/widgets/user_card/s_user_vertical_card.dart';
 import 'package:ishq/features/match/presentation/widgets/user_card/vertical_user_card_loader.dart';
@@ -15,9 +11,7 @@ class SecProfessionalMatches extends StatelessWidget {
   SecProfessionalMatches({
     super.key,
   });
-  final MatchDataSourceImpl dataSource =
-      MatchDataSourceImpl(db: serviceLocator());
-     final MatchRepositoryImpl agee = MatchRepositoryImpl(matchDataSource: serviceLocator());
+ 
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -46,13 +40,7 @@ class SecProfessionalMatches extends StatelessWidget {
                 final ageMatchUsers = state.ageMatches;
                 return ageMatchUsers.isEmpty
                     ? Center(child: Text(JTexts.MATCHES_EMPTY_MESSAGE))
-                    : FutureBuilder(
-                        future: agee.fetchAgeMatchUsers(),
-                        builder: (context, snapshot) {
-                          if(snapshot.data!.isEmpty){
-                            return Text('Yoy dont ahve any match here');
-                          }
-                          return ListView.builder(
+                    : ListView.builder(
                             scrollDirection: Axis.horizontal,
                             itemCount: ageMatchUsers.length,
                             itemBuilder: (BuildContext context, int index) {
@@ -61,8 +49,6 @@ class SecProfessionalMatches extends StatelessWidget {
                               );
                             },
                           );
-                        },
-                      );
               }
               if (state is HomeFailure) {
                 return Center(child: Text(state.message));

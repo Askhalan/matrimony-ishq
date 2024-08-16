@@ -235,7 +235,8 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
         ..maritalStatusPref = pref.maritalStatusPref
         ..jobPref = pref.jobPref
         ..isPrefAdded = true;
-
+   
+   
         log('Preferences have been updated');
     });
   }
@@ -274,6 +275,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
         ..jobPref = pref.jobPref
         ..isPrefAdded = true;
     });
+    await Future.delayed(Duration(milliseconds: 500));
     res.fold((l) => emit(AddPreferencesFailure(error: l.message)),
         (r) => emit(AddPreferencesSuccess()));
   }

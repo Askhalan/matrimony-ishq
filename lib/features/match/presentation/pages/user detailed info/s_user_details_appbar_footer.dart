@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:ishq/core/common/widgets/spaces/gap.dart';
-import 'package:ishq/core/routes/routes.dart';
 
 import 'package:ishq/utils/constants/colors.dart';
 
@@ -13,7 +12,7 @@ class UserDetailsAppbarFooter extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 25),
+      padding: EdgeInsets.symmetric(horizontal: 35,vertical: 5),
       child: Row(
         children: [
           //------------------------- EDIT PROFILE -------------------------
@@ -38,7 +37,7 @@ class UserDetailsAppbarFooter extends StatelessWidget {
             flex: 3,
             child: ElevatedButton(
               onPressed: () {
-                Navigator.pushNamed(context, Routes.editPreferenceScn);
+               
               },
               style: ButtonStyle(
                   backgroundColor: WidgetStatePropertyAll(JColor.white)),
@@ -48,7 +47,7 @@ class UserDetailsAppbarFooter extends StatelessWidget {
               ),
             ),
           ),
-          JGap(),
+         
 
           //-------------------------- UPGRADE PLAN --------------------------
 

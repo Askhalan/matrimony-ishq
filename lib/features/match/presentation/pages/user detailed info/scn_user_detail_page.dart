@@ -22,6 +22,7 @@ class ScnUserDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: JAppbar(
+        centerTitle: true,
         footerPinned: false,
         floating: false,
         showBackArrow: false,
@@ -68,11 +69,9 @@ class ScnUserDetails extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.all(15),
                         child: Table(
-
                           children: [
                             // ---------------------------------
-                            TableRow(
-                              children: [
+                            TableRow(children: [
                               JDetailsTableCell(
                                 text: 'Family Type',
                               ),

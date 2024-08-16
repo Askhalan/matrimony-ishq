@@ -50,17 +50,17 @@ class MatchBloc extends Bloc<MatchEvent, MatchState> {
 
   Future<void> _onLoadAllCategeories(
       LoadAllCategories event, Emitter<MatchState> emit) async {
-    // emit(HomeLoading());
-    // final ageMatches = await _matchAgeUC(EmptyParams());
-    // final locationMatches = await _matchMaritalStatusUC(EmptyParams());
-    // ageMatches.fold((l) => emit(HomeFailure(message: l.message)), (ageMatches) {
-    //   locationMatches.fold((l) => emit(HomeFailure(message: l.message)),
-    //       (maritalStatusMatches) {
-    //     emit(HomeSuccess(
-    //       ageMatches: ageMatches,
-    //       maritalStatusMatches: maritalStatusMatches,
-    //     ));
-    //   });
-    // });
+    emit(HomeLoading());
+    final ageMatches = await _matchAgeUC(EmptyParams());
+    final locationMatches = await _matchMaritalStatusUC(EmptyParams());
+    ageMatches.fold((l) => emit(HomeFailure(message: l.message)), (ageMatches) {
+      locationMatches.fold((l) => emit(HomeFailure(message: l.message)),
+          (maritalStatusMatches) {
+        emit(HomeSuccess(
+          ageMatches: ageMatches,
+          maritalStatusMatches: maritalStatusMatches,
+        ));
+      });
+    });
   }
 }

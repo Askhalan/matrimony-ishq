@@ -19,6 +19,7 @@ abstract interface class AuthRemoteDatasource {
   Future logoutUser();
 }
 
+
 class AuthRemoteDataSourceImpl extends AuthRemoteDatasource {
   final FirebaseAuth authInstance;
 
