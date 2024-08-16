@@ -27,17 +27,14 @@ class MatchBloc extends Bloc<MatchEvent, MatchState> {
     on<LoadAllCategories>(_onLoadAllCategeories);
   }
 
-
- @override
+  @override
   void onTransition(Transition<MatchEvent, MatchState> transition) {
     super.onTransition(transition);
 
     // Perform an action when transitioning to ProfileSuccess state
-    if (transition.nextState is FetchUsersSuccessfull) {
-      
-    }
-    
+    if (transition.nextState is FetchUsersSuccessfull) {}
   }
+
   Future<void> _onGetAllUser(
       GetAllusers event, Emitter<MatchState> emit) async {
     emit(FetchUserLoading());
@@ -51,15 +48,22 @@ class MatchBloc extends Bloc<MatchEvent, MatchState> {
   Future<void> _onLoadAllCategeories(
       LoadAllCategories event, Emitter<MatchState> emit) async {
     emit(HomeLoading());
+    final allUsers = await _matchAgeUC(EmptyParams());
     final ageMatches = await _matchAgeUC(EmptyParams());
     final locationMatches = await _matchMaritalStatusUC(EmptyParams());
     ageMatches.fold((l) => emit(HomeFailure(message: l.message)), (ageMatches) {
       locationMatches.fold((l) => emit(HomeFailure(message: l.message)),
           (maritalStatusMatches) {
-        emit(HomeSuccess(
-          ageMatches: ageMatches,
-          maritalStatusMatches: maritalStatusMatches,
-        ));
+        allUsers.fold(
+          (l) => emit(HomeFailure(message: l.message)),
+          (allUsers) {
+            emit(HomeSuccess(
+              allUsers: allUsers,
+              ageMatches: ageMatches,
+              maritalStatusMatches: maritalStatusMatches,
+            ));
+          },
+        );
       });
     });
   }

@@ -11,7 +11,7 @@ class SecProfessionalMatches extends StatelessWidget {
   SecProfessionalMatches({
     super.key,
   });
- 
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -41,14 +41,14 @@ class SecProfessionalMatches extends StatelessWidget {
                 return ageMatchUsers.isEmpty
                     ? Center(child: Text(JTexts.MATCHES_EMPTY_MESSAGE))
                     : ListView.builder(
-                            scrollDirection: Axis.horizontal,
-                            itemCount: ageMatchUsers.length,
-                            itemBuilder: (BuildContext context, int index) {
-                              return UserVerticalCard(
-                                user: ageMatchUsers[index],
-                              );
-                            },
+                        scrollDirection: Axis.horizontal,
+                        itemCount: ageMatchUsers.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          return UserVerticalCard(
+                            user: ageMatchUsers[index],
                           );
+                        },
+                      );
               }
               if (state is HomeFailure) {
                 return Center(child: Text(state.message));

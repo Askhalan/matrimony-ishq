@@ -63,6 +63,7 @@ class JTexts {
   static const String homeappBarSubtitle ="Let's find your better half";
 
   static const String TOP_MATCHES = "Top Matches";
+  static const String ALL_MATCHES = "All Matches";
   static const String PROFESSIONAL_MATCHES = 'Professional Matches';
   static const String LIFESTYLE_MATCHES = 'Lifestyle Matches';
   static const String FAMILY_MATCHES = 'Family Matches';

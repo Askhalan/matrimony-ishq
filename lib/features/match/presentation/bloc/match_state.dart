@@ -27,12 +27,14 @@ class HomeSuccess extends MatchState {
   // final List<UserEntity>? professionalMatches;
   // final List<UserEntity>? familyMatches;
   final List<UserEntity> ageMatches;
+  final List<UserEntity> allUsers;
   final List<UserEntity> maritalStatusMatches;
 
   HomeSuccess(
     // this.professionalMatches,
     // this.familyMatches, 
     {
+      required this.allUsers, 
     required this.ageMatches,
     required this.maritalStatusMatches,
   });

@@ -2,35 +2,35 @@
 
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:ishq/core/common/entities/user_entity.dart';
+import 'package:ishq/core/common/widgets/images/cached_network_image.dart';
 import 'package:ishq/core/common/widgets/profile_details_labe.dart';
 import 'package:ishq/core/common/widgets/spaces/gap.dart';
+import 'package:ishq/features/match/presentation/pages/user%20detailed%20info/scn_user_detail_page.dart';
 import 'package:ishq/utils/constants/colors.dart';
 import 'package:ishq/utils/constants/sizes.dart';
+import 'package:ishq/utils/helpers/helper_functions.dart';
 
 class WUserCardHorizondal extends StatelessWidget {
-  WUserCardHorizondal(
-      {super.key,
-      required this.image,
-      required this.name,
-      required this.age,
-      required this.state,
-      required this.cast,
-      this.onTap});
-  void Function()? onTap;
-  final String image;
-  final String name;
-  final String age;
-  final String state;
-  final String cast;
+  const WUserCardHorizondal({super.key, required this.user});
+  final UserEntity user;
 
   @override
   Widget build(BuildContext context) {
+    final bool isDark = JHelperFunctions.isDarkMode(context);
     return InkWell(
-      onTap: onTap,
+      onTap: () {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => ScnUserDetails(user: user),
+            ));
+      },
       child: Container(
           padding: EdgeInsets.all(10),
           decoration: BoxDecoration(
-              color: const Color.fromARGB(255, 235, 72, 113),
+              boxShadow: [JColor.boxSHadow],
+              color: isDark ? JColor.dark : JColor.white,
               borderRadius: BorderRadius.circular(JSize.borderRadXl)),
           child: Row(
             children: [
@@ -39,15 +39,18 @@ class WUserCardHorizondal extends StatelessWidget {
                 aspectRatio: 4 / 5,
                 child: Container(
                   decoration: BoxDecoration(
-                      color: Color.fromARGB(255, 72, 213, 235),
+                      // color: Color.fromARGB(255, 72, 213, 235),
                       borderRadius: BorderRadius.circular(JSize.borderRadXl)),
                   child: ClipRRect(
-                    borderRadius: BorderRadius.circular(JSize.borderRadXl),
-                    child: Image.asset(
-                      image,
-                      fit: BoxFit.cover,
-                    ),
-                  ),
+                      borderRadius: BorderRadius.circular(10),
+
+                      //----------------- Profile Image --------
+                      child: JNetworImage(
+                        image: user.profileImage,
+                        isNetworkImage: true,
+                        height: 150,
+                        width: 155,
+                      )),
                 ),
               ),
               JGap(
@@ -63,11 +66,10 @@ class WUserCardHorizondal extends StatelessWidget {
                   children: [
                     //------------Name------------
                     Text(
-                      name,
+                      user.name,
                       style: Theme.of(context)
                           .textTheme
-                          .headlineMedium!
-                          .copyWith(color: JColor.white),
+                          .headlineMedium
                     ),
                     JGap(
                       h: 10,
@@ -75,16 +77,18 @@ class WUserCardHorizondal extends StatelessWidget {
 
                     //------------Age------------
 
-                    ProfileDetailsLabel(text: age, icon: Iconsax.calendar),
+                    ProfileDetailsLabel(text: user.dob, icon: Iconsax.calendar,isThemeNeede: true,),
                     JGap(h: 5),
 
                     //------------Location------------
 
-                    ProfileDetailsLabel(text: state, icon: Iconsax.location),
+                    ProfileDetailsLabel(
+                        text: user.state, icon: Iconsax.location,isThemeNeede: true,),
                     JGap(h: 5),
 
                     //------------Location------------
-                    ProfileDetailsLabel(text: cast, icon: Iconsax.moon),
+                    ProfileDetailsLabel(
+                        text: user.maritalStatus, icon: Iconsax.link,isThemeNeede: true,),
                   ],
                 ),
               )

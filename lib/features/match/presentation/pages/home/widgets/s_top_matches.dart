@@ -1,8 +1,10 @@
 import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:ishq/features/match/presentation/bloc/match_bloc.dart';
+import 'package:ishq/features/match/presentation/pages/home/widgets/loaders/w_top_match_loader.dart';
 import 'package:ishq/features/match/presentation/widgets/w_card_horizondal.dart';
 import 'package:ishq/features/match/presentation/widgets/w_section_label.dart';
-import 'package:ishq/utils/constants/image_strings.dart';
 import 'package:ishq/utils/constants/text_strings.dart';
 
 class SecTopMatches extends StatelessWidget {
@@ -14,29 +16,50 @@ class SecTopMatches extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        
         //-------------------------------- Section Label --------------------------------
         JSectionLabel(
-          heading: JTexts.TOP_MATCHES,
+          heading: 'All Users',
           action: JTexts.SEE_MORE,
           onTap: () {},
         ),
 
         //-------------------------------- Carousel --------------------------------
         SizedBox(
+         
           height: 180,
-          child: Swiper(
-            itemCount: 10,
-            viewportFraction: 0.8,
-            scale: 0.9,
-            itemBuilder: (context, index) {
-              return WUserCardHorizondal(
-                image: JImages.defaultUser,
-                age: "27 years",
-                cast: "Sunni",
-                name: 'Fidha Fathima',
-                state: "Koilandi",
-              );
+          child: BlocBuilder<MatchBloc, MatchState>(
+            builder: (context, state) {
+              if (state is HomeLoading) {
+                return ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  itemCount: 4,
+                  itemBuilder: (BuildContext context, int index) {
+                    return TopMatchCardLoader();
+                  },
+                );
+              }
+              if (state is HomeSuccess) {
+                final ageMatchUsers = state.ageMatches;
+                return ageMatchUsers.isEmpty
+                    ? Center(child: Text(JTexts.MATCHES_EMPTY_MESSAGE))
+                    : Swiper(
+                        itemCount: ageMatchUsers.length,
+                        viewportFraction: 0.8,
+                        scale: 0.9,
+                        itemBuilder: (context, index) {
+                          return Padding(
+                            padding: const EdgeInsets.symmetric(vertical: 5),
+                            child: WUserCardHorizondal(
+                              user: ageMatchUsers[index],
+                            ),
+                          );
+                        },
+                      );
+              }
+              if (state is HomeFailure) {
+                return Center(child: Text(state.message));
+              }
+              return SizedBox();
             },
           ),
         ),
