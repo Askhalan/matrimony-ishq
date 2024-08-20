@@ -73,7 +73,7 @@ class MatchRepositoryImpl implements MatchRepository {
       final List<UserModelMatch> ageMachedUsers = [];
       //----- Implementing categorization logics
       for (final user in users) {
-        log('${int.parse(user.dob)} > ${DataHelper.safeParseInt(CurrentUserPreferences().ageStart, defaultValue: 18)}');
+        log('${int.parse(user.dob).runtimeType } > ${DataHelper.safeParseInt(CurrentUserPreferences().ageStart, defaultValue: 18).runtimeType }');
         log('${int.parse(user.dob)} < ${DataHelper.safeParseInt(CurrentUserPreferences().ageEnd, defaultValue: 60)}');
         if (int.parse(user.dob) >
                 DataHelper.safeParseInt(CurrentUserPreferences().ageStart,

@@ -137,7 +137,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         ..maritalStatusPref = pref.maritalStatusPref
         ..jobPref = pref.jobPref
         ..isPrefAdded = true;
-         log('Preferences have been updated');
+         print('-------- Preferences have been updated');
     });
   }
 

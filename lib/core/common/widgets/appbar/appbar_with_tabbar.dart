@@ -22,7 +22,7 @@ class JAppbarWithTabs extends StatefulWidget {
       this.horizontalpadding = JSize.md,
       this.floating = false,
       this.elevation,
-      this.expandedHeight = 180,
+      this.expandedHeight = 100,
       this.footerMaxHeight = 45,
       this.slivers,
       this.footerPinned = true,
@@ -86,7 +86,7 @@ class _JAppbarWithTabsState extends State<JAppbarWithTabs>
             centerTitle: widget.centerTitle,
             pinned: widget.appbarPinned,
             
-            collapsedHeight: 58,
+            // collapsedHeight: 58,
             floating: widget.floating,
             expandedHeight: widget.expandedHeight,
             flexibleSpace: FlexibleSpaceBar(
@@ -100,7 +100,7 @@ class _JAppbarWithTabsState extends State<JAppbarWithTabs>
             pinned: widget.footerPinned,
             delegate: _SliverTabBarDelegate(
               TabBar(
-                padding: EdgeInsets.symmetric(vertical: 5,horizontal: 10),
+                padding: EdgeInsets.symmetric(vertical: 05,horizontal: 10),
                 dividerHeight: 0,
                 indicatorWeight: 0,
                 controller: _tabController,

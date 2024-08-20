@@ -21,7 +21,9 @@ class ProfileAppbarFooter extends StatelessWidget {
           Flexible(
             flex: 3,
             child: ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                 Navigator.pushNamed(context, Routes.editProfileScn);
+              },
               style: ButtonStyle(
                   backgroundColor: WidgetStatePropertyAll(JColor.white)),
               child: Text(

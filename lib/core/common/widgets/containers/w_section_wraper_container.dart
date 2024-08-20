@@ -40,6 +40,8 @@ class SectionWraperContainer extends StatelessWidget {
           color:isDark?JColor.dark : JColor.white
           ),
       child: Column(
+        mainAxisAlignment: mainAxisAlignment,
+                crossAxisAlignment: crossAxisAlignment,
         children: [
           headerNeeded
               ? Container(

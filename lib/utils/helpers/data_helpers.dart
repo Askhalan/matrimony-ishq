@@ -21,4 +21,5 @@ static double safeParseDouble(String? value, {double defaultValue = 0}) {
   if (value == null || value.isEmpty) return defaultValue;
   return double.tryParse(value) ?? defaultValue;
 }
+
 }

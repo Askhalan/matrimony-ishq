@@ -25,8 +25,8 @@ class ScnMatches extends StatelessWidget {
           onTap: () {},
         )
       ],
-      // expandedHeight: 0,
-      footerMaxHeight: 200,
+      // expandedHeight: 30,
+      // footerMaxHeight: 200,
       appbarPinned: true,
       tabs: [
         Tab(
@@ -56,8 +56,9 @@ class ScnMatches extends StatelessWidget {
       ],
       length: 4,
       children: [
+        //-------------------------------- OUTGOING MATCH REQUESTS --------------------------------
         Padding(
-          padding: JSize.defaultPadding,
+          padding: EdgeInsets.symmetric(horizontal: JSize.defaultPaddingValue),
           child: ListView.builder(
             itemCount: 10,
             itemBuilder: (context, index) {
@@ -69,6 +70,8 @@ class ScnMatches extends StatelessWidget {
             },
           ),
         ),
+
+        //-------------------------------- INCOMING MATCH REQUESTS --------------------------------
          Padding(
           padding: JSize.defaultPadding,
           child: ListView.builder(
@@ -82,6 +85,8 @@ class ScnMatches extends StatelessWidget {
             },
           ),
         ),
+
+        //--------------------------------------- LIKED USERS -------------------------------------
          Padding(
           padding: JSize.defaultPadding,
           child: ListView.builder(
