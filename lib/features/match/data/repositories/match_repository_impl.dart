@@ -1,18 +1,22 @@
 // ignore_for_file: avoid_print
+import 'dart:developer';
+
 import 'package:fpdart/fpdart.dart';
 import 'package:ishq/core/common/entities/user_entity.dart';
-import 'package:ishq/core/common/sessions/current_user_prefs.dart';
 import 'package:ishq/features/match/data/datasources/match_datasource.dart';
 import 'package:ishq/features/match/data/models/match_request_model.dart';
 import 'package:ishq/features/match/data/models/user_model_match.dart';
+import 'package:ishq/features/match/data/repositories/categeorization_helper_fns.dart';
 import 'package:ishq/features/match/domain/repositories/match_repository.dart';
 import 'package:ishq/utils/error/failure.dart';
-import 'package:ishq/utils/helpers/data_helpers.dart';
 
 class MatchRepositoryImpl implements MatchRepository {
-  final MatchDatasource matchDataSource;
   MatchRepositoryImpl({required this.matchDataSource});
+  final MatchDatasource matchDataSource;
+  final CategeorizationHelperFns categorizationHelperFns =
+      CategeorizationHelperFns();
 
+//---------------------------- FETCH ALL USERS -------------------------------------
   @override
   Future<Either<Failure, List<UserModelMatch>>> fetchAllUser() async {
     try {
@@ -23,117 +27,55 @@ class MatchRepositoryImpl implements MatchRepository {
     }
   }
 
+//---------------------------- CATEGEORIZE USERS -------------------------------------
+
   @override
   Future<Either<Failure, Map<String, List<UserModelMatch>>>>
       initializeAllMatches() async {
     try {
-      // Run all fetching functions in parallel using Future.wait
-      final results = await Future.wait([
-        fetchAgeMatchUsers(),
-        fetchMritalStatusMatchUsers(),
-        fetchJobMatchUsers(),
-      ]);
+      // Fetch all users once
+      final allUsers = await matchDataSource.getAllUser();
+
+      // Pass the fetched users to the categorization helper functions
+      final ageMatches =
+          await categorizationHelperFns.fetchAgeMatchUsers(allUsers);
+      final maritalStatusMatches =
+          await categorizationHelperFns.fetchMritalStatusMatchUsers(allUsers);
+      final jobMatches =
+          await categorizationHelperFns.fetchJobMatchUsers(allUsers);
 
       // Initialize a map to store categorized users
       final Map<String, List<UserModelMatch>> categorizedUsers = {};
 
-      // Handle the results for each category
-      results[0].fold(
+      categorizedUsers['allUsers'] = allUsers;
+
+      ageMatches.fold(
         (failure) => throw Exception(failure.message),
         (users) => categorizedUsers['ageMatch'] = users,
       );
 
-      results[1].fold(
+      maritalStatusMatches.fold(
         (failure) => throw Exception(failure.message),
         (users) => categorizedUsers['maritalStatusMatch'] = users,
       );
 
-      results[2].fold(
+      jobMatches.fold(
         (failure) => throw Exception(failure.message),
         (users) => categorizedUsers['jobMatch'] = users,
       );
-
+      
+      log('From Repositiry Imp : ${categorizedUsers.length}');
+      log('No of datas in allUsers : ${categorizedUsers['allUsers']!.length}');
+      log('No of datas in ageMatch : ${categorizedUsers['ageMatch']!.length}');
+      log('No of datas in maritalStatusMatch : ${categorizedUsers['maritalStatusMatch']!.length}');
+      log('No of datas in jobMatch : ${categorizedUsers['jobMatch']!.length}');
       return right(categorizedUsers);
     } catch (e) {
       return left(Failure(e.toString()));
     }
   }
+
 //=============================================================================================================
-
-//--------------------------------- Age Based Categeorization -------------------------------------
-
-  @override
-  Future<Either<Failure, List<UserModelMatch>>> fetchAgeMatchUsers() async {
-    try {
-      final users = await matchDataSource.getAllUser();
-      final List<UserModelMatch> ageMachedUsers = [];
-      //----- Implementing categorization logics
-      for (final user in users) {
-        if (int.parse(user.dob) >=
-                DataHelper.safeParseInt(CurrentUserPreferences().ageStart,
-                    defaultValue: 18) &&
-            int.parse(user.dob) <
-                DataHelper.safeParseInt(CurrentUserPreferences().ageEnd,
-                    defaultValue: 60)) {
-          ageMachedUsers.add(user);
-        }
-      }
-      return right(ageMachedUsers);
-    } catch (e) {
-      return left(Failure(e.toString()));
-    }
-  }
-
-//---------------------------- Marital Status Based Categeorization -------------------------------------
-
-  @override
-  Future<Either<Failure, List<UserModelMatch>>>
-      fetchMritalStatusMatchUsers() async {
-    try {
-      final users = await matchDataSource.getAllUser();
-      final List<UserModelMatch> maritalStatusMachedUsers = [];
-      //----- Implementing categorization logics
-      if (CurrentUserPreferences().maritalStatusPref == null) {
-        maritalStatusMachedUsers.addAll(users);
-      } else {
-        for (final user in users) {
-          if (CurrentUserPreferences()
-              .maritalStatusPref!
-              .contains(user.maritalStatus)) {
-            maritalStatusMachedUsers.add(user);
-          }
-        }
-      }
-
-      return right(maritalStatusMachedUsers);
-    } catch (e) {
-      return left(Failure(e.toString()));
-    }
-  }
-
-//---------------------------- Job Based Categeorization -------------------------------------
-
-  @override
-  Future<Either<Failure, List<UserModelMatch>>> fetchJobMatchUsers() async {
-    try {
-      final users = await matchDataSource.getAllUser();
-      final List<UserModelMatch> jobMachedUsers = [];
-      //----- Implementing categorization logics
-      if (CurrentUserPreferences().jobPref == null) {
-        jobMachedUsers.addAll(users);
-      } else {
-        for (final user in users) {
-          if (CurrentUserPreferences().jobPref!.contains(user.maritalStatus)) {
-            jobMachedUsers.add(user);
-          }
-        }
-      }
-
-      return right(jobMachedUsers);
-    } catch (e) {
-      return left(Failure(e.toString()));
-    }
-  }
 
 //---------------------------- Send Request -------------------------------------
 

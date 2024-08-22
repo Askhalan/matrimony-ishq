@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:ishq/core/common/widgets/appbar/appbar.dart';
 import 'package:ishq/core/common/widgets/spaces/gap.dart';
+import 'package:ishq/features/match/presentation/bloc/match_bloc.dart';
 import 'package:ishq/features/match/presentation/pages/home/sections/appbar/s_appbar_title.dart';
 import 'package:ishq/features/match/presentation/pages/home/sections/s_family_matches.dart';
 import 'package:ishq/features/match/presentation/pages/home/sections/s_job_matches.dart';
@@ -11,8 +13,22 @@ import 'package:ishq/features/match/presentation/pages/home/sections/s_success_s
 import 'package:ishq/features/match/presentation/pages/home/sections/s_top_matches.dart';
 import 'package:ishq/features/match/presentation/widgets/w_action_button.dart';
 
-class ScnHome extends StatelessWidget {
+class ScnHome extends StatefulWidget {
   const ScnHome({super.key});
+
+  @override
+  State<ScnHome> createState() => _ScnHomeState();
+}
+
+class _ScnHomeState extends State<ScnHome> {
+  @override
+void initState()  {
+  super.initState();
+  // context.read<ProfileBloc>().add(InitializeCurrentUser());
+  // context.read<AuthBloc>().add(InitializeCurrentUserAfterLogin());
+
+  context.read<MatchBloc>().add(LoadAllCategories());
+}
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -61,4 +77,7 @@ class ScnHome extends StatelessWidget {
       ),
     );
   }
+}
+
+class InitializeMatchesEvent {
 }

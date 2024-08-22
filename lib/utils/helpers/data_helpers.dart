@@ -14,7 +14,6 @@ class DataHelper {
       return defaultValue;
     } else {
       String a = value.substring(0, 2);
-
       return int.parse(a);
     }
   }

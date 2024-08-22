@@ -23,20 +23,16 @@ class FetchUsersFailure extends MatchState {
 class HomeLoading extends MatchState {}
 
 class HomeSuccess extends MatchState {
-   
-  // final List<UserEntity>? professionalMatches;
-  // final List<UserEntity>? familyMatches;
   final List<UserEntity> ageMatches;
   final List<UserEntity> allUsers;
   final List<UserEntity> maritalStatusMatches;
+  final List<UserEntity> jobMatches;
 
-  HomeSuccess(
-    // this.professionalMatches,
-    // this.familyMatches, 
-    {
-      required this.allUsers, 
+  HomeSuccess({
+    required this.allUsers,
     required this.ageMatches,
     required this.maritalStatusMatches,
+    required this.jobMatches,
   });
 }
 
@@ -46,13 +42,12 @@ class HomeFailure extends MatchState {
   HomeFailure({required this.message});
 }
 
-
 //---------------------------------------- Request States
 
 class RequestLoading extends MatchState {}
 
 class MatchError extends MatchState {
-   final String message;
+  final String message;
 
   MatchError(this.message);
 }

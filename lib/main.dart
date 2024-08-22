@@ -19,9 +19,9 @@ void main() async {
   runApp(
     MultiBlocProvider( 
     providers: [
-      BlocProvider(create: (_) => serviceLocator<AuthBloc>()..add(AuthCheckStatus())),
+      BlocProvider(create: (_)=> serviceLocator<AuthBloc>()..add(AuthCheckStatus())),
       BlocProvider(create: (_)=> serviceLocator<ProfileBloc>()),
-      BlocProvider(create: (_) => serviceLocator<MatchBloc>() ..add(LoadAllCategories())),
+      BlocProvider(create: (_)=> serviceLocator<MatchBloc>() ),
     ],
     child: MyApp(),
   ));

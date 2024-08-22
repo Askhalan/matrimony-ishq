@@ -1,7 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first, avoid_print
 
 import 'dart:async';
-
 import 'package:bloc/bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:ishq/core/common/sessions/current_user.dart';
@@ -48,6 +47,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     on<SaveUser>(_onSaveUser);
     on<AddPreferences>(_onAddPreferences);
     on<EditPreferences>(_onEditPreferences);
+    on<InitializeCurrentUser>(_onInitializeCurrentUser);
   }
 
   @override
@@ -56,7 +56,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
 
     // Perform an action when transitioning to ProfileSuccess state
     if (transition.nextState is ProfileSuccess) {
-       handleProfileSuccess();
+      handleProfileSuccess();
     }
   }
 
@@ -192,7 +192,6 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
 
     res.fold((l) => emit(ProfileFailure(error: l.message)),
         (r) => emit(ProfileSuccess()));
-        
   }
 
   //------------------------------------------------------------------------------
@@ -226,8 +225,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     });
     await _setLogin(EmptyParams());
     final preferences = await _currentUserPreferencesUC(EmptyParams());
-    preferences.fold((error) {
-    }, (pref) {
+    preferences.fold((error) {}, (pref) {
       CurrentUserPreferences()
         ..ageStart = pref.ageStart
         ..ageEnd = pref.ageEnd
@@ -237,8 +235,6 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
         ..maritalStatusPref = pref.maritalStatusPref
         ..jobPref = pref.jobPref
         ..isPrefAdded = true;
-
-
     });
   }
 
@@ -297,12 +293,12 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
       jobPref: event.jobPref,
     ));
     CurrentUserPreferences()
-      ..ageStart = event.ageStart 
-      ..ageEnd = event.ageEnd 
-      ..heightStart = event.heightStart 
-      ..heightEnd = event.heightEnd 
+      ..ageStart = event.ageStart
+      ..ageEnd = event.ageEnd
+      ..heightStart = event.heightStart
+      ..heightEnd = event.heightEnd
       ..educationPref = event.educationPref
-      ..maritalStatusPref = event.maritalStatusPref 
+      ..maritalStatusPref = event.maritalStatusPref
       ..jobPref = event.jobPref
       ..isPrefAdded = true;
 
@@ -320,5 +316,10 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     });
     res.fold((l) => emit(AddPreferencesFailure(error: l.message)),
         (r) => emit(AddPreferencesSuccess()));
+  }
+
+  void _onInitializeCurrentUser(
+      InitializeCurrentUser event, Emitter<ProfileState> emit) {
+    handleProfileSuccess();
   }
 }

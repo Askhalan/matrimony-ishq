@@ -2,6 +2,9 @@ part of 'profile_bloc.dart';
 
 abstract class ProfileEvent {}
 
+
+final class InitializeCurrentUser extends ProfileEvent{}
+
 //---------------- Add Auth Details ----------------
 
 final class AddAuthDetails extends ProfileEvent {

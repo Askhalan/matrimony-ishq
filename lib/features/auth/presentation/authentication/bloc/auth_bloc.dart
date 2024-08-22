@@ -14,9 +14,7 @@ import 'package:ishq/features/auth/domain/usecases/fetch_current_user.dart';
 import 'package:ishq/features/auth/domain/usecases/fetch_current_user_preferences.dart';
 import 'package:ishq/features/auth/domain/usecases/login_usecae.dart';
 import 'package:ishq/features/auth/domain/usecases/logout_usecase.dart';
-
 import 'package:ishq/features/auth/domain/usecases/signup_usecase.dart';
-
 part 'auth_event.dart';
 part 'auth_state.dart';
 
@@ -52,6 +50,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<AuthSignup>(_onAuthSIgnup);
     on<AuthLogin>(_onAuthLogin);
     on<AuthLogout>(_onAuthLogout);
+    on<InitializeCurrentUserAfterLogin>(_onInitializeCurrentUser);
   }
 
   @override
@@ -148,6 +147,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     final status = await _checkLogin();
 
     if (status) {
+      handleprofileSuccess();
       emit(AuthAuthenticated());
     } else {
       emit(AuthUnauthenticated());
@@ -162,5 +162,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     await _logoutUsecase();
     await _removeSessionUC();
     emit(AuthLogedOut());
+  }
+
+    void _onInitializeCurrentUser(
+      InitializeCurrentUserAfterLogin event, Emitter<AuthState> emit) {
+    handleprofileSuccess();
   }
 }

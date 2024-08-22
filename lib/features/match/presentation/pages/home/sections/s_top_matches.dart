@@ -39,18 +39,18 @@ class SecTopMatches extends StatelessWidget {
                 );
               }
               if (state is HomeSuccess) {
-                final ageMatchUsers = state.ageMatches;
-                return ageMatchUsers.isEmpty
+                final allUsers = state.allUsers;
+                return allUsers.isEmpty
                     ? Center(child: Text(JTexts.MATCHES_EMPTY_MESSAGE))
                     : Swiper(
-                        itemCount: ageMatchUsers.length,
+                        itemCount: allUsers.length,
                         viewportFraction: 0.8,
                         scale: 0.9,
                         itemBuilder: (context, index) {
                           return Padding(
                             padding: const EdgeInsets.symmetric(vertical: 5),
                             child: WUserCardHorizondal(
-                              user: ageMatchUsers[index],
+                              user: allUsers[index],
                             ),
                           );
                         },

@@ -3,6 +3,8 @@ part of 'auth_bloc.dart';
 @immutable
 class AuthEvent {}
 
+final class InitializeCurrentUserAfterLogin extends AuthEvent{}
+
 final class AuthCheckStatus extends AuthEvent {}
 
 
