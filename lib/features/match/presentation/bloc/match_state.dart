@@ -45,3 +45,16 @@ class HomeFailure extends MatchState {
 
   HomeFailure({required this.message});
 }
+
+
+//---------------------------------------- Request States
+
+class RequestLoading extends MatchState {}
+
+class MatchError extends MatchState {
+   final String message;
+
+  MatchError(this.message);
+}
+
+class RequestSendSuccess extends MatchState {}

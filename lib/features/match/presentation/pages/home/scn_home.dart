@@ -1,24 +1,20 @@
-
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
-// import 'package:ishq/core/common/sessions/current_user_prefs.dart';
 import 'package:ishq/core/common/widgets/appbar/appbar.dart';
 import 'package:ishq/core/common/widgets/spaces/gap.dart';
-import 'package:ishq/features/match/presentation/pages/home/widgets/s_appbar_title.dart';
-// import 'package:ishq/features/match/presentation/pages/home/widgets/s_family_matches.dart';
-// import 'package:ishq/features/match/presentation/pages/home/widgets/s_home_flexiblespace.dart';
-import 'package:ishq/features/match/presentation/pages/home/widgets/s_lifestyle_matches.dart';
-import 'package:ishq/features/match/presentation/pages/home/widgets/s_professional_matches.dart';
-import 'package:ishq/features/match/presentation/pages/home/widgets/s_success_story.dart';
-import 'package:ishq/features/match/presentation/pages/home/widgets/s_top_matches.dart';
+import 'package:ishq/features/match/presentation/pages/home/sections/appbar/s_appbar_title.dart';
+import 'package:ishq/features/match/presentation/pages/home/sections/s_family_matches.dart';
+import 'package:ishq/features/match/presentation/pages/home/sections/s_job_matches.dart';
+import 'package:ishq/features/match/presentation/pages/home/sections/s_marital_status_matches.dart';
+import 'package:ishq/features/match/presentation/pages/home/sections/s_age_matches.dart';
+import 'package:ishq/features/match/presentation/pages/home/sections/s_success_story.dart';
+import 'package:ishq/features/match/presentation/pages/home/sections/s_top_matches.dart';
 import 'package:ishq/features/match/presentation/widgets/w_action_button.dart';
 
 class ScnHome extends StatelessWidget {
   const ScnHome({super.key});
-
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
       body: JAppbar(
         actions: [
@@ -29,30 +25,34 @@ class ScnHome extends StatelessWidget {
         ],
         showBackArrow: false,
         expandedHeight: 0,
-        title: HomeAppbarTitle(),
+        title: const HomeAppbarTitle(),
         // flexibleSpaceContent: const HomeFlexibleSpace(),
         body: const Column(children: [
           //--------------------------- TOP MATCHES ---------------------------
           SecTopMatches(), // Temp as All Users
           JGap(h: 5)
         ]),
-        scrollChild: Column(
+        scrollChild: const Column(
           children: [
-            //------------------------ PROFESSIONAL MATCHES -------------------
+            //-------------------------- AGE MATCHES ------------------------
 
-            SecProfessionalMatches(), //Temp as age Match
+            SecAgeMatches(), 
 
-            //------------------------ LIFESTYLE MATCHES ---------------------
+            //-------------------- MARITAL STATUS MATCHES -------------------
 
-            SecLifestyleMatches(),
+            SecMaritalStatusMatches(),
 
-            //------------------------ SUCCESS STORY ----------------------
+            //--------------------------- JOB MATCHES -----------------------
+
+            SecJobMatches(),
+
+            //------------------------ SUCCESS STORY ------------------------
 
             SecSuccessStory(),
 
-            //------------------------ FAMILY MATCHES ---------------------
+            //------------------------ FAMILY MATCHES -----------------------
 
-            // SecFamilyMatches(),
+            SecFamilyMatches(),
             JGap(
               h: 70,
             )

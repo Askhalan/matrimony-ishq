@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ishq/features/match/presentation/bloc/match_bloc.dart';
+import 'package:ishq/features/match/presentation/pages/home/widgets/loaders/home_matches_sec_loader.dart';
 import 'package:ishq/features/match/presentation/widgets/user_card/s_user_vertical_card.dart';
-import 'package:ishq/features/match/presentation/widgets/user_card/vertical_user_card_loader.dart';
 import 'package:ishq/features/match/presentation/widgets/w_section_label.dart';
 import 'package:ishq/utils/constants/sizes.dart';
 import 'package:ishq/utils/constants/text_strings.dart';
 
-class SecLifestyleMatches extends StatelessWidget {
-  const SecLifestyleMatches({
+class SecAgeMatches extends StatelessWidget {
+  const SecAgeMatches({
     super.key,
   });
 
@@ -17,7 +17,8 @@ class SecLifestyleMatches extends StatelessWidget {
     return Column(
       children: [
         JSectionLabel(
-          heading: JTexts.LIFESTYLE_MATCHES,
+         
+          heading: 'Age Matches',
           action: JTexts.SEE_MORE,
           onTap: () {},
         ),
@@ -27,24 +28,18 @@ class SecLifestyleMatches extends StatelessWidget {
           child: BlocBuilder<MatchBloc, MatchState>(
             builder: (context, state) {
               if (state is HomeLoading) {
-                return ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: 4,
-                  itemBuilder: (BuildContext context, int index) {
-                    return VerticalUserCardLoader();
-                  },
-                );
+                return HomeMatchesSecLoader();
               }
               if (state is HomeSuccess) {
-                final allUsers = state.maritalStatusMatches;
-                return allUsers.isEmpty
+                final ageMatchUsers = state.ageMatches;
+                return ageMatchUsers.isEmpty
                     ? Center(child: Text(JTexts.MATCHES_EMPTY_MESSAGE))
                     : ListView.builder(
                         scrollDirection: Axis.horizontal,
-                        itemCount: allUsers.length,
+                        itemCount: ageMatchUsers.length,
                         itemBuilder: (BuildContext context, int index) {
                           return UserVerticalCard(
-                            user: allUsers[index],
+                            user: ageMatchUsers[index],
                           );
                         },
                       );

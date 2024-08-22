@@ -1,7 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first, unused_field
 
 import 'dart:async';
-import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -95,10 +94,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   //------------------------------------------------------------------------------
 
   void handleprofileSuccess() async {
-    log('handle Profile success working ');
     final res = await _fetchCurrentUserUsecase(EmptyParams());
     res.fold((l) => throw l, (r) {
       CurrentUser()
+        ..uid = r.uid
         ..profileFor = r.profileFor
         ..name = r.name
         ..gender = r.gender
@@ -126,7 +125,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
     final preferences = await _currentUserPreferencesUC(EmptyParams());
     preferences.fold((error) {
-      log(error.message);
+    // ignore: avoid_print
+    print (error.message);
     }, (pref) {
       CurrentUserPreferences()
         ..ageStart = pref.ageStart
@@ -137,7 +137,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         ..maritalStatusPref = pref.maritalStatusPref
         ..jobPref = pref.jobPref
         ..isPrefAdded = true;
-         print('-------- Preferences have been updated');
+   
     });
   }
 

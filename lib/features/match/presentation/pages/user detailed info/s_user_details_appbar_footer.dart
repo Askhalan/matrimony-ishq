@@ -1,32 +1,50 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:ishq/core/common/widgets/loader/button_loader.dart';
 import 'package:ishq/core/common/widgets/spaces/gap.dart';
+import 'package:ishq/features/match/presentation/bloc/match_bloc.dart';
 
 import 'package:ishq/utils/constants/colors.dart';
-
 
 class UserDetailsAppbarFooter extends StatelessWidget {
   const UserDetailsAppbarFooter({
     super.key,
+    required this.uid,
   });
-
+  final String uid;
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 35,vertical: 5),
+      padding: EdgeInsets.symmetric(horizontal: 35, vertical: 5),
       child: Row(
-        children: [
-          //------------------------- EDIT PROFILE -------------------------
+        children: [  
+          //------------------------- EDIT PROFILE -------------------------q
 
           Flexible(
             flex: 3,
-            child: ElevatedButton(
-              onPressed: () {},
-              style: ButtonStyle(
-                  backgroundColor: WidgetStatePropertyAll(JColor.white)),
-              child: Text(
-                "Send Request",
-                style: Theme.of(context).textTheme.bodyLarge,
-              ),
+            child: BlocConsumer<MatchBloc, MatchState>(
+              listener: (context, state) {
+                if (state is RequestSendSuccess) {}
+              },
+              builder: (context, state) {
+                if (state is RequestLoading) {
+                  return ButtonLoader();
+                }
+                return ElevatedButton(
+                  onPressed: () {
+                    context
+                        .read<MatchBloc>()
+                        .add(MatchSendRequest(requestedId: uid));
+                        
+                  },
+                  style: ButtonStyle(
+                      backgroundColor: WidgetStatePropertyAll(JColor.white)),
+                  child: Text(
+                    "Send Request",
+                    style: Theme.of(context).textTheme.bodyLarge,
+                  ),
+                );
+              },
             ),
           ),
           JGap(),
@@ -36,9 +54,7 @@ class UserDetailsAppbarFooter extends StatelessWidget {
           Flexible(
             flex: 3,
             child: ElevatedButton(
-              onPressed: () {
-               
-              },
+              onPressed: () {},
               style: ButtonStyle(
                   backgroundColor: WidgetStatePropertyAll(JColor.white)),
               child: Text(
@@ -47,7 +63,6 @@ class UserDetailsAppbarFooter extends StatelessWidget {
               ),
             ),
           ),
-         
 
           //-------------------------- UPGRADE PLAN --------------------------
 

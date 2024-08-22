@@ -1,7 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first, avoid_print
 
 import 'dart:async';
-import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import 'package:image_picker/image_picker.dart';
@@ -57,7 +56,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
 
     // Perform an action when transitioning to ProfileSuccess state
     if (transition.nextState is ProfileSuccess) {
-      handleProfileSuccess();
+       handleProfileSuccess();
     }
   }
 
@@ -193,6 +192,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
 
     res.fold((l) => emit(ProfileFailure(error: l.message)),
         (r) => emit(ProfileSuccess()));
+        
   }
 
   //------------------------------------------------------------------------------
@@ -200,6 +200,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     final res = await _fetchCurrentUserUsecase(EmptyParams());
     res.fold((error) => print(error), (r) {
       CurrentUser()
+        ..uid = r.uid
         ..profileFor = r.profileFor
         ..name = r.name
         ..gender = r.gender
@@ -225,7 +226,8 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     });
     await _setLogin(EmptyParams());
     final preferences = await _currentUserPreferencesUC(EmptyParams());
-    preferences.fold((error){ log('Preference fetching got eroor { from bloc : profile success}');}, (pref) {
+    preferences.fold((error) {
+    }, (pref) {
       CurrentUserPreferences()
         ..ageStart = pref.ageStart
         ..ageEnd = pref.ageEnd
@@ -235,9 +237,8 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
         ..maritalStatusPref = pref.maritalStatusPref
         ..jobPref = pref.jobPref
         ..isPrefAdded = true;
-   
-   
-        log('Preferences have been updated');
+
+
     });
   }
 
@@ -295,14 +296,14 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
       educationPref: event.educationPref,
       jobPref: event.jobPref,
     ));
-     CurrentUserPreferences()
-      ..ageStart = event.ageStart ?? '18'
-      ..ageEnd = event.ageEnd ?? '60'
-      ..heightStart = event.heightStart ?? '4.0'
-      ..heightEnd = event.heightEnd ?? '7.0'
-      ..educationPref = event.educationPref ?? ['Any']
-      ..maritalStatusPref = event.maritalStatusPref ?? ['Any']
-      ..jobPref = event.jobPref ?? ['Any']
+    CurrentUserPreferences()
+      ..ageStart = event.ageStart 
+      ..ageEnd = event.ageEnd 
+      ..heightStart = event.heightStart 
+      ..heightEnd = event.heightEnd 
+      ..educationPref = event.educationPref
+      ..maritalStatusPref = event.maritalStatusPref 
+      ..jobPref = event.jobPref
       ..isPrefAdded = true;
 
     final preferences = await _currentUserPreferencesUC(EmptyParams());

@@ -43,7 +43,7 @@ class ScnUserDetails extends StatelessWidget {
 
         //----------------------------------- APPBAR FOOTER ---------------------------------
 
-        footerContent: UserDetailsAppbarFooter(),
+        footerContent: UserDetailsAppbarFooter(uid: user.uid!,),
 
         //---------------------------------------- BODY -------------------------------------
         body: SingleChildScrollView(

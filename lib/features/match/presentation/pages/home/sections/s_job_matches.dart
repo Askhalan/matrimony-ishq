@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ishq/features/match/presentation/bloc/match_bloc.dart';
+import 'package:ishq/features/match/presentation/pages/home/widgets/loaders/home_matches_sec_loader.dart';
 import 'package:ishq/features/match/presentation/widgets/user_card/s_user_vertical_card.dart';
-import 'package:ishq/features/match/presentation/widgets/user_card/vertical_user_card_loader.dart';
 import 'package:ishq/features/match/presentation/widgets/w_section_label.dart';
 import 'package:ishq/utils/constants/sizes.dart';
 import 'package:ishq/utils/constants/text_strings.dart';
 
-class SecProfessionalMatches extends StatelessWidget {
-  SecProfessionalMatches({
+class SecJobMatches extends StatelessWidget {
+  const SecJobMatches({
     super.key,
   });
 
@@ -17,8 +17,7 @@ class SecProfessionalMatches extends StatelessWidget {
     return Column(
       children: [
         JSectionLabel(
-          // heading: JTexts.PROFESSIONAL_MATCHES,
-          heading: 'Age Matches',
+          heading: 'Job Matches',
           action: JTexts.SEE_MORE,
           onTap: () {},
         ),
@@ -28,24 +27,18 @@ class SecProfessionalMatches extends StatelessWidget {
           child: BlocBuilder<MatchBloc, MatchState>(
             builder: (context, state) {
               if (state is HomeLoading) {
-                return ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: 4,
-                  itemBuilder: (BuildContext context, int index) {
-                    return VerticalUserCardLoader();
-                  },
-                );
+                return HomeMatchesSecLoader();
               }
               if (state is HomeSuccess) {
-                final ageMatchUsers = state.ageMatches;
-                return ageMatchUsers.isEmpty
+                final allUsers = state.maritalStatusMatches;
+                return allUsers.isEmpty
                     ? Center(child: Text(JTexts.MATCHES_EMPTY_MESSAGE))
                     : ListView.builder(
                         scrollDirection: Axis.horizontal,
-                        itemCount: ageMatchUsers.length,
+                        itemCount: allUsers.length,
                         itemBuilder: (BuildContext context, int index) {
                           return UserVerticalCard(
-                            user: ageMatchUsers[index],
+                            user: allUsers[index],
                           );
                         },
                       );

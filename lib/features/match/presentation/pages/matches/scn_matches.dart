@@ -72,6 +72,7 @@ class ScnMatches extends StatelessWidget {
         ),
 
         //-------------------------------- INCOMING MATCH REQUESTS --------------------------------
+        
          Padding(
           padding: JSize.defaultPadding,
           child: ListView.builder(
@@ -87,6 +88,7 @@ class ScnMatches extends StatelessWidget {
         ),
 
         //--------------------------------------- LIKED USERS -------------------------------------
+
          Padding(
           padding: JSize.defaultPadding,
           child: ListView.builder(

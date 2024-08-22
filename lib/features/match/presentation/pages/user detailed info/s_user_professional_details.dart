@@ -32,6 +32,7 @@ class SUserProfessionalDetails extends StatelessWidget {
                     text: user.employedIn,
                   ),
                 ]),
+
                 // ---------------------------------
                 TableRow(children: [
                   JDetailsTableCell(

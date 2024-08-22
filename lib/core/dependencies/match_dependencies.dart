@@ -5,6 +5,7 @@ import 'package:ishq/features/match/domain/repositories/match_repository.dart';
 import 'package:ishq/features/match/domain/usecases/categeory_usecases/age_match_uc.dart';
 import 'package:ishq/features/match/domain/usecases/categeory_usecases/marital_status_match_uc.dart';
 import 'package:ishq/features/match/domain/usecases/get_all_users.dart';
+import 'package:ishq/features/match/domain/usecases/request_usecases/send_request_uc.dart';
 import 'package:ishq/features/match/presentation/bloc/match_bloc.dart';
 
 class MatchDependencies {
@@ -18,10 +19,11 @@ class MatchDependencies {
       ..registerFactory(() => MatchAgeUC(matchRepository: serviceLocator()))
       ..registerFactory(
           () => MatchMaritalStatusUC(matchRepository: serviceLocator()))
+      ..registerFactory(() => SendRequestUC(matchRepository: serviceLocator()))
       ..registerLazySingleton(() => MatchBloc(
-            getAllUsersUC: serviceLocator(),
-            matchAgeUC: serviceLocator(),
-            matchMaritalStatusUC: serviceLocator(),
-          ));
+          getAllUsersUC: serviceLocator(),
+          matchAgeUC: serviceLocator(),
+          matchMaritalStatusUC: serviceLocator(),
+          sendRequestUC: serviceLocator()));
   }
 }
