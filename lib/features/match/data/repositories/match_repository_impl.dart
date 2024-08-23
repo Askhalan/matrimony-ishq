@@ -2,9 +2,7 @@
 import 'dart:developer';
 
 import 'package:fpdart/fpdart.dart';
-import 'package:ishq/core/common/entities/user_entity.dart';
 import 'package:ishq/features/match/data/datasources/match_datasource.dart';
-import 'package:ishq/features/match/data/models/match_request_model.dart';
 import 'package:ishq/features/match/data/models/user_model_match.dart';
 import 'package:ishq/features/match/data/repositories/categeorization_helper_fns.dart';
 import 'package:ishq/features/match/domain/repositories/match_repository.dart';
@@ -75,53 +73,5 @@ class MatchRepositoryImpl implements MatchRepository {
     }
   }
 
-//=============================================================================================================
 
-//---------------------------- Send Request -------------------------------------
-
-  @override
-  Future<Either<Failure, void>> sendRequest({
-    required String requesterId,
-    required String requestedId,
-    required DateTime timestamp,
-    required String status,
-  }) async {
-    MatchRequestModel newRequest = MatchRequestModel(
-      requesterId: requesterId,
-      requestedId: requestedId,
-      timestamp: timestamp,
-      status: status,
-    );
-
-    try {
-      await matchDataSource.sendMatchRequest(request: newRequest);
-      return right(null);
-    } catch (e) {
-      return left(Failure(e.toString()));
-    }
-  }
-
-  @override
-  Future<Either<Failure, void>> acceptRequest(String requestId) {
-    // TODO: implement acceptRequest
-    throw UnimplementedError();
-  }
-
-  @override
-  Stream<Either<Failure, List<UserEntity>>> getAcceptedRequestsStream() {
-    // TODO: implement getAcceptedRequestsStream
-    throw UnimplementedError();
-  }
-
-  @override
-  Stream<Either<Failure, List<UserEntity>>> getReceivedRequestsStream() {
-    // TODO: implement getReceivedRequestsStream
-    throw UnimplementedError();
-  }
-
-  @override
-  Stream<Either<Failure, List<UserEntity>>> getSentRequestsStream() {
-    // TODO: implement getSentRequestsStream
-    throw UnimplementedError();
-  }
 }

@@ -17,14 +17,14 @@ class UserDetailsAppbarFooter extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 35, vertical: 5),
       child: Row(
-        children: [  
+        children: [
           //------------------------- EDIT PROFILE -------------------------q
 
           Flexible(
             flex: 3,
             child: BlocConsumer<MatchBloc, MatchState>(
               listener: (context, state) {
-                if (state is RequestSendSuccess) {}
+                if (state is RequestSuccess) {}
               },
               builder: (context, state) {
                 if (state is RequestLoading) {
@@ -35,7 +35,6 @@ class UserDetailsAppbarFooter extends StatelessWidget {
                     context
                         .read<MatchBloc>()
                         .add(MatchSendRequest(requestedId: uid));
-                        
                   },
                   style: ButtonStyle(
                       backgroundColor: WidgetStatePropertyAll(JColor.white)),

@@ -1,13 +1,13 @@
 import 'package:fpdart/fpdart.dart';
-import 'package:ishq/features/match/domain/repositories/match_repository.dart';
+import 'package:ishq/features/match/domain/repositories/request_repository%20copy.dart';
 import 'package:ishq/utils/error/failure.dart';
 
 class SendRequestUC {
-  final MatchRepository matchRepository;
-  SendRequestUC({required this.matchRepository});
+  final RequestRepository requestRepository;
+  SendRequestUC({required this.requestRepository});
 
   Future<Either<Failure, void>> call(RequestParams params) {
-    return matchRepository.sendRequest(
+    return requestRepository.sendRequest(
       requestedId: params.requestedId,
       requesterId: params.requesterId,
       status: params.status,

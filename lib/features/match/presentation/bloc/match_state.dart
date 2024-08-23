@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 part of 'match_bloc.dart';
 
 abstract class MatchState {}
@@ -5,9 +6,8 @@ abstract class MatchState {}
 class MatchInitial extends MatchState {}
 
 class FetchUsersSuccessfull extends MatchState {
-  final List<UserEntity> allUsers;
-
   FetchUsersSuccessfull(this.allUsers);
+  final List<UserEntity> allUsers;
 }
 
 class FetchUserLoading extends MatchState {}
@@ -37,19 +37,41 @@ class HomeSuccess extends MatchState {
 }
 
 class HomeFailure extends MatchState {
-  final String message;
-
   HomeFailure({required this.message});
+  final String message;
 }
 
 //---------------------------------------- Request States
 
 class RequestLoading extends MatchState {}
 
-class MatchError extends MatchState {
+class RequestError extends MatchState {
+  RequestError(this.message);
   final String message;
-
-  MatchError(this.message);
 }
 
-class RequestSendSuccess extends MatchState {}
+class RequestSuccess extends MatchState {}
+
+class RequestAcceptSuccess extends MatchState {}
+
+class RequestFetchingLoading extends MatchState {}
+
+class SentRequestLoaded extends MatchState {
+  List<UserEntity> users;
+  SentRequestLoaded({
+    required this.users,
+  });
+}
+
+class RecievedRequestLoaded extends MatchState {
+  List<UserEntity> users;
+  RecievedRequestLoaded({
+    required this.users,
+  });
+}
+class AcceptedRequestLoaded extends MatchState {
+  List<UserEntity> users;
+  AcceptedRequestLoaded({
+    required this.users,
+  });
+}

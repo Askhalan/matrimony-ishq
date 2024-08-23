@@ -12,7 +12,17 @@ class InitializeUser extends MatchEvent{}
 
 
 class MatchSendRequest extends MatchEvent {
-  final String requestedId;
-
   MatchSendRequest({required this.requestedId});
+  final String requestedId;
 }
+
+class AcceptRequest extends MatchEvent{
+  AcceptRequest({required this.requestId});
+  final String requestId;
+}
+
+final class GetSentRequest extends MatchEvent{}
+
+final class GetReceivedRequest extends MatchEvent{}
+
+final class GetAcceptedRequest extends MatchEvent{}
