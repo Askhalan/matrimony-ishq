@@ -6,8 +6,8 @@ import 'package:ishq/core/common/entities/user_entity.dart';
 import 'package:ishq/features/auth/domain/repositories/profile_repository.dart';
 import 'package:ishq/utils/error/failure.dart';
 
-class FetchCurrentUserUsecase implements UseCase<UserEntity,EmptyParams>{
-  FetchCurrentUserUsecase({required this.profileRepository});
+class FetchCurrentUserUC implements UseCase<UserEntity,EmptyParams>{
+  FetchCurrentUserUC({required this.profileRepository});
   final ProfileRepository profileRepository;
 
   

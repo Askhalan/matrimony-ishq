@@ -132,3 +132,6 @@ final class EditPreferences extends ProfileEvent {
       required this.educationPref,
       required this.jobPref});
 }
+
+
+final class FetchCurrentUserPref extends ProfileEvent {}

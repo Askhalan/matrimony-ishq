@@ -24,7 +24,8 @@ class RequestDataSourceImpl implements RequestDatasource {
   @override
   Future<void> sendMatchRequest({required MatchRequestModel request}) async {
     try {
-      await db.collection("requests").add(request.toJson());
+      await db.collection("requests").doc().set(request.toJson());
+      // .add(request.toJson());
     } on FirebaseException catch (e) {
       throw JFirebaseException(e.code).message;
     } on JFormatException catch (_) {

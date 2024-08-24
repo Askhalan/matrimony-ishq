@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:ishq/core/common/widgets/appbar/appbar.dart';
 import 'package:ishq/core/common/widgets/spaces/gap.dart';
+import 'package:ishq/features/auth/presentation/authentication/bloc/auth_bloc.dart';
 import 'package:ishq/features/match/presentation/bloc/match_bloc.dart';
 import 'package:ishq/features/match/presentation/pages/home/sections/appbar/s_appbar_title.dart';
 import 'package:ishq/features/match/presentation/pages/home/sections/s_family_matches.dart';
@@ -22,13 +23,11 @@ class ScnHome extends StatefulWidget {
 
 class _ScnHomeState extends State<ScnHome> {
   @override
-void initState()  {
-  super.initState();
-  // context.read<ProfileBloc>().add(InitializeCurrentUser());
-  // context.read<AuthBloc>().add(InitializeCurrentUserAfterLogin());
-
-  context.read<MatchBloc>().add(LoadAllCategories());
-}
+  void initState() {
+  context.read<AuthBloc>().add(InitializeCurrentUser());
+   context.read<MatchBloc>().add(InitializeMatch());
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(

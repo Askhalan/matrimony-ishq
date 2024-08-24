@@ -1,42 +1,18 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first, avoid_print
-
-import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:ishq/core/common/sessions/current_user.dart';
 import 'package:ishq/core/common/sessions/current_user_prefs.dart';
 import 'package:ishq/core/common/usecase/empty_params.dart';
+import 'package:ishq/core/dependencies/init_dependencies.dart';
 import 'package:ishq/features/auth/domain/usecases/add_preferences.dart';
-import 'package:ishq/features/auth/domain/usecases/caches/set_login_usecase.dart';
 import 'package:ishq/features/auth/domain/usecases/edit_preferences.dart';
-import 'package:ishq/features/auth/domain/usecases/fetch_current_user.dart';
 import 'package:ishq/features/auth/domain/usecases/fetch_current_user_preferences.dart';
 import 'package:ishq/features/auth/domain/usecases/save_user_data.dart';
 part 'profile_event.dart';
 part 'profile_state.dart';
 
 class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
-  final SaveUserUsecase _saveUserUsecase;
-  final FetchCurrentUserUsecase _fetchCurrentUserUsecase;
-  final SetLogin _setLogin;
-  final AddPreferencesUC _addPreferencesUC;
-  final EditPreferencesUC _editPreferencesUC;
-  final FetchCurrentUserPreferencesUC _currentUserPreferencesUC;
-
-  ProfileBloc(
-      {required SaveUserUsecase saveUser,
-      required FetchCurrentUserUsecase fetchCurrentUser,
-      required SetLogin setLoginUsecase,
-      required AddPreferencesUC addPreferenceUC,
-      required EditPreferencesUC editPreferenceUC,
-      required FetchCurrentUserPreferencesUC fetchCurrentUserPreference})
-      : _saveUserUsecase = saveUser,
-        _fetchCurrentUserUsecase = fetchCurrentUser,
-        _setLogin = setLoginUsecase,
-        _addPreferencesUC = addPreferenceUC,
-        _editPreferencesUC = editPreferenceUC,
-        _currentUserPreferencesUC = fetchCurrentUserPreference,
-        super(ProfileInitial()) {
+  ProfileBloc() : super(ProfileInitial()) {
     // on<ProfileEvent>((event, emit) => emit(ProfileLoading()));
     on<AddAuthDetails>(_onAddAuthDetails);
     on<AddBasicDetails>(_onAddBasicDetails);
@@ -47,20 +23,10 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     on<SaveUser>(_onSaveUser);
     on<AddPreferences>(_onAddPreferences);
     on<EditPreferences>(_onEditPreferences);
-    on<InitializeCurrentUser>(_onInitializeCurrentUser);
+    on<FetchCurrentUserPref>(_onFetchCurrentUserPref);
   }
 
-  @override
-  void onTransition(Transition<ProfileEvent, ProfileState> transition) {
-    super.onTransition(transition);
-
-    // Perform an action when transitioning to ProfileSuccess state
-    if (transition.nextState is ProfileSuccess) {
-      handleProfileSuccess();
-    }
-  }
-
-//------------------------------------------------------------------------------
+//--------------------------------------- SIGNUP -1 ---------------------------------------
 
   void _onAddAuthDetails(AddAuthDetails event, Emitter<ProfileState> emit) {
     if (state is ProfileInitial) {
@@ -91,12 +57,11 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     }
   }
 
-//------------------------------------------------------------------------------
+//--------------------------------------- SIGNUP -2 ---------------------------------------
 
   void _onAddBasicDetails(AddBasicDetails event, Emitter<ProfileState> emit) {
     if (state is SignupData) {
       final currentState = state as SignupData;
-
       emit(currentState.copyWith(
           profileFor: event.profileFor,
           name: event.name,
@@ -107,7 +72,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     }
   }
 
-//------------------------------------------------------------------------------
+//--------------------------------------- SIGNUP -3 ---------------------------------------
 
   void _onAddProfessionalDetails(
       AddProfessionalDetails event, Emitter<ProfileState> emit) {
@@ -122,7 +87,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     }
   }
 
-//------------------------------------------------------------------------------
+//--------------------------------------- SIGNUP -4 ---------------------------------------
 
   void _onAddFamilyDetails(AddFamilyDetails event, Emitter<ProfileState> emit) {
     if (state is SignupData) {
@@ -135,7 +100,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     }
   }
 
-//------------------------------------------------------------------------------
+//--------------------------------------- SIGNUP -5 ---------------------------------------
 
   void _onAddAddressDetails(
       AddAddressDetails event, Emitter<ProfileState> emit) {
@@ -149,22 +114,22 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     }
   }
 
-//------------------------------------------------------------------------------
+//--------------------------------------- SIGNUP -6 ---------------------------------------
 
   void _onAddPhotos(AddProfilePhoto event, Emitter<ProfileState> emit) {
     if (state is SignupData) {
       final currentState = state as SignupData;
-
       emit(currentState.copyWith(profileImage: event.profileImage));
     }
   }
 
-//------------------------------------------------------------------------------
+//--------------------------------------- SAVE USER ---------------------------------------
 
   void _onSaveUser(SaveUser event, Emitter<ProfileState> emit) async {
+    final saveUserUsecase = serviceLocator<SaveUserUC>();
     final currentState = state as SignupData;
     emit(ProfileLoading());
-    final res = await _saveUserUsecase(UserDataParams(
+    final res = await saveUserUsecase(UserDataParams(
       uid: currentState.uid ?? '',
       profileFor: currentState.profileFor,
       name: currentState.name,
@@ -194,73 +159,13 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
         (r) => emit(ProfileSuccess()));
   }
 
-  //------------------------------------------------------------------------------
-  void handleProfileSuccess() async {
-    final res = await _fetchCurrentUserUsecase(EmptyParams());
-    res.fold((error) => print(error), (r) {
-      CurrentUser()
-        ..uid = r.uid
-        ..profileFor = r.profileFor
-        ..name = r.name
-        ..gender = r.gender
-        ..dob = r.dob
-        ..maritalStatus = r.maritalStatus
-        ..physicalStatus = r.physicalStatus
-        ..email = r.email
-        ..phoneNo = r.phoneNo
-        ..country = r.country
-        ..state = r.state
-        ..city = r.city
-        ..bio = r.bio
-        ..profileImage = r.profileImage
-        ..education = r.education
-        ..college = r.college
-        ..employedIn = r.employedIn
-        ..occupation = r.occupation
-        ..organization = r.organization
-        ..familyValues = r.familyValues
-        ..familyStatus = r.familyStatus
-        ..familyType = r.familyType
-        ..familyAbout = r.familyAbout;
-    });
-    await _setLogin(EmptyParams());
-    final preferences = await _currentUserPreferencesUC(EmptyParams());
-    preferences.fold((error) {}, (pref) {
-      CurrentUserPreferences()
-        ..ageStart = pref.ageStart
-        ..ageEnd = pref.ageEnd
-        ..heightStart = pref.heightStart
-        ..heightEnd = pref.heightEnd
-        ..educationPref = pref.educationPref
-        ..maritalStatusPref = pref.maritalStatusPref
-        ..jobPref = pref.jobPref
-        ..isPrefAdded = true;
-    });
-  }
+//------------------------------------- FETCH PREFERENCE -------------------------------------
 
-  FutureOr<void> _onAddPreferences(
-      AddPreferences event, Emitter<ProfileState> emit) async {
-    emit(ProfileLoading());
-    final res = await _addPreferencesUC(PreferencesParams(
-      uid: event.uid,
-      ageStart: event.ageStart,
-      ageEnd: event.ageEnd,
-      heightStart: event.heightStart,
-      heightEnd: event.heightEnd,
-      maritalStatusPref: event.maritalStatusPref,
-      educationPref: event.educationPref,
-      jobPref: event.jobPref,
-    ));
-    CurrentUserPreferences()
-      ..ageStart = event.ageStart
-      ..ageEnd = event.ageEnd
-      ..heightStart = event.heightStart
-      ..heightEnd = event.heightEnd
-      ..educationPref = event.educationPref
-      ..maritalStatusPref = event.maritalStatusPref
-      ..jobPref = event.jobPref
-      ..isPrefAdded = true;
-    final preferences = await _currentUserPreferencesUC(EmptyParams());
+  _onFetchCurrentUserPref(
+      FetchCurrentUserPref event, Emitter<ProfileState> emit) async {
+    final fetchCurrentUserPreferencesUC =
+        serviceLocator<FetchCurrentUserPreferencesUC>();
+    final preferences = await fetchCurrentUserPreferencesUC(EmptyParams());
     preferences.fold((error) => null, (pref) {
       CurrentUserPreferences()
         ..ageStart = pref.ageStart
@@ -272,17 +177,14 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
         ..jobPref = pref.jobPref
         ..isPrefAdded = true;
     });
-    await Future.delayed(Duration(milliseconds: 500));
-    res.fold((l) => emit(AddPreferencesFailure(error: l.message)),
-        (r) => emit(AddPreferencesSuccess()));
   }
 
-// -----------------------------------------------------------------------------------------------
+//------------------------------------- SAVE PREFERENCE -------------------------------------
 
-  FutureOr<void> _onEditPreferences(
-      EditPreferences event, Emitter<ProfileState> emit) async {
+  _onAddPreferences(AddPreferences event, Emitter<ProfileState> emit) async {
     emit(ProfileLoading());
-    final res = await _editPreferencesUC(EditPreferencesParams(
+    final addPreferencesUC = serviceLocator<AddPreferencesUC>();
+    final res = await addPreferencesUC(PreferencesParams(
       uid: event.uid,
       ageStart: event.ageStart,
       ageEnd: event.ageEnd,
@@ -292,34 +194,30 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
       educationPref: event.educationPref,
       jobPref: event.jobPref,
     ));
-    CurrentUserPreferences()
-      ..ageStart = event.ageStart
-      ..ageEnd = event.ageEnd
-      ..heightStart = event.heightStart
-      ..heightEnd = event.heightEnd
-      ..educationPref = event.educationPref
-      ..maritalStatusPref = event.maritalStatusPref
-      ..jobPref = event.jobPref
-      ..isPrefAdded = true;
-
-    final preferences = await _currentUserPreferencesUC(EmptyParams());
-    preferences.fold((error) => null, (pref) {
-      CurrentUserPreferences()
-        ..ageStart = pref.ageStart
-        ..ageEnd = pref.ageEnd
-        ..heightStart = pref.heightStart
-        ..heightEnd = pref.heightEnd
-        ..educationPref = pref.educationPref
-        ..maritalStatusPref = pref.maritalStatusPref
-        ..jobPref = pref.jobPref
-        ..isPrefAdded = true;
+    res.fold((l) => emit(AddPreferencesFailure(error: l.message)), (r) {
+      add(FetchCurrentUserPref());
+      emit(AddPreferencesSuccess());
     });
-    res.fold((l) => emit(AddPreferencesFailure(error: l.message)),
-        (r) => emit(AddPreferencesSuccess()));
   }
 
-  void _onInitializeCurrentUser(
-      InitializeCurrentUser event, Emitter<ProfileState> emit) {
-    handleProfileSuccess();
+//------------------------------------- EDIT PREFERENCE -------------------------------------
+
+  _onEditPreferences(EditPreferences event, Emitter<ProfileState> emit) async {
+    emit(ProfileLoading());
+    final editPreferencesUC = serviceLocator<EditPreferencesUC>();
+    final res = await editPreferencesUC(EditPreferencesParams(
+      uid: event.uid,
+      ageStart: event.ageStart,
+      ageEnd: event.ageEnd,
+      heightStart: event.heightStart,
+      heightEnd: event.heightEnd,
+      maritalStatusPref: event.maritalStatusPref,
+      educationPref: event.educationPref,
+      jobPref: event.jobPref,
+    ));
+    res.fold((l) => emit(AddPreferencesFailure(error: l.message)), (r) {
+      add(FetchCurrentUserPref());
+      emit(AddPreferencesSuccess());
+    });
   }
 }

@@ -7,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ishq/core/common/sessions/current_user.dart';
 import 'package:ishq/core/common/sessions/current_user_prefs.dart';
 import 'package:ishq/core/common/usecase/empty_params.dart';
+import 'package:ishq/core/dependencies/init_dependencies.dart';
 import 'package:ishq/features/auth/domain/usecases/caches/check_login.dart';
 import 'package:ishq/features/auth/domain/usecases/caches/remove_session_usecase.dart';
 import 'package:ishq/features/auth/domain/usecases/caches/set_login_usecase.dart';
@@ -19,81 +20,87 @@ part 'auth_event.dart';
 part 'auth_state.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
-  final UserSignup _userSignup;
-  final UserLogin _userLogin;
-  final FetchCurrentUserUsecase _fetchCurrentUserUsecase;
-  final CheckLogin _checkLogin;
-  final SetLogin _setLogin;
-  final LogoutUC _logoutUsecase;
-  final RemoveSessionUC _removeSessionUC;
-  final FetchCurrentUserPreferencesUC _currentUserPreferencesUC;
-
-  AuthBloc(
-      {required UserSignup userSignup,
-      required UserLogin userLogin,
-      required FetchCurrentUserUsecase fetchCurrentUser,
-      required CheckLogin checkLoginUsecse,
-      required SetLogin setLoginUsecase,
-      required LogoutUC logoutUsecase,
-      required RemoveSessionUC removeSessionUC,
-      required FetchCurrentUserPreferencesUC fetchCurrentUserPreference})
-      : _userSignup = userSignup,
-        _userLogin = userLogin,
-        _fetchCurrentUserUsecase = fetchCurrentUser,
-        _checkLogin = checkLoginUsecse,
-        _setLogin = setLoginUsecase,
-        _logoutUsecase = logoutUsecase,
-        _removeSessionUC = removeSessionUC,
-        _currentUserPreferencesUC = fetchCurrentUserPreference,
-        super(AuthInitial()) {
+  AuthBloc() : super(AuthInitial()) {
     on<AuthCheckStatus>(_onAuthCheckStatus);
+    on<InitializeCurrentUser>(_onInitializeCurrentUser);
     on<AuthSignup>(_onAuthSIgnup);
     on<AuthLogin>(_onAuthLogin);
     on<AuthLogout>(_onAuthLogout);
-    on<InitializeCurrentUserAfterLogin>(_onInitializeCurrentUser);
+    on<SetLogin>(_onSetLogin);
+    add(AuthCheckStatus());
   }
 
-  @override
-  void onTransition(Transition<AuthEvent, AuthState> transition) {
-    super.onTransition(transition);
-
-    // Perform an action when transitioning to ProfileSuccess state
-    if (transition.nextState is LoginSuccess) {
-      handleprofileSuccess();
-    }
-    if (transition.nextState is AuthAuthenticated) {
-      handleprofileSuccess();
-    }
-  }
 //------------------------------------------------- Signup ---------------------------------------------
 
   void _onAuthSIgnup(AuthSignup event, Emitter<AuthState> emit) async {
     emit(AuthLoading());
-    final res = await _userSignup(UserSignupParams(
+    final userSignup = serviceLocator<UserSignupUC>();
+    final res = await userSignup(UserSignupParams(
       email: event.mail,
       password: event.password,
     ));
 
-    res.fold(
-        (l) => emit(AuthFailure(l.message)), (r) => emit(SignUpSuccess(r)));
+    res.fold((l) => emit(AuthFailure(l.message)), (r) {
+      emit(SignUpSuccess(r));
+    });
   }
 
 //------------------------------------------------- Login ----------------------------------------------
 
   void _onAuthLogin(AuthLogin event, Emitter<AuthState> emit) async {
     emit(AuthLoading());
-    final res = await _userLogin(UserLoginParams(
+    final userLogin = serviceLocator<UserLoginUC>();
+    final res = await userLogin(UserLoginParams(
       email: event.mail,
       password: event.password,
     ));
 
-    res.fold((l) => emit(AuthFailure(l.message)), (r) => emit(LoginSuccess(r)));
+    res.fold((l) => emit(AuthFailure(l.message)), (r) {
+      add(InitializeCurrentUser());
+      emit(LoginSuccess(r));
+    } );
   }
 
-  //------------------------------------------------------------------------------
+//------------------------------------------------- SET LOGIN ----------------------------------------------
 
-  void handleprofileSuccess() async {
-    final res = await _fetchCurrentUserUsecase(EmptyParams());
+  void _onSetLogin(SetLogin event, Emitter<AuthState> emit) async {
+    final setLogin = serviceLocator<SetLoginUC>();
+    await setLogin(EmptyParams());
+  }
+//------------------------------------------------------------------------------
+
+  Future<void> _onAuthCheckStatus(
+      AuthCheckStatus event, Emitter<AuthState> emit) async {
+    final checkLogin = serviceLocator<CheckLoginUC>();
+    final status = await checkLogin();
+
+    if (status) {
+      add(InitializeCurrentUser());
+      emit(AuthAuthenticated());
+    } else {
+      emit(AuthUnauthenticated());
+    }
+  }
+
+  //------------------------------------------------- Logout ----------------------------------------------
+
+  FutureOr<void> _onAuthLogout(
+      AuthLogout event, Emitter<AuthState> emit) async {
+    emit(AuthLoading());
+    final logoutUsecase = serviceLocator<LogoutUC>();
+    final removeSessionUC = serviceLocator<RemoveSessionUC>();
+    await logoutUsecase();
+    await removeSessionUC();
+    emit(AuthLogedOut());
+  }
+
+  void _onInitializeCurrentUser(
+      InitializeCurrentUser event, Emitter<AuthState> emit) async {
+    final fetchCurrentUserUC = serviceLocator<FetchCurrentUserUC>();
+    final currentUserPreferencesUC =
+        serviceLocator<FetchCurrentUserPreferencesUC>();
+
+    final res = await fetchCurrentUserUC(EmptyParams());
     res.fold((l) => throw l, (r) {
       CurrentUser()
         ..uid = r.uid
@@ -120,12 +127,11 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         ..familyType = r.familyType
         ..familyAbout = r.familyAbout;
     });
-    await _setLogin(EmptyParams());
 
-    final preferences = await _currentUserPreferencesUC(EmptyParams());
+    final preferences = await currentUserPreferencesUC(EmptyParams());
     preferences.fold((error) {
-    // ignore: avoid_print
-    print (error.message);
+      // ignore: avoid_print
+      print(error.message);
     }, (pref) {
       CurrentUserPreferences()
         ..ageStart = pref.ageStart
@@ -136,36 +142,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         ..maritalStatusPref = pref.maritalStatusPref
         ..jobPref = pref.jobPref
         ..isPrefAdded = true;
-   
     });
-  }
-
-//------------------------------------------------------------------------------
-
-  Future<void> _onAuthCheckStatus(
-      AuthCheckStatus event, Emitter<AuthState> emit) async {
-    final status = await _checkLogin();
-
-    if (status) {
-      handleprofileSuccess();
-      emit(AuthAuthenticated());
-    } else {
-      emit(AuthUnauthenticated());
-    }
-  }
-
-  //------------------------------------------------- Logout ----------------------------------------------
-
-  FutureOr<void> _onAuthLogout(
-      AuthLogout event, Emitter<AuthState> emit) async {
-    emit(AuthLoading());
-    await _logoutUsecase();
-    await _removeSessionUC();
-    emit(AuthLogedOut());
-  }
-
-    void _onInitializeCurrentUser(
-      InitializeCurrentUserAfterLogin event, Emitter<AuthState> emit) {
-    handleprofileSuccess();
   }
 }

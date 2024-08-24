@@ -1,4 +1,3 @@
-import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:ishq/core/common/entities/user_entity.dart';
 import 'package:ishq/core/common/sessions/current_user.dart';
@@ -16,6 +15,7 @@ part 'match_state.dart';
 
 class MatchBloc extends Bloc<MatchEvent, MatchState> {
   MatchBloc() : super(MatchInitial()) {
+    on<InitializeMatch>(_onInitializeMatch);
     on<GetAllusers>(_onGetAllUser);
     on<LoadAllCategories>(_onLoadAllCategeories);
     on<MatchSendRequest>(_onSendRequest);
@@ -23,20 +23,22 @@ class MatchBloc extends Bloc<MatchEvent, MatchState> {
     on<GetSentRequest>(_onGetSentRequest);
     on<GetReceivedRequest>(_onGetReceivedRequest);
     on<GetAcceptedRequest>(_onGetAcceptedRequest);
+    add(InitializeMatch()); // initializing necessary events
   }
 
-//------------------------------ TRANSITION ------------------------------
-  @override
-  void onTransition(Transition<MatchEvent, MatchState> transition) {
-    super.onTransition(transition);
-    // Perform an action when transitioning to ProfileSuccess state
-    if (transition.nextState is FetchUsersSuccessfull) {}
+//----------------------------- INITIALIZATION ----------------------------
+
+  void _onInitializeMatch(InitializeMatch event, Emitter<MatchState> emit) {
+    add(GetAllusers());
+    add(LoadAllCategories());
+    add(GetSentRequest());
+    add(GetReceivedRequest());
+    add(GetAcceptedRequest());
   }
 
 //----------------------------- GET ALL USERS -----------------------------
 
-  Future<void> _onGetAllUser(
-      GetAllusers event, Emitter<MatchState> emit) async {
+  _onGetAllUser(GetAllusers event, Emitter<MatchState> emit) async {
     emit(FetchUserLoading());
     // Get use case instance
     final getAllUsersUC = serviceLocator<GetAllUsersUC>();
@@ -49,7 +51,7 @@ class MatchBloc extends Bloc<MatchEvent, MatchState> {
 
 //-------------------------- LOAD ALL CATEGEORIES -------------------------
 
-  Future<void> _onLoadAllCategeories(
+  _onLoadAllCategeories(
       LoadAllCategories event, Emitter<MatchState> emit) async {
     emit(HomeLoading());
     // Get use case instance
@@ -69,8 +71,7 @@ class MatchBloc extends Bloc<MatchEvent, MatchState> {
 
 //------------------------------ SEND REQUEST ----------------------------
 
-  Future<void> _onSendRequest(
-      MatchSendRequest event, Emitter<MatchState> emit) async {
+  _onSendRequest(MatchSendRequest event, Emitter<MatchState> emit) async {
     emit(RequestLoading());
 
     // Get use case instance
@@ -88,8 +89,7 @@ class MatchBloc extends Bloc<MatchEvent, MatchState> {
 
 //------------------------------ ACCEPT REQUEST ---------------------------
 
-  FutureOr<void> _onAcceptRequest(
-      AcceptRequest event, Emitter<MatchState> emit) async {
+  _onAcceptRequest(AcceptRequest event, Emitter<MatchState> emit) async {
     emit(RequestLoading());
     final acceptRequestUC = serviceLocator<AcceptRequestUC>();
     final result = await acceptRequestUC(AcceptRequestparams(requestId: ''));
@@ -97,48 +97,75 @@ class MatchBloc extends Bloc<MatchEvent, MatchState> {
         (r) => emit(RequestSuccess()));
   }
 
-//----------------------------- GET SEND REQUEST --------------------------
+//----------------------------- GET SENT REQUEST --------------------------
 
-  FutureOr<void> _onGetSentRequest(
-      GetSentRequest event, Emitter<MatchState> emit) {
+  Future<void> _onGetSentRequest(
+      GetSentRequest event, Emitter<MatchState> emit) async {
     emit(RequestFetchingLoading());
     final getSendRequestUC = serviceLocator<GetSentRequestsStreamUC>();
     final stream = getSendRequestUC(EmptyParams());
-    stream.listen((either) {
-      either.fold(
-        (failure) => emit(RequestError(failure.message)),
-        (userList) => emit(SentRequestLoaded(users: userList)),
-      );
-    });
+
+    await emit.forEach(
+      stream,
+      onData: (either) => either.fold(
+        (failure) => RequestLoadingError(failure.message),
+        (userList) => SentRequestLoaded(users: userList),
+      ),
+      onError: (error, stackTrace) => RequestLoadingError(error.toString()),
+    );
   }
 
 //--------------------------- GET RECEIVED REQUEST ------------------------
 
-  FutureOr<void> _onGetReceivedRequest(
-      GetReceivedRequest event, Emitter<MatchState> emit) {
+  Future<void> _onGetReceivedRequest(
+      GetReceivedRequest event, Emitter<MatchState> emit) async {
     emit(RequestFetchingLoading());
     final getReceivedRequestUC = serviceLocator<GetReceivedRequestsStreamUC>();
     final stream = getReceivedRequestUC(EmptyParams());
-    stream.listen((either) {
-      either.fold(
-        (failure) => emit(RequestError(failure.message)),
-        (userList) => emit(SentRequestLoaded(users: userList)),
-      );
-    });
+
+    await emit.forEach(
+      stream,
+      onData: (either) => either.fold(
+        (failure) => RequestLoadingError(failure.message),
+        (userList) => RecievedRequestLoaded(users: userList),
+      ),
+      onError: (error, stackTrace) => RequestLoadingError(error.toString()),
+    );
   }
 
 //--------------------------- GET ACCEPTED REQUEST ------------------------
 
-  FutureOr<void> _onGetAcceptedRequest(
-      GetAcceptedRequest event, Emitter<MatchState> emit) {
+  Future<void> _onGetAcceptedRequest(
+      GetAcceptedRequest event, Emitter<MatchState> emit) async {
     emit(RequestFetchingLoading());
     final getAcceptedRequestUC = serviceLocator<GetAcceptedRequestsStreamUC>();
     final stream = getAcceptedRequestUC(EmptyParams());
-    stream.listen((either) {
-      either.fold(
-        (failure) => emit(RequestError(failure.message)),
-        (userList) => emit(SentRequestLoaded(users: userList)),
-      );
-    });
+
+    await emit.forEach(
+      stream,
+      onData: (either) => either.fold(
+        (failure) => RequestLoadingError(failure.message),
+        (userList) => AcceptedRequestLoaded(users: userList),
+      ),
+      onError: (error, stackTrace) => RequestLoadingError(error.toString()),
+    );
   }
 }
+
+
+
+
+
+// Explanation:
+
+// emit.forEach: This method is perfect for handling streams in Bloc because it 
+// listens to a stream and emits states whenever new data arrives. It also handles
+//  errors that may occur during stream processing.
+
+// onData: Defines what happens with the data emitted by the stream. You use this 
+// to map the stream data (which in your case is an Either type) to a specific state.
+
+// onError: Handles any errors that might occur during stream processing, allowing 
+// you to emit an error state if necessary.
+
+// For more notes : -> Notes -> stream_listning_bloc.notes

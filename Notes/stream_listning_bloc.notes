@@ -1,0 +1,43 @@
+Yes, you're on the right track! Here's how it works:
+
+### Continuous Stream Listening
+
+When you trigger the events in your `Bloc` that handle streams (e.g., `GetSentRequest`, `GetReceivedRequest`, `GetAcceptedRequest`), the corresponding stream listeners (`emit.forEach`) are set up. As long as the `Bloc` instance is alive (i.e., as long as it's being used in your application), these stream listeners will remain active. 
+
+### How It Works:
+
+1. **Stream Initialization:**
+   - When the `Bloc` is initialized (typically when your application starts, if you're creating the `Bloc` in the `main` function or via a `BlocProvider` in the widget tree), the stream listeners are set up.
+   - For example, when `GetSentRequest` is added to the `Bloc`, the `emit.forEach` for the sent request stream is initialized and starts listening to the stream.
+
+2. **Continuous Listening:**
+   - These streams will continuously listen for any new data emitted by the use case (e.g., `getSendRequestUC(EmptyParams())`).
+   - Whenever new data is pushed to the stream (e.g., changes in the database that cause new values to be emitted), the corresponding `onData` callback inside `emit.forEach` will be invoked, which in turn will emit a new state.
+   - Since the state changes, your UI will automatically rebuild (if it is listening to the Bloc's state) and reflect the new data.
+
+3. **Automatic UI Updates:**
+   - As long as your `BlocBuilder` or `BlocListener` is connected to this `Bloc` and is listening to the state changes, the UI will automatically update whenever new data arrives through the stream.
+
+### Key Points:
+
+- **Always Active Streams:** The streams will remain active as long as the `Bloc` instance exists in memory. You don’t need to re-trigger the events unless you specifically want to refresh the data or listen to a different set of data.
+
+- **Automatic Updates:** As long as the stream is active and emitting data, the `Bloc` will handle it and emit the appropriate states, which will automatically update the UI components that are listening to those states.
+
+- **Efficient Data Handling:** This setup is efficient because it ensures that your UI is always up-to-date with the latest data without needing manual polling or re-fetching. The streams handle all data updates as they occur.
+
+### Example Flow:
+
+1. **App Start:** The app starts, and `MatchBloc` is created via a `BlocProvider`.
+2. **Events Triggered:** `InitializeMatch` event triggers the stream-related events (`GetSentRequest`, etc.).
+3. **Streams Active:** The `emit.forEach` listeners for these streams are now active and continuously listen for data changes.
+4. **Data Change:** If there's a change in the database (e.g., a new match request is sent), the stream emits the updated data.
+5. **State Update:** The stream listener in `emit.forEach` catches this new data, processes it, and emits a new state.
+6. **UI Update:** The UI, listening to the `Bloc`, automatically rebuilds to reflect the new data.
+
+### When to Re-trigger Events?
+
+- **Initial Setup:** Events like `GetSentRequest` are typically only triggered once when the `Bloc` is initialized.
+- **Manual Refresh:** If you want to manually refresh or re-fetch the data (for example, if the user pulls to refresh), you might want to re-trigger the event.
+
+In most cases, however, you can rely on the stream to keep the UI updated in real-time, without needing to re-trigger the event manually.

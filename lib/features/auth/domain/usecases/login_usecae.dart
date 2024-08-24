@@ -3,10 +3,10 @@ import 'package:ishq/core/common/usecase/usecase.dart';
 import 'package:ishq/features/auth/domain/repositories/auth_repository.dart';
 import 'package:ishq/utils/error/failure.dart';
 
-class UserLogin implements UseCase<String, UserLoginParams> {
+class UserLoginUC implements UseCase<String, UserLoginParams> {
   final AuthRepository authRepository;
 
-  UserLogin(this.authRepository);
+  UserLoginUC(this.authRepository);
   @override
   Future<Either<Failure, String>> call(UserLoginParams parameters) async {
   return await authRepository.loginWithEmailAndPassword(

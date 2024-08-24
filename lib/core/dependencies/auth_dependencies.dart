@@ -30,9 +30,9 @@ class AuthDependencies {
       ..registerFactory<UserSessionRepository>(() =>
           UserSessionRepositoryImpl(localPrefDatasource: serviceLocator()))
       ..registerLazySingleton(
-          () => CheckLogin(userSessionRepository: serviceLocator()))
+          () => CheckLoginUC(userSessionRepository: serviceLocator()))
       ..registerLazySingleton(
-          () => SetLogin(userSessionRepository: serviceLocator()));
+          () => SetLoginUC(userSessionRepository: serviceLocator()));
   }
 
   static void initAuth() {
@@ -41,19 +41,11 @@ class AuthDependencies {
           () => AuthRemoteDataSourceImpl(authInstance: serviceLocator()))
       ..registerFactory<AuthRepository>(
           () => AuthRepositoryImpl(remoteDataSource: serviceLocator()))
-      ..registerFactory(() => UserSignup(serviceLocator()))
-      ..registerFactory(() => UserLogin(serviceLocator()))
+      ..registerFactory(() => UserSignupUC(serviceLocator()))
+      ..registerFactory(() => UserLoginUC(serviceLocator()))
       ..registerFactory(() => RemoveSessionUC(serviceLocator()))
       ..registerFactory(() => LogoutUC(serviceLocator()))
-      ..registerLazySingleton(() => AuthBloc(
-          userSignup: serviceLocator(),
-          userLogin: serviceLocator(),
-          fetchCurrentUser: serviceLocator(),
-          checkLoginUsecse: serviceLocator(),
-          setLoginUsecase: serviceLocator(),
-          logoutUsecase: serviceLocator(),
-          removeSessionUC: serviceLocator(),
-          fetchCurrentUserPreference: serviceLocator()));
+      ..registerLazySingleton(() => AuthBloc());
     // Here we are using lazysingleto to maintain the state of block
   }
 
@@ -66,22 +58,15 @@ class AuthDependencies {
               storage: serviceLocator()))
       ..registerFactory<ProfileRepository>(
           () => ProfileRepositoryImpl(profileDataSource: serviceLocator()))
+      ..registerFactory(() => SaveUserUC(profileRepository: serviceLocator()))
       ..registerFactory(
-          () => SaveUserUsecase(profileRepository: serviceLocator()))
-      ..registerFactory(
-          () => FetchCurrentUserUsecase(profileRepository: serviceLocator()))
+          () => FetchCurrentUserUC(profileRepository: serviceLocator()))
       ..registerFactory(
           () => AddPreferencesUC(profileRepository: serviceLocator()))
       ..registerFactory(() =>
           FetchCurrentUserPreferencesUC(profileRepository: serviceLocator()))
-          ..registerFactory(() =>
-          EditPreferencesUC(profileRepository: serviceLocator()))
-      ..registerLazySingleton(() => ProfileBloc(
-          saveUser: serviceLocator(),
-          fetchCurrentUser: serviceLocator(),
-          setLoginUsecase: serviceLocator(),
-          addPreferenceUC: serviceLocator(),
-          editPreferenceUC: serviceLocator(),
-          fetchCurrentUserPreference: serviceLocator()));
+      ..registerFactory(
+          () => EditPreferencesUC(profileRepository: serviceLocator()))
+      ..registerLazySingleton(() => ProfileBloc());
   }
 }

@@ -4,8 +4,8 @@ import 'package:ishq/core/common/usecase/usecase.dart';
 import 'package:ishq/features/auth/domain/repositories/profile_repository.dart';
 import 'package:ishq/utils/error/failure.dart';
 
-class SaveUserUsecase implements UseCase<Null, UserDataParams> {
-  SaveUserUsecase({required this.profileRepository});
+class SaveUserUC implements UseCase<Null, UserDataParams> {
+  SaveUserUC({required this.profileRepository});
   final ProfileRepository profileRepository;
 
   @override

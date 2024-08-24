@@ -19,7 +19,7 @@ void main() async {
   runApp(
     MultiBlocProvider( 
     providers: [
-      BlocProvider(create: (_)=> serviceLocator<AuthBloc>()..add(AuthCheckStatus())),
+      BlocProvider(create: (_)=> serviceLocator<AuthBloc>()),
       BlocProvider(create: (_)=> serviceLocator<ProfileBloc>()),
       BlocProvider(create: (_)=> serviceLocator<MatchBloc>() ),
     ],

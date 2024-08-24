@@ -129,3 +129,5 @@ final class AddPreferencesFailure extends ProfileState {
 
   AddPreferencesFailure({required this.error});
 }
+
+

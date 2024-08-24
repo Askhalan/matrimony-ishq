@@ -75,3 +75,10 @@ class AcceptedRequestLoaded extends MatchState {
     required this.users,
   });
 }
+
+
+
+class RequestLoadingError extends MatchState {
+  RequestLoadingError(this.message);
+  final String message;
+}

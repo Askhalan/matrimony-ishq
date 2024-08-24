@@ -1,8 +1,8 @@
 import 'package:ishq/features/auth/domain/repositories/user_session_repository.dart';
 
-class CheckLogin {
+class CheckLoginUC {
   final UserSessionRepository userSessionRepository;
-  CheckLogin({required this.userSessionRepository});
+  CheckLoginUC({required this.userSessionRepository});
   Future<bool> call() async {
     final res = await userSessionRepository.checkLogedIn();
     return res;
