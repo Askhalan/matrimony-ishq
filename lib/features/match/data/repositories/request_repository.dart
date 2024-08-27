@@ -28,6 +28,7 @@ class RequestRepositoryImpl implements RequestRepository {
       requestedId: requestedId,
       timestamp: timestamp,
       status: status,
+      requestedUserDetails: null,
     );
 
     try {
@@ -49,7 +50,7 @@ class RequestRepositoryImpl implements RequestRepository {
       return left(Failure(e.toString()));
     }
   }
-  
+
 //----------------------------------- Get Recived Request ------------------------------------
 
   @override
@@ -68,9 +69,8 @@ class RequestRepositoryImpl implements RequestRepository {
 //------------------------------------- Get Sent Request -------------------------------------
 
   @override
-  Stream<Either<Failure, List<UserEntity>>> getSentRequestsStream()async* {
-
-     try {
+  Stream<Either<Failure, List<UserEntity>>> getSentRequestsStream() async* {
+    try {
       yield* requestDatasource.getSentRequestsStream().map(
         (userList) {
           return right(userList);
@@ -80,13 +80,11 @@ class RequestRepositoryImpl implements RequestRepository {
       yield left(Failure(e.toString()));
     }
   }
-
 //----------------------------------- Get Accepted Request -----------------------------------
 
   @override
-  Stream<Either<Failure, List<UserEntity>>> getAcceptedRequestsStream()async* {
-
-     try {
+  Stream<Either<Failure, List<UserEntity>>> getAcceptedRequestsStream() async* {
+    try {
       yield* requestDatasource.getAcceptedRequestsStream().map(
         (userList) {
           return right(userList);
@@ -96,8 +94,4 @@ class RequestRepositoryImpl implements RequestRepository {
       yield left(Failure(e.toString()));
     }
   }
-
-
 }
-
-

@@ -29,7 +29,7 @@ class JImageView extends StatelessWidget {
                     JImages.defaultUser,
                     fit: BoxFit.cover,
                   )
-                : Image.network(url!)
+                : Image.network(url!,fit:BoxFit.cover ,)
             : Image.asset(
                 src,
                 fit: BoxFit.cover,

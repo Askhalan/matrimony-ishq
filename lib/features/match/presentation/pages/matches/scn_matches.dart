@@ -1,15 +1,30 @@
-// ignore_for_file: prefer_const_literals_to_create_immutables
+// ignore_for_file: prefer_const_literals_to_create_immutables, avoid_print
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:ishq/core/common/entities/user_entity.dart';
 import 'package:ishq/core/common/widgets/appbar/appbar_with_tabbar.dart';
-import 'package:ishq/features/match/presentation/widgets/user_list_tile.dart';
+import 'package:ishq/features/match/presentation/bloc/match_bloc.dart';
+import 'package:ishq/features/match/presentation/widgets/user_card/user_list_tile.dart';
+import 'package:ishq/features/match/presentation/widgets/user_card/user_list_loader.dart';
 import 'package:ishq/features/match/presentation/widgets/w_action_button.dart';
 import 'package:ishq/features/match/presentation/widgets/w_appbar_title.dart';
 import 'package:ishq/utils/constants/sizes.dart';
 
-class ScnMatches extends StatelessWidget {
+class ScnMatches extends StatefulWidget {
   const ScnMatches({super.key});
+
+  @override
+  State<ScnMatches> createState() => _ScnMatchesState();
+}
+
+class _ScnMatchesState extends State<ScnMatches> {
+  @override
+  void initState() {
+    context.read<MatchBloc>().add(GetSentRequest());
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,8 +40,6 @@ class ScnMatches extends StatelessWidget {
           onTap: () {},
         )
       ],
-      // expandedHeight: 30,
-      // footerMaxHeight: 200,
       appbarPinned: true,
       tabs: [
         Tab(
@@ -56,62 +69,67 @@ class ScnMatches extends StatelessWidget {
       ],
       length: 4,
       children: [
-        //-------------------------------- OUTGOING MATCH REQUESTS --------------------------------
+        //-------------------------------- SENT MATCH REQUESTS --------------------------------
+        BlocBuilder<MatchBloc, MatchState>(
+          builder: (context, state) {
+            if (state is RequestFetchingLoading) {
+              return UserListLoader();
+            }
+            if (state is RequestLoadingError) {
+              return Center(child: Text(state.message));
+            }
+            if (state is SentRequestLoaded) {
+              return Padding(
+                padding:
+                    EdgeInsets.symmetric(horizontal: JSize.defaultPaddingValue),
+                child: ListView.builder(
+                  itemCount: state.users.length,
+                  itemBuilder: (context, index) {
+                    UserEntity user = state.users[index];
+                    print(user.name);
+                    return UserListTile(
+                      user: user,
+                    );
+                  },
+                ),
+              );
+            }
+            return SizedBox();
+          },
+        ),
+
+        //-------------------------------- RECEIVED MATCH REQUESTS --------------------------------
+
         Padding(
-          padding: EdgeInsets.symmetric(horizontal: JSize.defaultPaddingValue),
-          child: ListView.builder(
-            itemCount: 10,
-            itemBuilder: (context, index) {
-              return UserListTile(
-                name: 'Hana Sherin',
-                age: '22',
-                place: 'Kozhicode',
-              );
-            },
-          ),
-        ),
-
-        //-------------------------------- INCOMING MATCH REQUESTS --------------------------------
-        
-         Padding(
           padding: JSize.defaultPadding,
           child: ListView.builder(
             itemCount: 10,
             itemBuilder: (context, index) {
-              return UserListTile(
-                name: 'Hana Sherin',
-                age: '22',
-                place: 'Kozhicode',
-              );
+              // return UserListTile();
+              return SizedBox();
             },
           ),
         ),
 
-        //--------------------------------------- LIKED USERS -------------------------------------
+        //-------------------------------- ACCEPTED MATCH REQUESTS --------------------------------
 
-         Padding(
+        Padding(
           padding: JSize.defaultPadding,
           child: ListView.builder(
             itemCount: 10,
             itemBuilder: (context, index) {
-              return UserListTile(
-                name: 'Hana Sherin',
-                age: '22',
-                place: 'Kozhicode',
-              );
+              // return UserListTile();
+              return SizedBox();
             },
           ),
         ),
-         Padding(
+        Padding(
           padding: JSize.defaultPadding,
           child: ListView.builder(
             itemCount: 10,
             itemBuilder: (context, index) {
-              return UserListTile(
-                name: 'Hana Sherin',
-                age: '22',
-                place: 'Kozhicode',
-              );
+              // return UserListTile();
+              return SizedBox();
             },
           ),
         ),
@@ -119,5 +137,3 @@ class ScnMatches extends StatelessWidget {
     ));
   }
 }
-
-

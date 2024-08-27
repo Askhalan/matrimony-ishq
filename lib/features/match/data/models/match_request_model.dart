@@ -1,9 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:ishq/features/match/domain/entities/matchentity.dart';
+import 'package:ishq/core/common/entities/user_entity.dart';
+import 'package:ishq/features/match/domain/entities/match_request_entity.dart';
 
 class MatchRequestModel extends MatchRequestEntity {
   MatchRequestModel(
-      {required super.requesterId,
+      {required super.requestedUserDetails,
+      required super.requesterId,
       required super.requestedId,
       required super.timestamp,
       required super.status});
@@ -13,12 +15,14 @@ class MatchRequestModel extends MatchRequestEntity {
     String? requestedId,
     DateTime? timestamp,
     String? status,
+    UserEntity? requestedUserDetails,
   }) {
     return MatchRequestModel(
       requesterId: requesterId ?? this.requesterId,
       requestedId: requestedId ?? this.requestedId,
       timestamp: timestamp ?? this.timestamp,
       status: status ?? this.status,
+      requestedUserDetails: requestedUserDetails,
     );
   }
 
@@ -29,6 +33,7 @@ class MatchRequestModel extends MatchRequestEntity {
         requestedId: '',
         timestamp: DateTime(2024),
         status: '',
+        requestedUserDetails: null,
       );
 //----------------------------------------- MODEL TO JSON DATA ------------------------------------
 
@@ -52,6 +57,7 @@ class MatchRequestModel extends MatchRequestEntity {
         requestedId: data['requestedId'] ?? '',
         timestamp: data['timestamp'] ?? '',
         status: data['status'] ?? '',
+        requestedUserDetails: null,
       );
     } else {
       return MatchRequestModel.empty();

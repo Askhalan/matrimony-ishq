@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:bloc/bloc.dart';
 import 'package:ishq/core/common/entities/user_entity.dart';
 import 'package:ishq/core/common/sessions/current_user.dart';
@@ -109,7 +111,10 @@ class MatchBloc extends Bloc<MatchEvent, MatchState> {
       stream,
       onData: (either) => either.fold(
         (failure) => RequestLoadingError(failure.message),
-        (userList) => SentRequestLoaded(users: userList),
+        (userList) {
+          print("length from success  ${userList.length}");
+          return SentRequestLoaded(users: userList);
+        },
       ),
       onError: (error, stackTrace) => RequestLoadingError(error.toString()),
     );
