@@ -27,7 +27,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<AuthLogin>(_onAuthLogin);
     on<AuthLogout>(_onAuthLogout);
     on<SetLogin>(_onSetLogin);
-    add(AuthCheckStatus());
+   
   }
 
 //------------------------------------------------- Signup ---------------------------------------------
@@ -56,6 +56,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     ));
 
     res.fold((l) => emit(AuthFailure(l.message)), (r) {
+      add(SetLogin());
       add(InitializeCurrentUser());
       emit(LoginSuccess(r));
     } );
@@ -76,6 +77,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
     if (status) {
       add(InitializeCurrentUser());
+      add(SetLogin());
       emit(AuthAuthenticated());
     } else {
       emit(AuthUnauthenticated());

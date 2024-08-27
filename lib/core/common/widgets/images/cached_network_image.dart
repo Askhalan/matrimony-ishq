@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:ishq/core/common/widgets/loader/shimmer.dart';
+import 'package:ishq/utils/constants/image_strings.dart';
 import 'package:ishq/utils/constants/sizes.dart';
 
 class JNetworImage extends StatelessWidget {
@@ -15,7 +16,7 @@ class JNetworImage extends StatelessWidget {
   final bool isNetworkImage;
   final String image;
   final double height, width;
-  // final controller = UserController.instance;
+
 
   @override
   Widget build(BuildContext context) {
@@ -36,15 +37,16 @@ class JNetworImage extends StatelessWidget {
                   fit: BoxFit.cover,
                   progressIndicatorBuilder: (context, url, progress) =>
                       JShimmerEffect(width: width, height: height),
-                  errorWidget: (context, url, error) => const Icon(Iconsax.gallery_slash),
+                  errorWidget: (context, url, error) =>
+                      const Icon(Iconsax.gallery_slash),
                   imageUrl: image),
             )
           else
-            Image(fit: BoxFit.fill, image: AssetImage(image)),
+            Image(fit: BoxFit.cover, image: AssetImage(JImages.user1)),
         ],
       ),
     );
   }
 }
 
-class JmSize {}
+

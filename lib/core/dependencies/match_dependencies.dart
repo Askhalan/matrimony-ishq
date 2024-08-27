@@ -12,7 +12,7 @@ import 'package:ishq/features/match/domain/usecases/request_usecases/get_accepte
 import 'package:ishq/features/match/domain/usecases/request_usecases/get_received_request_suc.dart';
 import 'package:ishq/features/match/domain/usecases/request_usecases/get_sent_request_suc.dart';
 import 'package:ishq/features/match/domain/usecases/request_usecases/send_request_uc.dart';
-import 'package:ishq/features/match/presentation/bloc/match_bloc.dart';
+import 'package:ishq/features/match/presentation/match/bloc/match_bloc.dart';
 
 class MatchDependencies {
   static void initMatchData() {

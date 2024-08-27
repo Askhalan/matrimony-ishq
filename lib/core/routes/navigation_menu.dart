@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_floating_bottom_bar/flutter_floating_bottom_bar.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:ishq/features/auth/presentation/profile/pages/profile/scn_profile.dart';
-import 'package:ishq/features/match/presentation/pages/home/scn_home.dart';
-import 'package:ishq/features/match/presentation/pages/matches/scn_matches.dart';
+import 'package:ishq/features/match/presentation/chat/pages/scn_chat_list.dart';
+import 'package:ishq/features/match/presentation/match/pages/home/scn_home.dart';
+import 'package:ishq/features/match/presentation/match/pages/matches/scn_matches.dart';
 import 'package:ishq/utils/constants/colors.dart';
 import 'package:ishq/utils/constants/sizes.dart';
 
@@ -53,7 +54,7 @@ class NavigationMenuState extends State<NavigationMenu>
       body: BottomBar(
         fit: StackFit.expand,
         borderRadius: BorderRadius.circular(JSize.borderRadLg),
-        duration: Duration(seconds: 1),
+        duration: const Duration(seconds: 1),
         curve: Curves.decelerate,
         width: MediaQuery.of(context).size.width * 0.9,
         barColor: JColor.primary,
@@ -68,11 +69,11 @@ class NavigationMenuState extends State<NavigationMenu>
         body: (context, controller) => TabBarView(
           controller: tabController,
           dragStartBehavior: DragStartBehavior.down,
-          physics: BouncingScrollPhysics(),
-          children: [
+          physics: const BouncingScrollPhysics(),
+          children: const [
             ScnHome(),
             ScnMatches(),
-            Scaffold(appBar: AppBar(automaticallyImplyLeading: false,)),
+            ScnChat(),
             ScnProfile()
           
           ],
@@ -101,7 +102,7 @@ class NavigationMenuState extends State<NavigationMenu>
               child: Center(
                   child: Icon(
                 Iconsax.link,
-                color: currentPage == 2 ? JColor.primary : JColor.grey,
+                color: currentPage == 1 ? JColor.primary : JColor.grey,
               )),
             ),
             SizedBox(
@@ -109,7 +110,7 @@ class NavigationMenuState extends State<NavigationMenu>
               child: Center(
                   child: Icon(
                 Iconsax.sms,
-                color: currentPage == 1 ? JColor.primary : JColor.grey,
+                color: currentPage == 2 ? JColor.primary : JColor.grey,
               )),
             ),
             SizedBox(

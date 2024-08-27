@@ -33,7 +33,6 @@ class RequestDataSourceImpl implements RequestDatasource {
     for (var i = 0; i < uids.length; i += 10) {
       final batchUids =
           uids.sublist(i, i + 10 > uids.length ? uids.length : i + 10);
-
       batches.add(db
           .collection('users')
           .where(FieldPath.documentId, whereIn: batchUids)
@@ -93,9 +92,20 @@ class RequestDataSourceImpl implements RequestDatasource {
           .collection('requests')
           .where('receiverId', isEqualTo: auth.currentUser!.uid)
           .snapshots()
-          .map((snapshot) => snapshot.docs
-              .map((doc) => UserModelMatch.fromJson(doc))
-              .toList());
+          .asyncMap((snapshot) async {
+        log('Snapshot size from GET RECEIVED REQUEST : ${snapshot.size}');
+
+        // Extract UIDs from requests
+        final List<String> requestedUids =
+            snapshot.docs.map((doc) => doc['requestedId'] as String).toList();
+
+        // Fetch user details in batches
+        final List<UserModelMatch> users =
+            await fetchUsersByBatch(requestedUids);
+
+        log('Fetched users length from GET RECEIVED REQUEST: ${users.length}');
+        return users;
+      });
     } on FirebaseException catch (e) {
       throw JFirebaseException(e.code).message;
     } on JFormatException catch (_) {
@@ -111,26 +121,23 @@ class RequestDataSourceImpl implements RequestDatasource {
 
   @override
   Stream<List<UserModelMatch>> getSentRequestsStream() {
-      try {
-    return db
-        .collection('requests')
-        .where('requesterId', isEqualTo: auth.currentUser!.uid)
-        .snapshots()
-        .asyncMap((snapshot) async {
-      log('Snapshot size: ${snapshot.size}');
+    try {
+      return db
+          .collection('requests')
+          .where('requesterId', isEqualTo: auth.currentUser!.uid)
+          .snapshots()
+          .asyncMap((snapshot) async {
+        // Extract UIDs from requests
+        final List<String> requestedUids =
+            snapshot.docs.map((doc) => doc['requestedId'] as String).toList();
 
-      // Extract UIDs from requests
-      final List<String> requestedUids = snapshot.docs
-          .map((doc) => doc['requestedId'] as String)
-          .toList();
+        // Fetch user details in batches
+        final List<UserModelMatch> users =
+            await fetchUsersByBatch(requestedUids);
 
-      // Fetch user details in batches
-      final List<UserModelMatch> users = await fetchUsersByBatch(requestedUids);
-
-      log('Fetched users length: ${users.length}');
-      return users;
-    });
-  }  on FirebaseException catch (e) {
+        return users;
+      });
+    } on FirebaseException catch (e) {
       throw JFirebaseException(e.code).message;
     } on JFormatException catch (_) {
       throw const JFormatException();

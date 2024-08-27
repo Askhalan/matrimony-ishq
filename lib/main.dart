@@ -6,7 +6,7 @@ import 'package:ishq/app.dart';
 import 'package:ishq/core/dependencies/init_dependencies.dart';
 import 'package:ishq/features/auth/presentation/authentication/bloc/auth_bloc.dart';
 import 'package:ishq/features/auth/presentation/profile/bloc/profile_bloc.dart';
-import 'package:ishq/features/match/presentation/bloc/match_bloc.dart';
+import 'package:ishq/features/match/presentation/match/bloc/match_bloc.dart';
 
 
 void main() async {
@@ -19,7 +19,7 @@ void main() async {
   runApp(
     MultiBlocProvider( 
     providers: [
-      BlocProvider(create: (_)=> serviceLocator<AuthBloc>()),
+      BlocProvider(create: (_)=> serviceLocator<AuthBloc>()..add(AuthCheckStatus())),
       BlocProvider(create: (_)=> serviceLocator<ProfileBloc>()),
       BlocProvider(create: (_)=> serviceLocator<MatchBloc>() ),
     ],

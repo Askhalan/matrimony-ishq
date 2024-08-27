@@ -24,7 +24,7 @@ class JAppbar extends StatelessWidget {
       this.footerMaxHeight = 45,
       this.slivers,
       this.footerPinned = true,
-      this.scrollChild = const SizedBox()});
+      this.scrollChild = const SizedBox(),  this.hasSliverChild= false});
 
   final Widget? body;
 
@@ -46,6 +46,7 @@ class JAppbar extends StatelessWidget {
   final double footerMaxHeight;
   final Widget? slivers;
   final Widget scrollChild;
+  final bool hasSliverChild;
 
   @override
   Widget build(BuildContext context) {
@@ -80,10 +81,12 @@ class JAppbar extends StatelessWidget {
             ),
           ),
           SliverToBoxAdapter(child: body),
+           hasSliverChild ? SliverToBoxAdapter():
           SliverFillRemaining(
             hasScrollBody: false,
             child: scrollChild,
-          )
+          ),
+          hasSliverChild ? slivers! : SliverFillRemaining(),
         ],
       ),
     );

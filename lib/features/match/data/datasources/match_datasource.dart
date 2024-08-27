@@ -29,7 +29,7 @@ class MatchDataSourceImpl implements MatchDatasource {
       print('From dataSource ${CurrentUser().gender}');
       final response = await db
           .collection('users')
-          .where('gender', isEqualTo: 'Male')
+          // .where('gender', isEqualTo: 'Male')
           .where('uid', isNotEqualTo: auth.currentUser!.uid)
           .get();
       return response.docs.map((e) => UserModelMatch.fromJson(e)).toList();
