@@ -8,9 +8,9 @@ import 'package:ishq/utils/constants/colors.dart';
 class UserDetailsFooterPending extends StatelessWidget {
   const UserDetailsFooterPending({
     super.key,
-    // required this.uid,
+    required this.uid,
   });
-  // final String uid;
+  final String uid;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -31,14 +31,12 @@ class UserDetailsFooterPending extends StatelessWidget {
                 }
                 return ElevatedButton(
                   onPressed: () {
-                    // context
-                    //     .read<MatchBloc>()
-                    //     .add();
+                    context.read<MatchBloc>().add(AcceptRequest(requestId: uid));
                   },
                   style: ButtonStyle(
                       backgroundColor: WidgetStatePropertyAll(JColor.white)),
                   child: Text(
-                    "Cancel Request",
+                    "Accept Request",
                     style: Theme.of(context).textTheme.bodyLarge,
                   ),
                 );

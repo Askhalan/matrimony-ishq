@@ -10,17 +10,24 @@ class UserListTile extends StatelessWidget {
   const UserListTile({
     super.key,
     required this.user,
+    required this.isRequestPending,
+    required this.isRequestSend,
   });
 
   final UserEntity user;
-
+  final bool isRequestPending;
+  final bool isRequestSend;
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () => Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => ScnUserDetails(user: user,isRequestSend: true,isRequestPending: true,),
+            builder: (context) => ScnUserDetails(
+              user: user,
+              isRequestSend: isRequestSend,
+              isRequestPending: isRequestPending,
+            ),
           )),
       child: Container(
         margin: EdgeInsets.only(top: 10),

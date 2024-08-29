@@ -1,23 +1,15 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 
-enum MessageType { text, image }
+import 'package:ishq/features/match/domain/entities/message_entity.dart';
 
-class Message {
-  String? senderID;
-  String? content;
-  MessageType? messageType;
-  Timestamp? sentAt;
+class MessageModel extends Message {
+  MessageModel(
+      {required super.senderID,
+      required super.content,
+      required super.sentAt,
+      required super.messageType});
 
-  Message({
-    required this.senderID,
-    required this.content,
-    required this.messageType,
-    required this.sentAt,
-  });
-
-  // Factory constructor for creating a new Message instance from a map
-  factory Message.fromJson(Map<String, dynamic> json) {
-    return Message(
+  factory MessageModel.fromJson(Map<String, dynamic> json) {
+    return MessageModel(
       senderID: json['senderID'],
       content: json['content'],
       sentAt: json['sentAt'],
@@ -25,7 +17,6 @@ class Message {
     );
   }
 
-  // Method to convert a Message instance into a map
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = {};
     data['senderID'] = senderID;

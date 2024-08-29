@@ -1,28 +1,19 @@
 import 'package:ishq/features/match/data/models/message_model.dart';
+import 'package:ishq/features/match/domain/entities/chat_entity.dart';
 
-class Chat {
-  String? id;
-  List<String>? participants;
-  List<Message>? messages;
+class ChatModel extends Chat {
+  ChatModel({super.id, super.participants, super.messages});
 
-  Chat({
-    required this.id,
-    required this.participants,
-    required this.messages,
-  });
-
-  // Factory constructor for creating a new Chat instance from a map
-  factory Chat.fromJson(Map<String, dynamic> json) {
-    return Chat(
+  factory ChatModel.fromJson(Map<String, dynamic> json) {
+    return ChatModel(
       id: json['id'],
       participants: List<String>.from(json['participants']),
-      messages: List<Message>.from(
-        json['messages']?.map((m) => Message.fromJson(m)) ?? [],
+      messages: List<MessageModel>.from(
+        json['messages']?.map((m) => MessageModel.fromJson(m)) ?? [],
       ),
     );
   }
 
-  // Method to convert a Chat instance into a map
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = {};
     data['id'] = id;

@@ -51,7 +51,11 @@ class ScnUserDetails extends StatelessWidget {
         footerContent: isRequestSend
             ? isRequestAccepted
                 ? UserDetailsFooterAccepted()
-                : UserDetailsFooterPending()
+                : UserDetailsFooterPending(
+                    uid: user.uid!,
+                  )
+
+                  
             : UserDetailsAppbarFooter(
                 uid: user.uid!,
               ),

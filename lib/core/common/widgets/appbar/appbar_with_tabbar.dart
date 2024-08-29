@@ -1,6 +1,8 @@
 // ignore_for_file: library_private_types_in_public_api
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:ishq/features/match/presentation/match/bloc/match_bloc.dart';
 import 'package:ishq/utils/constants/colors.dart';
 import 'package:ishq/utils/constants/sizes.dart';
 
@@ -100,6 +102,18 @@ class _JAppbarWithTabsState extends State<JAppbarWithTabs>
             pinned: widget.footerPinned,
             delegate: _SliverTabBarDelegate(
               TabBar(
+                onTap: (value) {
+                  if(value==0){
+                     context.read<MatchBloc>().add(GetSentRequest());
+                  }
+                  if(value==1){
+                     context.read<MatchBloc>().add(GetReceivedRequest());
+                  }
+                   if(value==2){
+                     context.read<MatchBloc>().add(GetAcceptedRequest());
+                  }
+                },
+                isScrollable: false,
                 padding: EdgeInsets.symmetric(vertical: 05,horizontal: 10),
                 dividerHeight: 0,
                 indicatorWeight: 0,

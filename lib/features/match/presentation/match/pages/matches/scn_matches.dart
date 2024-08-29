@@ -63,14 +63,8 @@ class _ScnMatchesState extends State<ScnMatches> {
             child: Icon(Iconsax.user_search),
           ),
         ),
-        Tab(
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 10),
-            child: Icon(Iconsax.tag_user),
-          ),
-        ),
       ],
-      length: 4,
+      length: 3,
       children: [
         //-------------------------------- SENT MATCH REQUESTS --------------------------------
         BlocBuilder<MatchBloc, MatchState>(
@@ -93,8 +87,10 @@ class _ScnMatchesState extends State<ScnMatches> {
                   itemCount: state.users.length,
                   itemBuilder: (context, index) {
                     UserEntity user = state.users[index];
-                    print(user.name);
+
                     return UserListTile(
+                      isRequestSend: true,
+                      isRequestPending: true,
                       user: user,
                     );
                   },
@@ -121,6 +117,7 @@ class _ScnMatchesState extends State<ScnMatches> {
                 return Center(
                     child: const Text('Currently you are not having request'));
               }
+
               return Padding(
                 padding:
                     EdgeInsets.symmetric(horizontal: JSize.defaultPaddingValue),
@@ -128,40 +125,71 @@ class _ScnMatchesState extends State<ScnMatches> {
                   itemCount: state.users.length,
                   itemBuilder: (context, index) {
                     UserEntity user = state.users[index];
-                    print(user.name);
+
                     return UserListTile(
+                      isRequestSend: true,
+                      isRequestPending: false,
                       user: user,
                     );
                   },
                 ),
               );
             }
+
             return SizedBox();
           },
         ),
 
         //-------------------------------- ACCEPTED MATCH REQUESTS --------------------------------
 
-        Padding(
-          padding: JSize.defaultPadding,
-          child: ListView.builder(
-            itemCount: 10,
-            itemBuilder: (context, index) {
-              // return UserListTile();
-              return SizedBox();
-            },
-          ),
+        BlocBuilder<MatchBloc, MatchState>(
+          builder: (context, state) {
+            if (state is RequestFetchingLoading) {
+              return UserListLoader();
+            }
+            if (state is RequestLoadingError) {
+              return Center(child: Text(state.message));
+            }
+            if (state is AcceptedRequestLoaded) {
+              log(state.users.isEmpty.toString());
+              if (state.users.isEmpty) {
+                return Center(
+                    child: const Text('Currently you are not having Any Accepts'));
+              }
+
+              return Padding(
+                padding:
+                    EdgeInsets.symmetric(horizontal: JSize.defaultPaddingValue),
+                child: ListView.builder(
+                  itemCount: state.users.length,
+                  itemBuilder: (context, index) {
+                    UserEntity user = state.users[index];
+
+                    return UserListTile(
+                      isRequestSend: true,
+                      isRequestPending: false,
+                      user: user,
+                    );
+                  },
+                ),
+              );
+            }
+
+            return SizedBox();
+          },
         ),
-        Padding(
-          padding: JSize.defaultPadding,
-          child: ListView.builder(
-            itemCount: 10,
-            itemBuilder: (context, index) {
-              // return UserListTile();
-              return SizedBox();
-            },
-          ),
-        ),
+
+        //-------------------------------- useless --------------------------------
+        // Padding(
+        //   padding: JSize.defaultPadding,
+        //   child: ListView.builder(
+        //     itemCount: 10,
+        //     itemBuilder: (context, index) {
+        //       // return UserListTile();
+        //       return SizedBox();
+        //     },
+        //   ),
+        // ),
       ],
     ));
   }

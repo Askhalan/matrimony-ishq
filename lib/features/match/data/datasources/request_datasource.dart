@@ -90,7 +90,7 @@ class RequestDataSourceImpl implements RequestDatasource {
     try {
       return db
           .collection('requests')
-          .where('receiverId', isEqualTo: auth.currentUser!.uid)
+          .where('requestedId', isEqualTo: auth.currentUser!.uid)
           .snapshots()
           .asyncMap((snapshot) async {
         log('Snapshot size from GET RECEIVED REQUEST : ${snapshot.size}');
