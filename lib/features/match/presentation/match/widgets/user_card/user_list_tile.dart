@@ -4,19 +4,18 @@ import 'package:ishq/core/common/widgets/images/cached_network_image.dart';
 import 'package:ishq/core/common/widgets/spaces/gap_inside_card.dart';
 import 'package:ishq/features/match/presentation/match/pages/user%20detailed%20info/scn_user_detail_page.dart';
 import 'package:ishq/utils/constants/colors.dart';
+import 'package:ishq/utils/constants/enums.dart';
 import 'package:ishq/utils/constants/sizes.dart';
 
 class UserListTile extends StatelessWidget {
   const UserListTile({
     super.key,
     required this.user,
-    required this.isRequestPending,
-    required this.isRequestSend,
+    required this.footerStatus,
   });
 
   final UserEntity user;
-  final bool isRequestPending;
-  final bool isRequestSend;
+  final FooterStatus footerStatus;
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -25,8 +24,7 @@ class UserListTile extends StatelessWidget {
           MaterialPageRoute(
             builder: (context) => ScnUserDetails(
               user: user,
-              isRequestSend: isRequestSend,
-              isRequestPending: isRequestPending,
+              footerStatus: footerStatus,
             ),
           )),
       child: Container(

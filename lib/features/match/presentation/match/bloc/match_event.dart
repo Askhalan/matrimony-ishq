@@ -17,8 +17,8 @@ class MatchSendRequest extends MatchEvent {
 }
 
 class AcceptRequest extends MatchEvent{
-  AcceptRequest({required this.requestId});
-  final String requestId;
+  AcceptRequest({required this.requestedUserUid});
+  final String requestedUserUid;
 }
 
 final class GetSentRequest extends MatchEvent{}

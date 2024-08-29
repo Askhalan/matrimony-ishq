@@ -1,7 +1,6 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, avoid_print
 
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconsax/iconsax.dart';
@@ -10,8 +9,8 @@ import 'package:ishq/core/common/widgets/appbar/appbar_with_tabbar.dart';
 import 'package:ishq/features/match/presentation/match/bloc/match_bloc.dart';
 import 'package:ishq/features/match/presentation/match/widgets/user_card/user_list_tile.dart';
 import 'package:ishq/features/match/presentation/match/widgets/user_card/user_list_loader.dart';
-import 'package:ishq/features/match/presentation/match/widgets/w_action_button.dart';
 import 'package:ishq/features/match/presentation/match/widgets/w_appbar_title.dart';
+import 'package:ishq/utils/constants/enums.dart';
 import 'package:ishq/utils/constants/sizes.dart';
 
 class ScnMatches extends StatefulWidget {
@@ -37,12 +36,6 @@ class _ScnMatchesState extends State<ScnMatches> {
         title: 'Matches',
         subtitle: 'Everyone has a day',
       ),
-      actions: [
-        JActionButton(
-          icon: Iconsax.sort,
-          onTap: () {},
-        )
-      ],
       appbarPinned: true,
       tabs: [
         Tab(
@@ -89,8 +82,7 @@ class _ScnMatchesState extends State<ScnMatches> {
                     UserEntity user = state.users[index];
 
                     return UserListTile(
-                      isRequestSend: true,
-                      isRequestPending: true,
+                      footerStatus: FooterStatus.cancel,
                       user: user,
                     );
                   },
@@ -127,8 +119,7 @@ class _ScnMatchesState extends State<ScnMatches> {
                     UserEntity user = state.users[index];
 
                     return UserListTile(
-                      isRequestSend: true,
-                      isRequestPending: false,
+                      footerStatus: FooterStatus.accept,
                       user: user,
                     );
                   },
@@ -154,7 +145,8 @@ class _ScnMatchesState extends State<ScnMatches> {
               log(state.users.isEmpty.toString());
               if (state.users.isEmpty) {
                 return Center(
-                    child: const Text('Currently you are not having Any Accepts'));
+                    child:
+                        const Text('Currently you are not having Any Accepts'));
               }
 
               return Padding(
@@ -166,8 +158,7 @@ class _ScnMatchesState extends State<ScnMatches> {
                     UserEntity user = state.users[index];
 
                     return UserListTile(
-                      isRequestSend: true,
-                      isRequestPending: false,
+                      footerStatus: FooterStatus.chat,
                       user: user,
                     );
                   },

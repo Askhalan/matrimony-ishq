@@ -6,8 +6,8 @@ import 'package:ishq/features/match/presentation/match/bloc/match_bloc.dart';
 
 import 'package:ishq/utils/constants/colors.dart';
 
-class UserDetailsFooterAccepted extends StatelessWidget {
-  const UserDetailsFooterAccepted({
+class MessageUserDetailsFooter extends StatelessWidget {
+  const MessageUserDetailsFooter({
     super.key,
     // required this.uid,
   });

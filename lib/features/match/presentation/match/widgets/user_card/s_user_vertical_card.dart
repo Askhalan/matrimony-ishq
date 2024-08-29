@@ -3,6 +3,7 @@ import 'package:ishq/core/common/entities/user_entity.dart';
 import 'package:ishq/core/common/widgets/images/cached_network_image.dart';
 import 'package:ishq/features/match/presentation/match/pages/user%20detailed%20info/scn_user_detail_page.dart';
 import 'package:ishq/features/match/presentation/match/widgets/user_card/w_user_details_in_card.dart';
+import 'package:ishq/utils/constants/enums.dart';
 import 'package:ishq/utils/constants/sizes.dart';
 
 class UserVerticalCard extends StatelessWidget {
@@ -15,8 +16,15 @@ class UserVerticalCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: (){
-        Navigator.push(context, MaterialPageRoute(builder: (context) => ScnUserDetails(user: user),));
+      onTap: () {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => ScnUserDetails(
+                user: user,
+                footerStatus: FooterStatus.send,
+              ),
+            ));
       },
       child: Container(
         width: JSize.vUserCardWidth,

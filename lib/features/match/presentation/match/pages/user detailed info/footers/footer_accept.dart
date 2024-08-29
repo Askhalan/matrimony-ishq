@@ -1,12 +1,15 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ishq/core/common/widgets/loader/button_loader.dart';
+import 'package:ishq/core/common/widgets/spaces/gap.dart';
 import 'package:ishq/features/match/presentation/match/bloc/match_bloc.dart';
 import 'package:ishq/utils/constants/colors.dart';
 
 
-class UserDetailsFooterPending extends StatelessWidget {
-  const UserDetailsFooterPending({
+class AcceptUserDetailsFooter extends StatelessWidget {
+  const AcceptUserDetailsFooter({
     super.key,
     required this.uid,
   });
@@ -31,7 +34,8 @@ class UserDetailsFooterPending extends StatelessWidget {
                 }
                 return ElevatedButton(
                   onPressed: () {
-                    context.read<MatchBloc>().add(AcceptRequest(requestId: uid));
+                    log(uid);
+                    context.read<MatchBloc>().add(AcceptRequest(requestedUserUid: uid));
                   },
                   style: ButtonStyle(
                       backgroundColor: WidgetStatePropertyAll(JColor.white)),
@@ -43,22 +47,22 @@ class UserDetailsFooterPending extends StatelessWidget {
               },
             ),
           ),
-          // JGap(),
+          JGap(),
 
-          //------------------------- EDIT Preferences -------------------------
+          // ------------------------- EDIT Preferences -------------------------
 
-          // Flexible(
-          //   flex: 3,
-          //   child: ElevatedButton(
-          //     onPressed: () {},
-          //     style: ButtonStyle(
-          //         backgroundColor: WidgetStatePropertyAll(JColor.white)),
-          //     child: Text(
-          //       "Save ",
-          //       style: Theme.of(context).textTheme.bodyLarge,
-          //     ),
-          //   ),
-          // ),
+          Flexible(
+            flex: 3,
+            child: ElevatedButton(
+              onPressed: () {},
+              style: ButtonStyle(
+                  backgroundColor: WidgetStatePropertyAll(JColor.white)),
+              child: Text(
+                "Decline",
+                style: Theme.of(context).textTheme.bodyLarge,
+              ),
+            ),
+          ),
         ],
       ),
     );

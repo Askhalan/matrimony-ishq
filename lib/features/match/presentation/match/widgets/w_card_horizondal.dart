@@ -8,6 +8,7 @@ import 'package:ishq/core/common/widgets/profile_details_labe.dart';
 import 'package:ishq/core/common/widgets/spaces/gap.dart';
 import 'package:ishq/features/match/presentation/match/pages/user%20detailed%20info/scn_user_detail_page.dart';
 import 'package:ishq/utils/constants/colors.dart';
+import 'package:ishq/utils/constants/enums.dart';
 import 'package:ishq/utils/constants/sizes.dart';
 import 'package:ishq/utils/helpers/helper_functions.dart';
 
@@ -23,7 +24,7 @@ class WUserCardHorizondal extends StatelessWidget {
         Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => ScnUserDetails(user: user),
+              builder: (context) => ScnUserDetails(user: user,footerStatus: FooterStatus.send,),
             ));
       },
       child: Container(

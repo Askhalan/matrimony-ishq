@@ -7,6 +7,7 @@ import 'package:ishq/features/match/data/models/user_model_match.dart';
 import 'package:ishq/utils/exceptions/firebase_exceptions.dart';
 import 'package:ishq/utils/exceptions/format_exceptions.dart';
 import 'package:ishq/utils/exceptions/platform_exceptions.dart';
+import 'package:ishq/utils/helpers/data_helpers.dart';
 
 abstract interface class RequestDatasource {
   Future<void> sendMatchRequest({required MatchRequestModel request});
@@ -51,7 +52,9 @@ class RequestDataSourceImpl implements RequestDatasource {
   @override
   Future<void> sendMatchRequest({required MatchRequestModel request}) async {
     try {
-      await db.collection("requests").doc().set(request.toJson());
+      final String requestId = DataHelper.generateChatID(
+          uid1: request.requestedId, uid2: request.requesterId);
+      await db.collection("requests").doc(requestId).set(request.toJson());
       // .add(request.toJson());
     } on FirebaseException catch (e) {
       throw JFirebaseException(e.code).message;
@@ -67,8 +70,10 @@ class RequestDataSourceImpl implements RequestDatasource {
 //-------------------------------------------ACCEPT REQUEST-------------------------------------
 
   @override
-  Future<void> acceptMatchRequest(String requestId) async {
+  Future<void> acceptMatchRequest(String requestedUserUid) async {
     try {
+      final String requestId = DataHelper.generateChatID(
+          uid1: auth.currentUser!.uid, uid2: requestedUserUid);
       await db.collection('requests').doc(requestId).update({
         'status': 'accepted',
       });
@@ -97,7 +102,7 @@ class RequestDataSourceImpl implements RequestDatasource {
 
         // Extract UIDs from requests
         final List<String> requestedUids =
-            snapshot.docs.map((doc) => doc['requestedId'] as String).toList();
+            snapshot.docs.map((doc) => doc['requesterId'] as String).toList();
 
         // Fetch user details in batches
         final List<UserModelMatch> users =

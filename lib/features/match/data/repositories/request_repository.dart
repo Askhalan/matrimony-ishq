@@ -42,9 +42,9 @@ class RequestRepositoryImpl implements RequestRepository {
 //-------------------------------------- Accept Request --------------------------------------
 
   @override
-  Future<Either<Failure, void>> acceptRequest(String requestId) async {
+  Future<Either<Failure, void>> acceptRequest(String requestedUserUid) async {
     try {
-      await requestDatasource.acceptMatchRequest(requestId);
+      await requestDatasource.acceptMatchRequest(requestedUserUid);
       return right(null);
     } catch (e) {
       return left(Failure(e.toString()));
