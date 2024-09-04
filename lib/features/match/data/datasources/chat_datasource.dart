@@ -1,4 +1,3 @@
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:ishq/features/match/data/models/chat_model.dart';
@@ -13,7 +12,7 @@ abstract interface class ChatDatasource {
   Future<bool> checkChatExists(String uid1);
   Future<void> createNewChat(String uid1);
   Future<void> sendChatMessage(String uid1, MessageModel message);
-  Stream<DocumentSnapshot<ChatModel>> getAllMessages(String uid1);
+  Stream<ChatModel> getChatMessagesStream(String uid1);
   //--------------------------------------------------
 }
 
@@ -94,12 +93,21 @@ class ChatDatasourceImpl extends ChatDatasource {
   //------------------------------- GET ALL MESSAGES --------------------------------
 
   @override
-  Stream<DocumentSnapshot<ChatModel>> getAllMessages(String uid1) {
+  Stream<ChatModel> getChatMessagesStream(String uid1) {
     try {
       String chatId =
           DataHelper.generateChatID(uid1: uid1, uid2: auth.currentUser!.uid);
-      return db.collection('chats').doc(chatId).snapshots()
-          as Stream<DocumentSnapshot<ChatModel>>;
+
+      return db.collection('chats').doc(chatId).snapshots().map((snapshot) {
+        final data = snapshot.data();
+        if (data != null) {
+          // Convert the document snapshot data into a ChatModel
+          return ChatModel.fromJson(data);
+        } else {
+          // Handle the case where the document doesn't exist or data is null
+          throw Exception('Document does not exist or data is null');
+        }
+      });
     } on FirebaseAuthException catch (e) {
       throw JFirebaseAuthException(e.code).message;
     } on FirebaseException catch (e) {
