@@ -1,6 +1,8 @@
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:ishq/features/match/data/models/chat_model.dart';
+import 'package:ishq/features/match/data/models/message_model.dart';
 import 'package:ishq/utils/exceptions/firebase_auth_exceptions.dart';
 import 'package:ishq/utils/exceptions/firebase_exceptions.dart';
 import 'package:ishq/utils/exceptions/format_exceptions.dart';
@@ -8,20 +10,27 @@ import 'package:ishq/utils/exceptions/platform_exceptions.dart';
 import 'package:ishq/utils/helpers/data_helpers.dart';
 
 abstract interface class ChatDatasource {
-  Future<bool> checkChatExists(String uid1, String uid2);
-  Future<void> createNewChat(String uid1, String uid2);
+  Future<bool> checkChatExists(String uid1);
+  Future<void> createNewChat(String uid1);
+  Future<void> sendChatMessage(String uid1, MessageModel message);
+  Stream<DocumentSnapshot<ChatModel>> getAllMessages(String uid1);
   //--------------------------------------------------
 }
 
 class ChatDatasourceImpl extends ChatDatasource {
-  ChatDatasourceImpl({required this.db});
+  ChatDatasourceImpl({
+    required this.db,
+    required this.auth,
+  });
   final FirebaseFirestore db;
+  final FirebaseAuth auth;
 
-//------------------------------- CHECK CHAT EXISTS ------------------------------- 
+//------------------------------- CHECK CHAT EXISTS -------------------------------
   @override
-  Future<bool> checkChatExists(String uid1, String uid2) async {
+  Future<bool> checkChatExists(String uid1) async {
     try {
-      String chatId = DataHelper.generateChatID(uid1: uid1, uid2: uid2);
+      String chatId =
+          DataHelper.generateChatID(uid1: uid1, uid2: auth.currentUser!.uid);
       final result = await db.collection('chats').doc(chatId).get();
       return result.exists;
     } on FirebaseAuthException catch (e) {
@@ -35,15 +44,62 @@ class ChatDatasourceImpl extends ChatDatasource {
     }
   }
 
-//------------------------------- CREATE NEW CHAT -------------------------------- 
+//------------------------------- CREATE NEW CHAT --------------------------------
 
   @override
-  Future<void> createNewChat(String uid1, String uid2) async {
+  Future<void> createNewChat(String uid1) async {
     try {
-      String chatId = DataHelper.generateChatID(uid1: uid1, uid2: uid2);
-      final newChat =
-          ChatModel(id: chatId, participants: [uid1, uid2], messages: []);
+      String chatId =
+          DataHelper.generateChatID(uid1: uid1, uid2: auth.currentUser!.uid);
+      final newChat = ChatModel(
+          id: chatId,
+          participants: [uid1, auth.currentUser!.uid],
+          messages: []);
       await db.collection('chats').doc(chatId).set(newChat.toJson());
+    } on FirebaseAuthException catch (e) {
+      throw JFirebaseAuthException(e.code).message;
+    } on FirebaseException catch (e) {
+      throw JFirebaseException(e.code).message;
+    } on JFormatException catch (_) {
+      throw const JFormatException();
+    } on JPlatformException catch (e) {
+      throw JPlatformException(e.code).message;
+    }
+  }
+
+  //------------------------------- SEND MESSAGE --------------------------------
+
+  @override
+  Future<void> sendChatMessage(String uid1, MessageModel message) async {
+    try {
+      String chatId =
+          DataHelper.generateChatID(uid1: uid1, uid2: auth.currentUser!.uid);
+
+      await db.collection('chats').doc(chatId).update({
+        "messages": FieldValue.arrayUnion([
+          message.toJson(),
+        ])
+      });
+    } on FirebaseAuthException catch (e) {
+      throw JFirebaseAuthException(e.code).message;
+    } on FirebaseException catch (e) {
+      throw JFirebaseException(e.code).message;
+    } on JFormatException catch (_) {
+      throw const JFormatException();
+    } on JPlatformException catch (e) {
+      throw JPlatformException(e.code).message;
+    }
+  }
+
+  //------------------------------- GET ALL MESSAGES --------------------------------
+
+  @override
+  Stream<DocumentSnapshot<ChatModel>> getAllMessages(String uid1) {
+    try {
+      String chatId =
+          DataHelper.generateChatID(uid1: uid1, uid2: auth.currentUser!.uid);
+      return db.collection('chats').doc(chatId).snapshots()
+          as Stream<DocumentSnapshot<ChatModel>>;
     } on FirebaseAuthException catch (e) {
       throw JFirebaseAuthException(e.code).message;
     } on FirebaseException catch (e) {

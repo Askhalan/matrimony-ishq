@@ -94,7 +94,8 @@ class MatchBloc extends Bloc<MatchEvent, MatchState> {
   _onAcceptRequest(AcceptRequest event, Emitter<MatchState> emit) async {
     emit(RequestLoading());
     final acceptRequestUC = serviceLocator<AcceptRequestUC>();
-    final result = await acceptRequestUC(AcceptRequestparams(requestId: event.requestedUserUid));
+    final result = await acceptRequestUC(
+        AcceptRequestparams(requestId: event.requestedUserUid));
     result.fold((failure) => emit(RequestError(failure.message)),
         (r) => emit(RequestSuccess()));
   }
@@ -130,12 +131,11 @@ class MatchBloc extends Bloc<MatchEvent, MatchState> {
 
     await emit.forEach(
       stream,
-      onData: (either) => either.fold(
-        (failure) => RequestLoadingError(failure.message),
-        (userList) { print("length from GET RECEIVED REQUEST success  ${userList.length}");
-       return RecievedRequestLoaded(users: userList);
-        } 
-      ),
+      onData: (either) => either
+          .fold((failure) => RequestLoadingError(failure.message), (userList) {
+        print("length from GET RECEIVED REQUEST success  ${userList.length}");
+        return RecievedRequestLoaded(users: userList);
+      }),
       onError: (error, stackTrace) => RequestLoadingError(error.toString()),
     );
   }

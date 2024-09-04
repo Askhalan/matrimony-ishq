@@ -5,6 +5,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:get_it/get_it.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:ishq/core/dependencies/auth_dependencies.dart';
+import 'package:ishq/core/dependencies/chat_dependencies.dart';
 import 'package:ishq/core/dependencies/match_dependencies.dart';
 import 'package:ishq/firebase_options.dart';
 
@@ -12,17 +13,17 @@ final serviceLocator = GetIt.instance;
 
 final getStorage = GetStorage();
 Future<void> initDependencies() async {
-  await GetStorage.init(); 
+  await GetStorage.init();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   serviceLocator.registerLazySingleton(() => FirebaseAuth.instance);
   serviceLocator.registerLazySingleton(() => FirebaseFirestore.instance);
   serviceLocator.registerLazySingleton(() => FirebaseStorage.instance);
-  serviceLocator.registerLazySingleton(()=> getStorage );
+  serviceLocator.registerLazySingleton(() => getStorage);
   //-----------------------------------------------------------------------------
-  
+
   AuthDependencies.initUserPref();
   AuthDependencies.initAuth();
   AuthDependencies.initProfile();
   MatchDependencies.initMatchData();
-  
+  ChatDependencies.initChatData();
 }

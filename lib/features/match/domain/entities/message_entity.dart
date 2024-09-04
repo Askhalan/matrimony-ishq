@@ -4,13 +4,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 class Message {
   String? senderID;
   String? content;
-  MessageType? messageType;
+  String? messageType;
   Timestamp? sentAt;
   Message({
-     this.senderID,
-     this.content,
-     this.sentAt,
-     this.messageType
+    this.senderID,
+    this.content,
+    this.sentAt,
+    this.messageType,
   });
 }
-enum MessageType { text, image }

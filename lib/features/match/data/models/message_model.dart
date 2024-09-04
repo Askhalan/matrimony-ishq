@@ -1,4 +1,3 @@
-
 import 'package:ishq/features/match/domain/entities/message_entity.dart';
 
 class MessageModel extends Message {
@@ -13,16 +12,14 @@ class MessageModel extends Message {
       senderID: json['senderID'],
       content: json['content'],
       sentAt: json['sentAt'],
-      messageType: MessageType.values.byName(json['messageType']),
+      messageType: json['messageType'],
     );
   }
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = {};
-    data['senderID'] = senderID;
-    data['content'] = content;
-    data['sentAt'] = sentAt;
-    data['messageType'] = messageType?.name;
-    return data;
-  }
+  Map<String, dynamic> toJson() => {
+        'senderID': senderID,
+        'content': content,
+        'sentAt': sentAt,
+        'messageType': messageType
+      };
 }

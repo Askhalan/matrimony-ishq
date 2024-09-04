@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:ishq/core/common/entities/user_entity.dart';
 import 'package:ishq/core/common/widgets/images/cached_network_image.dart';
@@ -18,6 +19,7 @@ class UserListTile extends StatelessWidget {
   final FooterStatus footerStatus;
   @override
   Widget build(BuildContext context) {
+
     return InkWell(
       onTap: () => Navigator.push(
           context,

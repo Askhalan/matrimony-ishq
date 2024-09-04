@@ -1,17 +1,14 @@
 // ignore_for_file: prefer_const_literals_to_create_immutables, avoid_print
 
-import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconsax/iconsax.dart';
-import 'package:ishq/core/common/entities/user_entity.dart';
 import 'package:ishq/core/common/widgets/appbar/appbar_with_tabbar.dart';
 import 'package:ishq/features/match/presentation/match/bloc/match_bloc.dart';
-import 'package:ishq/features/match/presentation/match/widgets/user_card/user_list_tile.dart';
-import 'package:ishq/features/match/presentation/match/widgets/user_card/user_list_loader.dart';
+import 'package:ishq/features/match/presentation/match/pages/matches/sections/accepted_match_request.dart';
+import 'package:ishq/features/match/presentation/match/pages/matches/sections/received_match_requests.dart';
+import 'package:ishq/features/match/presentation/match/pages/matches/sections/send_match_requests.dart';
 import 'package:ishq/features/match/presentation/match/widgets/w_appbar_title.dart';
-import 'package:ishq/utils/constants/enums.dart';
-import 'package:ishq/utils/constants/sizes.dart';
 
 class ScnMatches extends StatefulWidget {
   const ScnMatches({super.key});
@@ -60,115 +57,16 @@ class _ScnMatchesState extends State<ScnMatches> {
       length: 3,
       children: [
         //-------------------------------- SENT MATCH REQUESTS --------------------------------
-        BlocBuilder<MatchBloc, MatchState>(
-          builder: (context, state) {
-            if (state is RequestFetchingLoading) {
-              return UserListLoader();
-            }
-            if (state is RequestLoadingError) {
-              return Center(child: Text(state.message));
-            }
-            if (state is SentRequestLoaded) {
-              if (state.users.isEmpty) {
-                return Center(
-                    child: const Text('Currently you are not having request'));
-              }
-              return Padding(
-                padding:
-                    EdgeInsets.symmetric(horizontal: JSize.defaultPaddingValue),
-                child: ListView.builder(
-                  itemCount: state.users.length,
-                  itemBuilder: (context, index) {
-                    UserEntity user = state.users[index];
 
-                    return UserListTile(
-                      footerStatus: FooterStatus.cancel,
-                      user: user,
-                    );
-                  },
-                ),
-              );
-            }
-            return SizedBox();
-          },
-        ),
+        SendMatchRequests(),
 
         //-------------------------------- RECEIVED MATCH REQUESTS --------------------------------
 
-        BlocBuilder<MatchBloc, MatchState>(
-          builder: (context, state) {
-            if (state is RequestFetchingLoading) {
-              return UserListLoader();
-            }
-            if (state is RequestLoadingError) {
-              return Center(child: Text(state.message));
-            }
-            if (state is RecievedRequestLoaded) {
-              log(state.users.isEmpty.toString());
-              if (state.users.isEmpty) {
-                return Center(
-                    child: const Text('Currently you are not having request'));
-              }
-
-              return Padding(
-                padding:
-                    EdgeInsets.symmetric(horizontal: JSize.defaultPaddingValue),
-                child: ListView.builder(
-                  itemCount: state.users.length,
-                  itemBuilder: (context, index) {
-                    UserEntity user = state.users[index];
-
-                    return UserListTile(
-                      footerStatus: FooterStatus.accept,
-                      user: user,
-                    );
-                  },
-                ),
-              );
-            }
-
-            return SizedBox();
-          },
-        ),
+        ReceivedMatchRequests(),
 
         //-------------------------------- ACCEPTED MATCH REQUESTS --------------------------------
 
-        BlocBuilder<MatchBloc, MatchState>(
-          builder: (context, state) {
-            if (state is RequestFetchingLoading) {
-              return UserListLoader();
-            }
-            if (state is RequestLoadingError) {
-              return Center(child: Text(state.message));
-            }
-            if (state is AcceptedRequestLoaded) {
-              log(state.users.isEmpty.toString());
-              if (state.users.isEmpty) {
-                return Center(
-                    child:
-                        const Text('Currently you are not having Any Accepts'));
-              }
-
-              return Padding(
-                padding:
-                    EdgeInsets.symmetric(horizontal: JSize.defaultPaddingValue),
-                child: ListView.builder(
-                  itemCount: state.users.length,
-                  itemBuilder: (context, index) {
-                    UserEntity user = state.users[index];
-
-                    return UserListTile(
-                      footerStatus: FooterStatus.chat,
-                      user: user,
-                    );
-                  },
-                ),
-              );
-            }
-
-            return SizedBox();
-          },
-        ),
+        AcceptedMatchRequest(),
 
         //-------------------------------- useless --------------------------------
         // Padding(

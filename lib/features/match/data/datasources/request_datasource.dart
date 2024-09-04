@@ -8,6 +8,7 @@ import 'package:ishq/utils/exceptions/firebase_exceptions.dart';
 import 'package:ishq/utils/exceptions/format_exceptions.dart';
 import 'package:ishq/utils/exceptions/platform_exceptions.dart';
 import 'package:ishq/utils/helpers/data_helpers.dart';
+import 'package:rxdart/rxdart.dart';
 
 abstract interface class RequestDatasource {
   Future<void> sendMatchRequest({required MatchRequestModel request});
@@ -96,10 +97,9 @@ class RequestDataSourceImpl implements RequestDatasource {
       return db
           .collection('requests')
           .where('requestedId', isEqualTo: auth.currentUser!.uid)
+          .where('status', isEqualTo: 'pending')
           .snapshots()
           .asyncMap((snapshot) async {
-        log('Snapshot size from GET RECEIVED REQUEST : ${snapshot.size}');
-
         // Extract UIDs from requests
         final List<String> requestedUids =
             snapshot.docs.map((doc) => doc['requesterId'] as String).toList();
@@ -108,7 +108,7 @@ class RequestDataSourceImpl implements RequestDatasource {
         final List<UserModelMatch> users =
             await fetchUsersByBatch(requestedUids);
 
-        log('Fetched users length from GET RECEIVED REQUEST: ${users.length}');
+       
         return users;
       });
     } on FirebaseException catch (e) {
@@ -130,6 +130,7 @@ class RequestDataSourceImpl implements RequestDatasource {
       return db
           .collection('requests')
           .where('requesterId', isEqualTo: auth.currentUser!.uid)
+          .where('status', isEqualTo: 'pending')
           .snapshots()
           .asyncMap((snapshot) async {
         // Extract UIDs from requests
@@ -157,14 +158,42 @@ class RequestDataSourceImpl implements RequestDatasource {
   @override
   Stream<List<UserModelMatch>> getAcceptedRequestsStream() {
     try {
-      return db
+      // Stream for requests where the user is the requester
+      final requesterStream = db
           .collection('requests')
           .where('status', isEqualTo: 'accepted')
           .where('requesterId', isEqualTo: auth.currentUser!.uid)
-          .snapshots()
-          .map((snapshot) => snapshot.docs
-              .map((doc) => UserModelMatch.fromJson(doc))
-              .toList());
+          .snapshots();
+
+      // Stream for requests where the user is the requested
+      final requestedStream = db
+          .collection('requests')
+          .where('status', isEqualTo: 'accepted')
+          .where('requestedId', isEqualTo: auth.currentUser!.uid)
+          .snapshots();
+
+      // Combine the two streams and process the results
+      return Rx.combineLatest2(requesterStream, requestedStream,
+          (QuerySnapshot requesterSnapshot,
+              QuerySnapshot requestedSnapshot) async {
+        // Extract UIDs from both sets of requests
+        final List<String> requestedUids = requesterSnapshot.docs
+            .map((doc) => doc['requestedId'] as String)
+            .toList();
+        final List<String> requesterUids = requestedSnapshot.docs
+            .map((doc) => doc['requesterId'] as String)
+            .toList();
+
+        // Combine the UIDs
+        final List<String> combinedUids = [...requestedUids, ...requesterUids];
+
+        // Fetch user details in batches
+        final List<UserModelMatch> users =
+            await fetchUsersByBatch(combinedUids);
+
+        log('Fetched users length from GET RECEIVED REQUEST: ${users.length}');
+        return users;
+      }).asyncMap((usersFuture) async => await usersFuture);
     } on FirebaseException catch (e) {
       throw JFirebaseException(e.code).message;
     } on JFormatException catch (_) {
@@ -172,7 +201,7 @@ class RequestDataSourceImpl implements RequestDatasource {
     } on JPlatformException catch (e) {
       throw JPlatformException(e.code).message;
     } catch (e) {
-      throw 'something went wrong . Please try again';
+      throw 'something went wrong. Please try again';
     }
   }
 }

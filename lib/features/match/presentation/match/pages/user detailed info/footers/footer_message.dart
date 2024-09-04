@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:ishq/core/common/widgets/loader/button_loader.dart';
+import 'package:ishq/core/common/entities/user_entity.dart';
 import 'package:ishq/core/common/widgets/spaces/gap.dart';
-import 'package:ishq/features/match/presentation/match/bloc/match_bloc.dart';
+import 'package:ishq/features/match/presentation/chat/bloc/chat_bloc.dart';
+import 'package:ishq/features/match/presentation/chat/pages/scn_chat_ui.dart';
 
 import 'package:ishq/utils/constants/colors.dart';
 
 class MessageUserDetailsFooter extends StatelessWidget {
   const MessageUserDetailsFooter({
-    super.key,
-    // required this.uid,
+    super.key, required this.user,
+    
   });
-  // final String uid;
+  final UserEntity user;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -22,19 +23,16 @@ class MessageUserDetailsFooter extends StatelessWidget {
 
           Flexible(
             flex: 3,
-            child: BlocConsumer<MatchBloc, MatchState>(
+            child: BlocConsumer<ChatBloc, ChatState>(
               listener: (context, state) {
-                if (state is RequestSuccess) {}
+                if(state is ChatFound){
+                  Navigator.push(context, MaterialPageRoute(builder: (context) => ScnChatUi(user: user),));
+                }
               },
               builder: (context, state) {
-                if (state is RequestLoading) {
-                  return ButtonLoader();
-                }
                 return ElevatedButton(
                   onPressed: () {
-                    // context
-                    //     .read<MatchBloc>()
-                    //     .add();
+                    context.read<ChatBloc>().add(StartChat(uid: user.uid!));
                   },
                   style: ButtonStyle(
                       backgroundColor: WidgetStatePropertyAll(JColor.white)),

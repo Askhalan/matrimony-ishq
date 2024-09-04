@@ -36,14 +36,18 @@ class ScnUserDetails extends StatelessWidget {
         );
         break;
       case FooterStatus.accept:
-        footerContent = AcceptUserDetailsFooter(uid: user.uid!,);
+        footerContent = AcceptUserDetailsFooter(
+          uid: user.uid!,
+        );
         break;
       case FooterStatus.cancel:
         footerContent = WithdrawUserDetailsFooter();
         break;
 
       case FooterStatus.chat:
-        footerContent = MessageUserDetailsFooter();
+        footerContent = MessageUserDetailsFooter(
+          user: user,
+        );
         break;
     }
     return Scaffold(
