@@ -11,6 +11,7 @@ class ChatModel extends Chat {
       messages: List<MessageModel>.from(
         json['messages']?.map((m) => MessageModel.fromJson(m)) ?? [],
       ),
+  
     );
   }
 

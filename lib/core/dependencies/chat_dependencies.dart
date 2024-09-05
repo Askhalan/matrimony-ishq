@@ -3,6 +3,7 @@ import 'package:ishq/features/match/data/datasources/chat_datasource.dart';
 import 'package:ishq/features/match/data/repositories/chat_repository_impl.dart';
 import 'package:ishq/features/match/domain/repositories/chat_repository.dart';
 import 'package:ishq/features/match/domain/usecases/chat_usecases/create_chat_uc.dart';
+import 'package:ishq/features/match/domain/usecases/chat_usecases/get_all_chats_uc.dart';
 import 'package:ishq/features/match/domain/usecases/chat_usecases/load_chat_messages_uc.dart';
 import 'package:ishq/features/match/domain/usecases/chat_usecases/send_message_uc.dart';
 import 'package:ishq/features/match/presentation/chat/bloc/chat_bloc.dart';
@@ -24,6 +25,7 @@ class ChatDependencies {
       ..registerFactory(() => SendMessageUc(chatRepository: serviceLocator()))
       ..registerFactory(
           () => LoadChatMessagesUC(chatRepository: serviceLocator()))
+      ..registerFactory(() => GetAllChatsUC(chatRepository: serviceLocator()))
 
 //-------------------------------------------------------------------------------------------
       ..registerLazySingleton(() => ChatBloc());

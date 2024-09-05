@@ -1,5 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
+import 'package:ishq/features/auth/data/models/user_model.dart';
+import 'package:ishq/features/match/data/models/chat_loading_model.dart';
 import 'package:ishq/features/match/data/models/chat_model.dart';
 import 'package:ishq/features/match/data/models/message_model.dart';
 import 'package:ishq/utils/exceptions/firebase_auth_exceptions.dart';
@@ -13,6 +16,7 @@ abstract interface class ChatDatasource {
   Future<void> createNewChat(String uid1);
   Future<void> sendChatMessage(String uid1, MessageModel message);
   Stream<ChatModel> getChatMessagesStream(String uid1);
+  Stream<List<ChatHistoryItemModel>> getAllChatsStream();
   //--------------------------------------------------
 }
 
@@ -90,7 +94,7 @@ class ChatDatasourceImpl extends ChatDatasource {
     }
   }
 
-  //------------------------------- GET ALL MESSAGES --------------------------------
+  //------------------------------- GET ALL MESSAGES OF A CHAT --------------------------------
 
   @override
   Stream<ChatModel> getChatMessagesStream(String uid1) {
@@ -118,4 +122,51 @@ class ChatDatasourceImpl extends ChatDatasource {
       throw JPlatformException(e.code).message;
     }
   }
+
+//------------------------------- GET ALL CHATS --------------------------------
+
+
+  @override
+  Stream<List<ChatHistoryItemModel>> getAllChatsStream() {
+  try {
+    final result = db
+        .collection('chats')
+        .where('participants', arrayContains: auth.currentUser!.uid)
+        .snapshots()
+        .asyncMap((querySnapshot) async {
+      // Process each document
+      return await Future.wait(querySnapshot.docs.map((doc) async {
+        final chatData = doc.data();
+
+        // Identify the other user's UID
+        final otherUserUid = chatData['participants']
+            .firstWhere((uid) => uid != auth.currentUser!.uid);
+
+        // Fetch the other user's details
+        final otherUserDoc = await db.collection('users').doc(otherUserUid).get();
+
+        // Use UserModel.fromJson with the DocumentSnapshot
+        final otherUser = UserModel.fromJson(otherUserDoc);
+
+        debugPrint('The other chat user name is :${otherUser.name}');
+
+        // Construct the ChatModel and ChatHistoryItem
+        final chatModel = ChatModel.fromJson(chatData);
+        return ChatHistoryItemModel(
+          chat: chatModel,
+          otherUser: otherUser,
+        );
+      }).toList());
+    });
+    return result;
+  } on FirebaseAuthException catch (e) {
+    throw JFirebaseAuthException(e.code).message;
+  } on FirebaseException catch (e) {
+    throw JFirebaseException(e.code).message;
+  } on JFormatException catch (_) {
+    throw const JFormatException();
+  } on JPlatformException catch (e) {
+    throw JPlatformException(e.code).message;
+  }
+}
 }

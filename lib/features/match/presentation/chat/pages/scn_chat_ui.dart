@@ -2,15 +2,17 @@
 
 import 'package:dash_chat_2/dash_chat_2.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ishq/core/common/entities/user_entity.dart';
 import 'package:ishq/core/common/sessions/current_user.dart';
 import 'package:ishq/core/dependencies/init_dependencies.dart';
 import 'package:ishq/features/match/domain/entities/chat_entity.dart';
-import 'package:ishq/features/match/domain/entities/message_entity.dart';
 import 'package:ishq/features/match/domain/usecases/chat_usecases/load_chat_messages_uc.dart';
 import 'package:ishq/features/match/presentation/chat/bloc/chat_bloc.dart';
+import 'package:ishq/features/match/presentation/chat/widgets/chat_appbar.dart';
 import 'package:ishq/utils/constants/sizes.dart';
+import 'package:ishq/utils/helpers/data_helpers.dart';
 
 class ScnChatUi extends StatefulWidget {
   const ScnChatUi({super.key, required this.user});
@@ -41,9 +43,8 @@ class _ScnChatUiState extends State<ScnChatUi> {
   Widget build(BuildContext context) {
     final loadChatMessagesUC = serviceLocator<LoadChatMessagesUC>();
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.user.name),
-      ),
+      appBar:JChatAppbar(name: widget.user.name,image: widget.user.profileImage,),
+      
       body: Padding(
           padding:
               EdgeInsets.symmetric(horizontal: JSize.defaultPaddingValue * 0.5),
@@ -54,10 +55,23 @@ class _ScnChatUiState extends State<ScnChatUi> {
               Chat? chat = snapshot.data;
               List<ChatMessage> messages = [];
               if (chat != null && chat.messages != null) {
-                messages = generateChatMessagesList(chat.messages!);
+                messages = DataHelper.generateChatMessagesList(
+                    messages: chat.messages!,
+                    currentUser: currentUser!,
+                    otherUser: otherUser!);
               }
               return DashChat(
                 messageListOptions: MessageListOptions(),
+                messageOptions: MessageOptions(
+                    timePadding: EdgeInsets.symmetric(horizontal: 0),
+                    showOtherUsersName: false,
+                    showOtherUsersAvatar: false,
+
+                    // messagePadding:EdgeInsets.fromLTRB(11, 11, 25, 11) ,
+                    showTime: true,
+                    currentUserContainerColor:
+                        const Color.fromARGB(177, 216, 151, 185),
+                    currentUserTextColor: Color.fromARGB(255, 35, 35, 35)),
                 inputOptions: InputOptions(
                   alwaysShowSend: true,
                 ),
@@ -71,16 +85,5 @@ class _ScnChatUiState extends State<ScnChatUi> {
             },
           )),
     );
-  }
-
-  List<ChatMessage> generateChatMessagesList(List<Message> messages) {
-    List<ChatMessage> chatMessages = messages.map((m) {
-      return ChatMessage(
-        user: m.senderID == currentUser!.id ? currentUser! : otherUser!,
-        createdAt: m.sentAt!.toDate(),
-        text: m.content!
-      );
-    }).toList();
-    return chatMessages;
   }
 }

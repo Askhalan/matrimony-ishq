@@ -1,8 +1,8 @@
 import 'dart:developer';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fpdart/fpdart.dart';
 import 'package:ishq/features/match/data/datasources/chat_datasource.dart';
+import 'package:ishq/features/match/data/models/chat_loading_model.dart';
 import 'package:ishq/features/match/data/models/chat_model.dart';
 import 'package:ishq/features/match/data/models/message_model.dart';
 import 'package:ishq/features/match/domain/entities/message_entity.dart';
@@ -53,7 +53,13 @@ class ChatRepositoryImpl extends ChatRepository {
     }
   }
 
+  @override
   Stream<ChatModel> getChatMessagesStream(String uid1) {
     return chatDatasource.getChatMessagesStream(uid1);
+  }
+
+  @override
+  Stream<List<ChatHistoryItemModel>> getAllChats() {
+    return chatDatasource.getAllChatsStream();
   }
 }
