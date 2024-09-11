@@ -16,6 +16,7 @@ import 'package:ishq/features/match/presentation/match/pages/user%20detailed%20i
 import 'package:ishq/features/match/presentation/match/widgets/j_details_table_cell.dart';
 import 'package:ishq/utils/constants/enums.dart';
 import 'package:ishq/utils/constants/sizes.dart';
+import 'package:ishq/utils/constants/text_strings.dart';
 
 class ScnUserDetails extends StatelessWidget {
   ScnUserDetails({
@@ -88,7 +89,7 @@ class ScnUserDetails extends StatelessWidget {
                 JGap2(),
                 SectionWraperContainer(
                     headerNeeded: true,
-                    heading: 'Family Details',
+                    heading: JTexts.FAMILY_DETAILS,
                     children: [
                       Padding(
                         padding: const EdgeInsets.all(15),
@@ -97,7 +98,7 @@ class ScnUserDetails extends StatelessWidget {
                             // ---------------------------------
                             TableRow(children: [
                               JDetailsTableCell(
-                                text: 'Family Type',
+                                text: JTexts.FAMILY_TYPE,
                               ),
                               JDetailsTableCell(
                                 text: user.familyType,
@@ -106,7 +107,7 @@ class ScnUserDetails extends StatelessWidget {
                             // ---------------------------------
                             TableRow(children: [
                               JDetailsTableCell(
-                                text: 'Values:',
+                                text: JTexts.FAMILY_VALUES,
                               ),
                               JDetailsTableCell(
                                 text: user.familyValues,
@@ -115,7 +116,7 @@ class ScnUserDetails extends StatelessWidget {
                             // ---------------------------------
                             TableRow(children: [
                               JDetailsTableCell(
-                                text: 'Status:',
+                                text: JTexts.FAMILY_STATUS,
                               ),
                               JDetailsTableCell(
                                 text: user.familyValues,
@@ -124,7 +125,7 @@ class ScnUserDetails extends StatelessWidget {
                             // ---------------------------------
                             TableRow(children: [
                               JDetailsTableCell(
-                                text: 'About:',
+                                text: JTexts.ABOUT_FAMILY,
                               ),
                               JDetailsTableCell(
                                 text: user.familyAbout,

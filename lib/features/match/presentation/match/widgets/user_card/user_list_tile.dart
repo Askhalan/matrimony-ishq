@@ -7,6 +7,7 @@ import 'package:ishq/features/match/presentation/match/pages/user%20detailed%20i
 import 'package:ishq/utils/constants/colors.dart';
 import 'package:ishq/utils/constants/enums.dart';
 import 'package:ishq/utils/constants/sizes.dart';
+import 'package:ishq/utils/constants/text_strings.dart';
 
 class UserListTile extends StatelessWidget {
   const UserListTile({
@@ -57,7 +58,7 @@ class UserListTile extends StatelessWidget {
                       style: Theme.of(context).textTheme.labelLarge,
                     ),
                     Text(
-                      '${user.dob} Years',
+                      '${user.dob} ${JTexts.years}',
                       style: Theme.of(context).textTheme.bodyMedium,
                     ),
                     Text(
@@ -74,7 +75,7 @@ class UserListTile extends StatelessWidget {
                   color: Color.fromARGB(255, 243, 207, 224),
                   borderRadius: BorderRadius.circular(JSize.borderRadLg)),
               child: Text(
-                'Cancel Request',
+               JTexts.cancelRequest,
                 style: Theme.of(context).textTheme.labelSmall,
               ),
             )

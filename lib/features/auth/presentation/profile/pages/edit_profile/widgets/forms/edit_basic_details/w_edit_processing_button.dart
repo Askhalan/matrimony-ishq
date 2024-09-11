@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ishq/core/common/widgets/snackbar/error_snackbar.dart';
 import 'package:ishq/core/common/widgets/snackbar/show_snackbar.dart';
 import 'package:ishq/features/auth/presentation/profile/bloc/profile_bloc.dart';
+import 'package:ishq/utils/constants/text_strings.dart';
 import 'package:ishq/utils/helpers/data_helpers.dart';
 import 'package:ishq/utils/validators/validation.dart';
 
@@ -54,11 +55,11 @@ class EditBasicDetailsProcessButton extends StatelessWidget {
           showSnackBar(
               context,
               ErrorSnackBar(
-                message: "Please fill all the data fields",
+                message: JTexts.fillAllFieldsMsg,
               ));
         }
       },
-      child: Text('Save Changes'),
+      child: Text(JTexts.saveChanges),
     );
   }
 }

@@ -16,6 +16,7 @@ import 'package:ishq/features/auth/presentation/profile/bloc/profile_bloc.dart';
 import 'package:ishq/core/common/widgets/containers/w_section_wraper_container.dart';
 import 'package:ishq/features/match/presentation/match/widgets/w_appbar_title.dart';
 import 'package:ishq/utils/constants/sizes.dart';
+import 'package:ishq/utils/constants/text_strings.dart';
 import 'package:ishq/utils/helpers/io_helper.dart';
 
 class ScnEditProfileImg extends StatefulWidget {
@@ -46,7 +47,7 @@ class _ScnEditProfileImgState extends State<ScnEditProfileImg> {
             Navigator.pushReplacementNamed(context, Routes.addPreferenceScn);
           }
           if (state is ProfileFailure) {
-            showSnackBar(context, ErrorSnackBar(message: 'Try Again'));
+            showSnackBar(context, ErrorSnackBar(message: JTexts.tryAgain));
           }
         },
         builder: (context, state) {
@@ -56,8 +57,8 @@ class _ScnEditProfileImgState extends State<ScnEditProfileImg> {
           return JAppbar(
             expandedHeight: 0,
             title: AppbarTitle(
-              title: 'Add your Image',
-              subtitle: 'Your privacy is our priority',
+              title:JTexts.ADD_UR_IMAGE,
+              subtitle: JTexts.UR_PRIVACEY_MATTERS,
             ),
             body: SingleChildScrollView(
               child: Padding(
@@ -91,7 +92,7 @@ class _ScnEditProfileImgState extends State<ScnEditProfileImg> {
                                     Icon(Iconsax.gallery_add4),
                                     JGap10(),
                                     Text(
-                                      'Add your profile image',
+                                      JTexts.ADD_UR_PROFILE_IMAGE,
                                       style:
                                           Theme.of(context).textTheme.bodySmall,
                                     )
@@ -111,7 +112,7 @@ class _ScnEditProfileImgState extends State<ScnEditProfileImg> {
                                   context.read<ProfileBloc>().add(SaveUser());
                                   Navigator.pop(context);
                                 },
-                                child: Text('Save Changes'));
+                                child: Text(JTexts.saveChanges));
                           },
                         ))
                   ],

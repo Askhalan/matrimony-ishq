@@ -57,7 +57,7 @@ class LoginForm extends StatelessWidget {
 
               TextFormField(
                   controller: passwordController,
-                  validator: (value) => JValidator.validateEmptyText("Password", value),
+                  validator: (value) => JValidator.validateEmptyText(JTexts.password, value),
                   decoration: const InputDecoration(
                       hintText: JTexts.password,
                       prefixIcon: Icon(Iconsax.lock)),

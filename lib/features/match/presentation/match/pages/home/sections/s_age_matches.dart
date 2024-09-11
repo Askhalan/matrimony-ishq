@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:ishq/features/match/presentation/match/bloc/match_bloc.dart';
+import 'package:ishq/features/match/presentation/match/bloc/match_bloc/match_bloc.dart';
 import 'package:ishq/features/match/presentation/match/pages/home/widgets/loaders/home_matches_sec_loader.dart';
 import 'package:ishq/features/match/presentation/match/widgets/user_card/s_user_vertical_card.dart';
 import 'package:ishq/features/match/presentation/match/widgets/w_section_label.dart';

@@ -32,7 +32,7 @@ class _ScnEditBasicDetailsState extends State<ScnEditBasicDetails> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: JAppbar(
-        title: AppbarTitle(title: 'Basi Details',),
+        title: AppbarTitle(title: JTexts.BasicDetails,),
         body: SingleChildScrollView(
           child: Padding(
             padding: JSize.defaultPadding,
@@ -47,7 +47,7 @@ class _ScnEditBasicDetailsState extends State<ScnEditBasicDetails> {
                   JDropdown(
                     selectedItem: profileFor,
                     items: ['Myself', 'Son', 'Daughter'],
-                    title: "Profile created for",
+                    title: JTexts.profileCreatedFor,
                     onItemSelected: (value) {
                       setState(() {
                         profileFor = value;
@@ -97,7 +97,7 @@ class _ScnEditBasicDetailsState extends State<ScnEditBasicDetails> {
                   JDropdown(
                     selectedItem: maritalStatus,
                     items: const ['Never Maried', 'Divorsed', 'Widow'],
-                    title: "Marital Status",
+                    title: JTexts.maritalStatus,
                     onItemSelected: (value) {
                       maritalStatus = value;
                     },
@@ -109,7 +109,7 @@ class _ScnEditBasicDetailsState extends State<ScnEditBasicDetails> {
                   JDropdown(
                     selectedItem: physicalStatus,
                     items: ['Yes', 'No'],
-                    title: "Physically Challenged",
+                    title: JTexts.physicallyChallenged,
                     onItemSelected: (value) {
                       setState(() {
                         physicalStatus = value;

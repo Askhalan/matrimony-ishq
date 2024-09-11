@@ -8,6 +8,7 @@ import 'package:ishq/features/auth/presentation/profile/pages/settings/s_profile
 import 'package:ishq/features/auth/presentation/profile/pages/settings/w_settings_button.dart';
 import 'package:ishq/utils/constants/colors.dart';
 import 'package:ishq/utils/constants/sizes.dart';
+import 'package:ishq/utils/constants/text_strings.dart';
 
 class ScnSettings extends StatelessWidget {
   const ScnSettings({super.key});
@@ -24,7 +25,7 @@ class ScnSettings extends StatelessWidget {
         child: JAppbar(
           centerTitle: true,
           title: Text(
-            'Settings',
+            JTexts.settings,
             style: TextStyle(color: JColor.white, fontSize: 24),
           ),
           showBackArrow: true,
@@ -67,22 +68,33 @@ class ScnSettings extends StatelessWidget {
 
                   //---------------------------- SECURITY MANAGEMENT ------------------------
 
-                  Row(
-                    children: [
-                      // SettingsButtons(text: "Change password"),
-                      // JGap2(),
-                      SettingsButtons(
-                          text: "Logout",
-                          onTap: () {
-                            context.read<AuthBloc>().add(AuthLogout());
-                          }),
-                      JGap2(),
-                      SettingsButtons(
-                        text: "Version",
-                        isLabel: true,
-                        isFlexible: false,
-                      ),
-                    ],
+                  BlocListener<AuthBloc, AuthState>(
+                    listener: (context, state) {
+                      if (state is AuthLogedOut) {
+                        Navigator.pushNamedAndRemoveUntil(
+                          context,
+                          Routes.authSelectionScn,
+                          (route) => false,
+                        );
+                      }
+                    },
+                    child: Row(
+                      children: [
+                        // SettingsButtons(text: "Change password"),
+                        // JGap2(),
+                        SettingsButtons(
+                            text: JTexts.logout,
+                            onTap: () {
+                              context.read<AuthBloc>().add(AuthLogout());
+                            }),
+                        JGap2(),
+                        SettingsButtons(
+                          text: "Version",
+                          isLabel: true,
+                          isFlexible: false,
+                        ),
+                      ],
+                    ),
                   )
                 ],
               ),

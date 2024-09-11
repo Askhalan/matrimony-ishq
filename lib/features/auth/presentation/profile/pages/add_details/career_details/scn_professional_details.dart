@@ -1,12 +1,10 @@
 // ignore_for_file: library_private_types_in_public_api, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ishq/core/common/widgets/appbar/appbar.dart';
 import 'package:ishq/core/common/widgets/form/dropdown.dart';
 import 'package:ishq/core/common/widgets/spaces/gap.dart';
-import 'package:ishq/core/routes/routes.dart';
-import 'package:ishq/features/auth/presentation/profile/bloc/profile_bloc.dart';
+import 'package:ishq/features/auth/presentation/profile/pages/add_details/career_details/processing_buttons.dart';
 import 'package:ishq/features/auth/presentation/profile/widgets/progress_indicator.dart';
 import 'package:ishq/features/match/presentation/match/widgets/w_appbar_title.dart';
 import 'package:ishq/utils/constants/sizes.dart';
@@ -28,7 +26,7 @@ class _ScnProfessionalDetails extends State<ScnProfessionalDetails> {
   String employedIn = "";
   String occupation = "";
   // SfRangeValues incomeRange = SfRangeValues(1, 100);
-  GlobalKey formKey = GlobalKey();
+  GlobalKey formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -122,21 +120,16 @@ class _ScnProfessionalDetails extends State<ScnProfessionalDetails> {
                   //---------------------------------------- ANNUAL INCOME --------------------------------------
 
                   // IncomeRange(incomeRange:incomeRange,),
-                  JGap(h: JSize.spaceBtwSections * 3),
+                  JGap(h: JSize.spaceBtwSections * 4),
 
                   //-------------------------------------- NEXT BUTTON ------------------------------------
 
-                  ElevatedButton(
-                      onPressed: () {
-                        context.read<ProfileBloc>().add(AddProfessionalDetails(
-                            education: education,
-                            college: collegeController.text,
-                            employedIn: employedIn,
-                            occupation: occupation,
-                            organization: organizationController.text));
-                        Navigator.pushNamed(context, Routes.addFamilyDetailsScn);
-                      },
-                      child: Text(JTexts.next))
+                  ProcessingButtons(
+                      education: education,
+                      employedIn: employedIn,
+                      occupation: occupation,
+                      collegeController: collegeController,
+                      organizationController: organizationController)
                 ],
               ),
             ),

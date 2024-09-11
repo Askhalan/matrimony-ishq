@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ishq/core/common/widgets/loader/button_loader.dart';
-import 'package:ishq/features/match/presentation/match/bloc/match_bloc.dart';
+import 'package:ishq/features/match/presentation/match/bloc/match_bloc/match_bloc.dart';
 
 import 'package:ishq/utils/constants/colors.dart';
+import 'package:ishq/utils/constants/text_strings.dart';
 
 class WithdrawUserDetailsFooter extends StatelessWidget {
   const WithdrawUserDetailsFooter({
@@ -38,7 +39,7 @@ class WithdrawUserDetailsFooter extends StatelessWidget {
                   style: ButtonStyle(
                       backgroundColor: WidgetStatePropertyAll(JColor.white)),
                   child: Text(
-                    "Cancel",
+                    JTexts.Cancel,
                     style: Theme.of(context).textTheme.bodyLarge,
                   ),
                 );

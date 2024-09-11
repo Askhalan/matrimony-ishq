@@ -7,6 +7,7 @@ import 'package:ishq/core/common/widgets/spaces/gap.dart';
 import 'package:ishq/core/routes/routes.dart';
 import 'package:ishq/utils/constants/colors.dart';
 import 'package:ishq/utils/constants/sizes.dart';
+import 'package:ishq/utils/constants/text_strings.dart';
 
 class EditProfileAppbarHeader extends StatelessWidget {
   EditProfileAppbarHeader({
@@ -85,7 +86,7 @@ class EditProfileAppbarHeader extends StatelessWidget {
                       JGap(h: 5),
                       //----------------- Age -----------------
                       ProfileDetailsLabel(
-                          text: "${user.dob} years", icon: Iconsax.calendar),
+                          text: "${user.dob} ${JTexts.years}", icon: Iconsax.calendar),
                       JGap(h: 5),
 
                       //----------------- Place ---------------

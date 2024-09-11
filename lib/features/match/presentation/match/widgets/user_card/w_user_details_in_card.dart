@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:ishq/features/match/presentation/match/widgets/user_card/w_match_rate_chip.dart';
 import 'package:ishq/utils/constants/colors.dart';
 import 'package:ishq/utils/constants/sizes.dart';
+import 'package:ishq/utils/constants/text_strings.dart';
 
 class UserDetailsInCard extends StatelessWidget {
   const UserDetailsInCard({
@@ -44,7 +45,7 @@ class UserDetailsInCard extends StatelessWidget {
           ),
           //----------------- Age
           Text(
-            '$age years',
+            '$age ${JTexts.years}',
             style: Theme.of(context).textTheme.bodyMedium!.copyWith(
                   color: JColor.white,
                 ),

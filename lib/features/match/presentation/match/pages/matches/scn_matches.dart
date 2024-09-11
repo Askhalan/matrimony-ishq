@@ -4,11 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:ishq/core/common/widgets/appbar/appbar_with_tabbar.dart';
-import 'package:ishq/features/match/presentation/match/bloc/match_bloc.dart';
+import 'package:ishq/features/match/presentation/match/bloc/match_bloc/match_bloc.dart';
 import 'package:ishq/features/match/presentation/match/pages/matches/sections/accepted_match_request.dart';
 import 'package:ishq/features/match/presentation/match/pages/matches/sections/received_match_requests.dart';
 import 'package:ishq/features/match/presentation/match/pages/matches/sections/send_match_requests.dart';
 import 'package:ishq/features/match/presentation/match/widgets/w_appbar_title.dart';
+import 'package:ishq/utils/constants/text_strings.dart';
 
 class ScnMatches extends StatefulWidget {
   const ScnMatches({super.key});
@@ -30,8 +31,8 @@ class _ScnMatchesState extends State<ScnMatches> {
     return Scaffold(
         body: JAppbarWithTabs(
       title: AppbarTitle(
-        title: 'Matches',
-        subtitle: 'Everyone has a day',
+        title: JTexts.matches,
+        subtitle:JTexts.evryOnehasADay,
       ),
       appbarPinned: true,
       tabs: [

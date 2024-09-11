@@ -15,6 +15,7 @@ import 'package:ishq/features/auth/presentation/profile/pages/preferance/widgets
 import 'package:ishq/core/common/widgets/containers/w_section_wraper_container.dart';
 import 'package:ishq/features/match/presentation/match/widgets/w_appbar_title.dart';
 import 'package:ishq/utils/constants/sizes.dart';
+import 'package:ishq/utils/constants/text_strings.dart';
 import 'package:multi_dropdown/multi_dropdown.dart';
 import 'package:syncfusion_flutter_sliders/sliders.dart';
 
@@ -45,8 +46,8 @@ class _ScnAddPreferenceState extends State<ScnAddPreference> {
       child: Scaffold(
           body: JAppbar(
         title: AppbarTitle(
-          title: 'Preference',
-          subtitle: 'Choose your better half',
+          title:JTexts.prefrences ,
+          subtitle: JTexts.chooseYourHalf,
         ),
         expandedHeight: 0,
         body: SingleChildScrollView(
@@ -58,7 +59,7 @@ class _ScnAddPreferenceState extends State<ScnAddPreference> {
                 JGap(h: JSize.spaceBtwSections),
                 SectionWraperContainer(
                   children: [
-                    Text("Basic Preference",
+                    Text(JTexts.basicPrefrences,
                         style: Theme.of(context).textTheme.labelLarge),
                     JGap10(),
 
@@ -81,7 +82,7 @@ class _ScnAddPreferenceState extends State<ScnAddPreference> {
                 JGap(h: JSize.spaceBtwSections),
                 SectionWraperContainer(
                   children: [
-                    Text("Professional Preference",
+                    Text(JTexts.professionalPrefrences,
                         style: Theme.of(context).textTheme.labelLarge),
                     JGap10(),
 
@@ -122,7 +123,7 @@ class _ScnAddPreferenceState extends State<ScnAddPreference> {
                                     .toList(),
                               ));
                         },
-                        child: Text('Add Preference'));
+                        child: Text(JTexts.AddPrefrences));
                   },
                 ),
                 JGap()

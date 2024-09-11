@@ -1,16 +1,14 @@
-
 class JValidator {
-
 //--------------------- Email Validator ---------------------
 
-  static String? validateEmptyText(String? fieldName, String? value){
-    if(value == null || value.isEmpty){
+  static String? validateEmptyText(String? fieldName, String? value) {
+    if (value == null || value.isEmpty) {
       return '$fieldName is required';
     }
     return null;
   }
 
-//--------------------- Email Validator --------------------- 
+//--------------------- Email Validator ---------------------
 
   static String? validateEmail(String? value) {
     if (value == null || value.isEmpty) {
@@ -59,7 +57,8 @@ class JValidator {
 
   //--------------------- Confirm Password Validator ---------------------
 
-  static String? validateConfirmPassword(String? password, String? confirmPassword) {
+  static String? validateConfirmPassword(
+      String? password, String? confirmPassword) {
     if (confirmPassword == null || confirmPassword.isEmpty) {
       return 'Confirm Password is required.';
     }
@@ -71,24 +70,65 @@ class JValidator {
     return null;
   }
 
-  
-  //--------------------- Basic Details Page Validator ---------------------
- static bool areFormFieldsFilled({
-  required String physicalStatus,
-  required String profileFor,
-  required String selectedGender,
-  required String maritalStatus,
-  required DateTime? selectedDate,
-}) {
-  if (physicalStatus.isEmpty &&
-      profileFor.isEmpty &&
-      selectedGender.isEmpty &&
-      maritalStatus.isEmpty &&
-      selectedDate == null) {
-    return false;
+//--------------------- Phone Number Validator ---------------------
+
+  static String? validatePhoneNumber(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Phone number is required.';
+    }
+
+    // Regular expression for phone number validation (10 digits)
+    final phoneRegExp = RegExp(r'^\d{10}$');
+
+    if (!phoneRegExp.hasMatch(value)) {
+      return 'Please enter a valid 10-digit phone number.';
+    }
+
+    return null;
   }
-  return true;
-}
 
+  //--------------------- Basic Details Page Validator ---------------------
+  static bool areFormFieldsFilled({
+    required String physicalStatus,
+    required String profileFor,
+    required String selectedGender,
+    required String maritalStatus,
+    required DateTime? selectedDate,
+  }) {
+    if (physicalStatus.isEmpty &&
+        profileFor.isEmpty &&
+        selectedGender.isEmpty &&
+        maritalStatus.isEmpty &&
+        selectedDate == null) {
+      return false;
+    }
+    return true;
+  }
 
+//-------------------- Professional Details Page Validator ------------------
+
+  static bool validateProfessionalDetails({
+    required String education,
+    required String employedIn,
+    required String occupation,
+  }) {
+    if (education.isEmpty && employedIn.isEmpty && occupation.isEmpty) {
+      return false;
+    }
+    return true;
+  }
+
+  //-------------------- Family Details Page Validator ------------------
+
+  static bool validateFamilyDetails({
+    required String value,
+    required String type,
+    required String status,
+    required String about,
+  }) {
+    if (value.isEmpty && type.isEmpty && status.isEmpty && about.isEmpty) {
+      return false;
+    }
+    return true;
+  }
 }

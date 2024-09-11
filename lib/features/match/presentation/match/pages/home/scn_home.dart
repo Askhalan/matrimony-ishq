@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:ishq/core/common/widgets/appbar/appbar.dart';
 import 'package:ishq/core/common/widgets/spaces/gap.dart';
-import 'package:ishq/features/match/presentation/match/bloc/match_bloc.dart';
+import 'package:ishq/features/match/presentation/match/bloc/match_bloc/match_bloc.dart';
 import 'package:ishq/features/match/presentation/match/pages/home/sections/appbar/s_appbar_title.dart';
 import 'package:ishq/features/match/presentation/match/pages/home/sections/s_family_matches.dart';
 import 'package:ishq/features/match/presentation/match/pages/home/sections/s_job_matches.dart';
@@ -23,7 +23,7 @@ class ScnHome extends StatefulWidget {
 class _ScnHomeState extends State<ScnHome> {
   @override
   void initState() {
-   context.read<MatchBloc>(). add(LoadAllCategories());
+   context.read<MatchBloc>().add(LoadAllCategories());
     super.initState();
   }
   @override

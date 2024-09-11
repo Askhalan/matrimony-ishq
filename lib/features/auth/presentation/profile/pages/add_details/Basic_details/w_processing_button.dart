@@ -59,7 +59,7 @@ class BasicDetailsProcessButton extends StatelessWidget {
           showSnackBar(
               context,
               ErrorSnackBar(
-                message: "Please fill all the data fields",
+                message:JTexts.fillAllFieldsMsg,
               ));
         }
       },

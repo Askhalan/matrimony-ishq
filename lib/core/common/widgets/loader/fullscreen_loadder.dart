@@ -6,8 +6,10 @@ class JFullscreenLoader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return JLottieAnimation(text: 'We are processing your information', animation: 'assets/animations/Animation - 1722833414565.json');
+    return Center(
+      child: const JLottieAnimation(
+          text: 'We are processing your information',
+          animation: 'assets/animations/Animation - 1722833414565.json'),
+    );
   }
 }
-
-

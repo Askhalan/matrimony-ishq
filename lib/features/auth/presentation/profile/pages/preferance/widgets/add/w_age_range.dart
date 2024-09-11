@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ishq/utils/constants/colors.dart';
 import 'package:ishq/utils/constants/sizes.dart';
+import 'package:ishq/utils/constants/text_strings.dart';
 import 'package:syncfusion_flutter_sliders/sliders.dart';
 
 // ignore: must_be_immutable
@@ -23,7 +24,7 @@ class _AgeRangeState extends State<AgeRange> {
               color: JColor.secondary,
               borderRadius: BorderRadius.circular(JSize.borderRadMd)),
           child: Text(
-              'Age: ${widget.ageRange.start.toString().substring(0, 2)} - ${widget.ageRange.end.toString().substring(0, 2)}'),
+              '${JTexts.age}: ${widget.ageRange.start.toString().substring(0, 2)} - ${widget.ageRange.end.toString().substring(0, 2)}'),
         ),
         Flexible(
           child: SfRangeSlider(

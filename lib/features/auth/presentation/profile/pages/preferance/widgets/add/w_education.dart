@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:ishq/utils/constants/colors.dart';
 import 'package:ishq/utils/constants/sizes.dart';
+import 'package:ishq/utils/constants/text_strings.dart';
 import 'package:multi_dropdown/multi_dropdown.dart';
 
 class EducationPref extends StatelessWidget {
@@ -25,7 +26,7 @@ class EducationPref extends StatelessWidget {
       chipDecoration: ChipDecoration(
           borderRadius: BorderRadius.circular(JSize.borderRadMd),
           backgroundColor: JColor.secondary),
-      fieldDecoration: FieldDecoration(hintText: 'Education'),
+      fieldDecoration: FieldDecoration(hintText: JTexts.Education),
       dropdownDecoration: DropdownDecoration(
         elevation: 1,
         maxHeight: 300,

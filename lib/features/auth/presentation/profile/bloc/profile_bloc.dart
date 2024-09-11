@@ -1,4 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first, avoid_print
+import 'dart:developer';
+
 import 'package:bloc/bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:ishq/core/common/sessions/current_user_prefs.dart';
@@ -155,7 +157,9 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
       familyAbout: currentState.familyAbout,
     ));
 
-    res.fold((l) => emit(ProfileFailure(error: l.message)),
+    res.fold((l) {
+      log(l.message);
+      emit(ProfileFailure(error: l.message));} ,
         (r) => emit(ProfileSuccess()));
   }
 

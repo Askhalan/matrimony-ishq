@@ -1,7 +1,7 @@
 import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:ishq/features/match/presentation/match/bloc/match_bloc.dart';
+import 'package:ishq/features/match/presentation/match/bloc/match_bloc/match_bloc.dart';
 import 'package:ishq/features/match/presentation/match/pages/home/widgets/loaders/w_top_match_loader.dart';
 import 'package:ishq/features/match/presentation/match/widgets/w_card_horizondal.dart';
 import 'package:ishq/features/match/presentation/match/widgets/w_section_label.dart';

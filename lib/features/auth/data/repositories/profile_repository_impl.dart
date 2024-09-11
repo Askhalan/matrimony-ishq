@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:fpdart/fpdart.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:ishq/core/common/sessions/current_user_prefs.dart';
@@ -73,6 +75,7 @@ class ProfileRepositoryImpl implements ProfileRepository {
 
       return right(null);
     } catch (e) {
+      log(e.toString());
       return left(Failure(e.toString()));
     }
   }

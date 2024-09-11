@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ishq/utils/constants/colors.dart';
 import 'package:ishq/utils/constants/sizes.dart';
+import 'package:ishq/utils/constants/text_strings.dart';
 import 'package:syncfusion_flutter_sliders/sliders.dart';
 
 // ignore: must_be_immutable
@@ -22,7 +23,7 @@ class _HeightRangeSelectorState extends State<HeightRangeSelector> {
               color: JColor.secondary,
               borderRadius: BorderRadius.circular(JSize.borderRadMd)),
           child: Text(
-              'Height: ${widget.heightRange.start.toString().substring(0, 3)} - ${widget.heightRange.end.toString().substring(0, 3)}'),
+              '${JTexts.Height}: ${widget.heightRange.start.toString().substring(0, 3)} - ${widget.heightRange.end.toString().substring(0, 3)}'),
         ),
         Flexible(
           child: SfRangeSlider(

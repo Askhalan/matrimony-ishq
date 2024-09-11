@@ -16,6 +16,7 @@ class ScnAddressDetails extends StatelessWidget {
   final TextEditingController countryController = TextEditingController();
   final TextEditingController stateController = TextEditingController();
   final TextEditingController cityController = TextEditingController();
+  final formKey = GlobalKey<FormState>();
 
   ScnAddressDetails({super.key});
 
@@ -37,57 +38,82 @@ class ScnAddressDetails extends StatelessWidget {
         body: SingleChildScrollView(
           child: Padding(
               padding: JSize.defaultPadding,
-              child: Column(
-                children: [
-                  JGap(
-                    h: JSize.spaceBtwSections * 2,
-                  ),
+              child: Form(
+                key: formKey, // Attach the form key here
+                child: Column(
+                  children: [
+                    JGap(
+                      h: JSize.spaceBtwSections * 2,
+                    ),
 
-                  //------------------------------------- PHONE NUMBER ------------------------------------
+                    //------------------------------------- PHONE NUMBER ------------------------------------
 
-                  TextFormField(
+                    TextFormField(
                       controller: phoneNumberController,
                       decoration: InputDecoration(
                         hintText: JTexts.phoneNo,
                       ),
                       validator: (value) =>
-                          JValidator.validateEmptyText(JTexts.name, value)),
-                  JGap(),
+                          JValidator.validatePhoneNumber(value),
+                    ),
+                    JGap(),
 
-                  //----------------------------------------- ADDRESS ---------------------------------------
+                    //----------------------------------------- ADDRESS ---------------------------------------
 
-                  CountryStateCityPicker(
-                      country: countryController,
-                      state: stateController,
-                      city: cityController,
-                      dialogColor: Color.fromARGB(255, 233, 233, 233),
-                      textFieldDecoration: InputDecoration(
-                          fillColor: JColor.secondary,
-                          filled: true,
-                          suffixIcon: const Icon(Icons.arrow_downward_rounded),
-                          border: const OutlineInputBorder(
-                              borderSide: BorderSide.none))),
-                  JGap(),
+                    CountryStateCityPicker(
+                        country: countryController,
+                        state: stateController,
+                        city: cityController,
+                        dialogColor: Color.fromARGB(255, 233, 233, 233),
+                        textFieldDecoration: InputDecoration(
+                            fillColor: JColor.secondary,
+                            filled: true,
+                            suffixIcon:
+                                const Icon(Icons.arrow_downward_rounded),
+                            border: const OutlineInputBorder(
+                                borderSide: BorderSide.none))),
+                    JGap(),
 
-                  JGap(
-                    h: JSize.spaceBtwSections * 3,
-                  ),
+                    JGap(
+                      h: JSize.spaceBtwSections * 7,
+                    ),
 
-                  //---------------------------------------- NEXT BUTTON -------------------------------------
+                    //---------------------------------------- NEXT BUTTON -------------------------------------
 
-                  ElevatedButton(
-                      onPressed: () {
-                        context.read<ProfileBloc>().add(AddAddressDetails(
-                              phoneNo: phoneNumberController.text,
-                              country: countryController.text,
-                              state: stateController.text,
-                              city: cityController.text,
-                            ));
-                        Navigator.pushNamed(
-                            context, Routes.addProfessionalDetailsScn);
-                      },
-                      child: Text(JTexts.next))
-                ],
+                    Row(
+                      children: [
+                        Flexible(
+                          flex: 1,
+                          child: OutlinedButton(
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                              child: Icon(Icons.arrow_back_ios)),
+                        ),
+                        JGap(),
+                        Flexible(
+                          flex: 4,
+                          child: ElevatedButton(
+                              onPressed: () {
+                                if (formKey.currentState!.validate()) {
+                                  context
+                                      .read<ProfileBloc>()
+                                      .add(AddAddressDetails(
+                                        phoneNo: phoneNumberController.text,
+                                        country: countryController.text,
+                                        state: stateController.text,
+                                        city: cityController.text,
+                                      ));
+                                  Navigator.pushNamed(context,
+                                      Routes.addProfessionalDetailsScn);
+                                }
+                              },
+                              child: Text(JTexts.next)),
+                        ),
+                      ],
+                    )
+                  ],
+                ),
               )),
         ),
       ),

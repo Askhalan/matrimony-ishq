@@ -4,7 +4,6 @@ import 'package:ishq/core/common/widgets/spaces/gap_inside_card.dart';
 import 'package:ishq/utils/constants/colors.dart';
 import 'package:ishq/utils/constants/image_strings.dart';
 import 'package:ishq/utils/constants/sizes.dart';
-import 'package:ishq/utils/constants/text_strings.dart';
 
 class SuccessStoryCard extends StatelessWidget {
   const SuccessStoryCard({
@@ -47,7 +46,7 @@ class SuccessStoryCard extends StatelessWidget {
                 ),
                 JGap10(),
                 Text(
-                  JTexts.lorem,
+                  'hiibhjkhbuuubjiuh khiug iujkn ugi',
                   overflow: TextOverflow.ellipsis,
                   maxLines: 4,
     

@@ -5,6 +5,7 @@ import 'package:ishq/core/common/entities/user_entity.dart';
 import 'package:ishq/core/common/widgets/containers/w_section_wraper_container.dart';
 import 'package:ishq/core/common/widgets/images/cached_network_image.dart';
 import 'package:ishq/core/common/widgets/spaces/gap_inside_card.dart';
+import 'package:ishq/utils/constants/text_strings.dart';
 
 class SMoreUserPhotos extends StatelessWidget {
   const SMoreUserPhotos({
@@ -18,7 +19,7 @@ class SMoreUserPhotos extends StatelessWidget {
   Widget build(BuildContext context) {
     return SectionWraperContainer(
         headerNeeded: true,
-        heading: 'More Photos',
+        heading: JTexts.MorePhotos,
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,

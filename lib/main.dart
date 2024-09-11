@@ -6,7 +6,7 @@ import 'package:ishq/core/dependencies/init_dependencies.dart';
 import 'package:ishq/features/auth/presentation/authentication/bloc/auth_bloc.dart';
 import 'package:ishq/features/auth/presentation/profile/bloc/profile_bloc.dart';
 import 'package:ishq/features/match/presentation/chat/bloc/chat_bloc.dart';
-import 'package:ishq/features/match/presentation/match/bloc/match_bloc.dart';
+import 'package:ishq/features/match/presentation/match/bloc/match_bloc/match_bloc.dart';
 
 void main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();

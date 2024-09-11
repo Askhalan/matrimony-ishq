@@ -19,6 +19,7 @@ import 'package:ishq/features/auth/presentation/profile/pages/preferance/widgets
 import 'package:ishq/core/common/widgets/containers/w_section_wraper_container.dart';
 import 'package:ishq/features/match/presentation/match/widgets/w_appbar_title.dart';
 import 'package:ishq/utils/constants/sizes.dart';
+import 'package:ishq/utils/constants/text_strings.dart';
 import 'package:ishq/utils/helpers/data_helpers.dart';
 import 'package:multi_dropdown/multi_dropdown.dart';
 // import 'package:multi_dropdown/multi_dropdown.dart';
@@ -60,8 +61,8 @@ class _ScnEditPreferenceState extends State<ScnEditPreference> {
       child: Scaffold(
         body: JAppbar(
           title: AppbarTitle(
-            title: 'Preference',
-            subtitle: 'Choose your better half',
+            title: JTexts.prefrences,
+            subtitle:JTexts.chooseYourHalf,
           ),
           expandedHeight: 0,
           body: SingleChildScrollView(

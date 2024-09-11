@@ -4,11 +4,12 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ishq/core/common/entities/user_entity.dart';
-import 'package:ishq/features/match/presentation/match/bloc/match_bloc.dart';
+import 'package:ishq/features/match/presentation/match/bloc/match_bloc/match_bloc.dart';
 import 'package:ishq/features/match/presentation/match/widgets/user_card/user_list_loader.dart';
 import 'package:ishq/features/match/presentation/match/widgets/user_card/user_list_tile.dart';
 import 'package:ishq/utils/constants/enums.dart';
 import 'package:ishq/utils/constants/sizes.dart';
+import 'package:ishq/utils/constants/text_strings.dart';
 
 class AcceptedMatchRequest extends StatelessWidget {
   const AcceptedMatchRequest({
@@ -30,7 +31,7 @@ class AcceptedMatchRequest extends StatelessWidget {
           if (state.users.isEmpty) {
             return Center(
                 child:
-                    const Text('Currently you are not having Any Accepts'));
+                    const Text(JTexts.requestAcceptsEmpty));
           }
           return Padding(
             padding:

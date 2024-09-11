@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ishq/core/common/sessions/current_user.dart';
 import 'package:ishq/utils/constants/colors.dart';
 import 'package:ishq/utils/constants/sizes.dart';
 
@@ -41,14 +42,14 @@ class ProfileSuiteDetails extends StatelessWidget {
             children: [
               //------------------- LOGO ------------------
               Text(
-                "Askhalan",
+                CurrentUser().name!,
                 style: Theme.of(context)
                     .textTheme
                     .titleLarge!
                     .copyWith(color: JColor.white, fontSize: 24),
               ),
                Text(
-                "Id: 234285",
+                "Id: ",
                 style: Theme.of(context)
                     .textTheme
                     .titleLarge!
@@ -68,7 +69,7 @@ class ProfileSuiteDetails extends StatelessWidget {
                     .copyWith(color: JColor.white,),
               ),
                Text(
-                "Valid: 06/25",
+                "Valid: ",
                 style: Theme.of(context)
                     .textTheme
                     .bodyLarge!

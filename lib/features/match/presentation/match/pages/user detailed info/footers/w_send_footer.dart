@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ishq/core/common/widgets/loader/button_loader.dart';
 import 'package:ishq/core/common/widgets/spaces/gap.dart';
-import 'package:ishq/features/match/presentation/match/bloc/match_bloc.dart';
+import 'package:ishq/features/match/presentation/match/bloc/match_bloc/match_bloc.dart';
 
 import 'package:ishq/utils/constants/colors.dart';
+import 'package:ishq/utils/constants/text_strings.dart';
 
 class SendUserDetailsAppbarFooter extends StatelessWidget {
   const SendUserDetailsAppbarFooter({
@@ -39,7 +40,7 @@ class SendUserDetailsAppbarFooter extends StatelessWidget {
                   style: ButtonStyle(
                       backgroundColor: WidgetStatePropertyAll(JColor.white)),
                   child: Text(
-                    "Send Request",
+                   JTexts.SendRequest,
                     style: Theme.of(context).textTheme.bodyLarge,
                   ),
                 );
@@ -57,7 +58,7 @@ class SendUserDetailsAppbarFooter extends StatelessWidget {
               style: ButtonStyle(
                   backgroundColor: WidgetStatePropertyAll(JColor.white)),
               child: Text(
-                "Save ",
+               JTexts.Save,
                 style: Theme.of(context).textTheme.bodyLarge,
               ),
             ),

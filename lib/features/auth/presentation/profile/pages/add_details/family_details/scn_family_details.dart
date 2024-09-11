@@ -1,12 +1,10 @@
 // ignore_for_file: library_private_types_in_public_api, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:ishq/core/common/widgets/appbar/appbar.dart';
 import 'package:ishq/core/common/widgets/form/dropdown.dart';
 import 'package:ishq/core/common/widgets/spaces/gap.dart';
-import 'package:ishq/core/routes/routes.dart';
-import 'package:ishq/features/auth/presentation/profile/bloc/profile_bloc.dart';
+import 'package:ishq/features/auth/presentation/profile/pages/add_details/family_details/family_details_processing_btns.dart';
 import 'package:ishq/features/auth/presentation/profile/widgets/progress_indicator.dart';
 import 'package:ishq/features/match/presentation/match/widgets/w_appbar_title.dart';
 import 'package:ishq/utils/constants/sizes.dart';
@@ -118,18 +116,11 @@ class _ScnFamilyDetails extends State<ScnFamilyDetails> {
 
                   //-------------------------------------- NEXT BUTTON ------------------------------------
 
-                  ElevatedButton(
-                      onPressed: () {
-                        context.read<ProfileBloc>().add(AddFamilyDetails(
-                              familyValues: familyValues,
-                              familyStatus: familyStatus,
-                              familyType: familyType,
-                              familyAbout: familyAboutController.text,
-                            ));
-                        Navigator.pushNamed(
-                            context, Routes.addProfileImgScn);
-                      },
-                      child: Text(JTexts.next))
+                  FamilyDetailsProcessingBtns(
+                      familyValues: familyValues,
+                      familyType: familyType,
+                      familyStatus: familyStatus,
+                      familyAboutController: familyAboutController)
                 ],
               ),
             ),

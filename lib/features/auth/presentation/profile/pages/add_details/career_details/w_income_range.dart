@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ishq/utils/constants/colors.dart';
 import 'package:ishq/utils/constants/sizes.dart';
+import 'package:ishq/utils/constants/text_strings.dart';
 import 'package:syncfusion_flutter_sliders/sliders.dart';
 
 // ignore: must_be_immutable
@@ -23,7 +24,7 @@ class _IncomeRangeState extends State<IncomeRange> {
               color: JColor.secondary,
               borderRadius: BorderRadius.circular(JSize.borderRadMd)),
           child: Text(
-              'Age: ${widget.incomeRange.start.toString().substring(0, 2)} - ${widget.incomeRange.end.toString().substring(0, 2)}'),
+              '${JTexts.age}: ${widget.incomeRange.start.toString().substring(0, 2)} - ${widget.incomeRange.end.toString().substring(0, 2)}'),
         ),
         Flexible(
           child: SfRangeSlider(

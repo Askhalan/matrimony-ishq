@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:ishq/core/common/entities/user_entity.dart';
 import 'package:ishq/core/common/widgets/containers/w_section_wraper_container.dart';
 import 'package:ishq/features/match/presentation/match/widgets/j_details_table_cell.dart';
+import 'package:ishq/utils/constants/text_strings.dart';
 
 class SUserProfessionalDetails extends StatelessWidget {
   const SUserProfessionalDetails({
@@ -17,7 +18,7 @@ class SUserProfessionalDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     return SectionWraperContainer(
         headerNeeded: true,
-        heading: 'Professional Details',
+        heading: JTexts.ProfessionalDetails,
         children: [
           Padding(
             padding: const EdgeInsets.all(15),
@@ -26,7 +27,7 @@ class SUserProfessionalDetails extends StatelessWidget {
                 // ---------------------------------
                 TableRow(children: [
                   JDetailsTableCell(
-                    text: 'Employed in:',
+                    text: JTexts.EmployedIn,
                   ),
                   JDetailsTableCell(
                     text: user.employedIn,
@@ -36,7 +37,7 @@ class SUserProfessionalDetails extends StatelessWidget {
                 // ---------------------------------
                 TableRow(children: [
                   JDetailsTableCell(
-                    text: 'Occupation:',
+                    text: JTexts.Occupation,
                   ),
                   JDetailsTableCell(
                     text: user.occupation,
@@ -45,7 +46,7 @@ class SUserProfessionalDetails extends StatelessWidget {
                 // ---------------------------------
                 TableRow(children: [
                   JDetailsTableCell(
-                    text: 'organization:',
+                    text: JTexts.organization,
                   ),
                   JDetailsTableCell(
                     text: user.organization,
@@ -54,7 +55,7 @@ class SUserProfessionalDetails extends StatelessWidget {
                 // ---------------------------------
                 TableRow(children: [
                   JDetailsTableCell(
-                    text: 'Education:',
+                    text: JTexts.Education,
                   ),
                   JDetailsTableCell(
                     text: user.education,
@@ -63,7 +64,7 @@ class SUserProfessionalDetails extends StatelessWidget {
                 // ---------------------------------
                 TableRow(children: [
                   JDetailsTableCell(
-                    text: 'College:',
+                    text: JTexts.College,
                   ),
                   JDetailsTableCell(
                     text: user.college,

@@ -16,6 +16,7 @@ import 'package:ishq/features/auth/presentation/profile/bloc/profile_bloc.dart';
 import 'package:ishq/core/common/widgets/containers/w_section_wraper_container.dart';
 import 'package:ishq/features/match/presentation/match/widgets/w_appbar_title.dart';
 import 'package:ishq/utils/constants/sizes.dart';
+import 'package:ishq/utils/constants/text_strings.dart';
 import 'package:ishq/utils/helpers/io_helper.dart';
 
 class ScnAddProfileImg extends StatefulWidget {
@@ -46,19 +47,18 @@ class _ScnAddProfileImgState extends State<ScnAddProfileImg> {
             Navigator.pushReplacementNamed(context, Routes.addPreferenceScn);
           }
           if (state is ProfileFailure) {
-            showSnackBar(context, ErrorSnackBar(message: 'Try Again'));
+            showSnackBar(context, ErrorSnackBar(message: JTexts.tryAgain));
           }
         },
         builder: (context, state) {
-           if(state is ProfileLoading){
+          if (state is ProfileLoading) {
             return Center(child: const JFullscreenLoader());
-            
           }
           return JAppbar(
             expandedHeight: 0,
             title: AppbarTitle(
-              title: 'Add your Image',
-              subtitle: 'Your privacy is our priority',
+              title: JTexts.ADD_UR_IMAGE,
+              subtitle: JTexts.UR_PRIVACEY_MATTERS,
             ),
             body: SingleChildScrollView(
               child: Padding(
@@ -92,7 +92,7 @@ class _ScnAddProfileImgState extends State<ScnAddProfileImg> {
                                     Icon(Iconsax.gallery_add4),
                                     JGap10(),
                                     Text(
-                                      'Add your profile image',
+                                      JTexts.ADD_UR_PROFILE_IMAGE,
                                       style:
                                           Theme.of(context).textTheme.bodySmall,
                                     )
@@ -105,14 +105,13 @@ class _ScnAddProfileImgState extends State<ScnAddProfileImg> {
                         heightFactor: 4,
                         child: BlocBuilder<ProfileBloc, ProfileState>(
                           builder: (context, state) {
-                            
                             return ElevatedButton(
                                 onPressed: () {
                                   context.read<ProfileBloc>().add(
                                       AddProfilePhoto(profileImage: image));
                                   context.read<ProfileBloc>().add(SaveUser());
                                 },
-                                child: Text('Create Account'));
+                                child: Text(JTexts.createAccount));
                           },
                         ))
                   ],

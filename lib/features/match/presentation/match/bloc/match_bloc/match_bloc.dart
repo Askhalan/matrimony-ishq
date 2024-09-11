@@ -31,11 +31,7 @@ class MatchBloc extends Bloc<MatchEvent, MatchState> {
 //----------------------------- INITIALIZATION ----------------------------
 
   void _onInitializeMatch(InitializeMatch event, Emitter<MatchState> emit) {
-    add(GetAllusers());
     add(LoadAllCategories());
-    add(GetSentRequest());
-    add(GetReceivedRequest());
-    add(GetAcceptedRequest());
   }
 
 //----------------------------- GET ALL USERS -----------------------------

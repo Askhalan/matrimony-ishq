@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:ishq/core/common/widgets/spaces/gap.dart';
 import 'package:ishq/utils/constants/colors.dart';
 import 'package:ishq/utils/constants/sizes.dart';
+import 'package:ishq/utils/constants/text_strings.dart';
 
 class GenderChip extends StatefulWidget {
   final String selectedGender;
@@ -50,7 +51,7 @@ class GenderChipState extends State<GenderChip> {
               ),
               child: Center(
                 child: Text(
-                  "Male",
+                  JTexts.Male,
                   style: TextStyle(
                     color: _selectedGender == 'Male' ? Colors.white : Colors.black,
                   ),
@@ -72,7 +73,7 @@ class GenderChipState extends State<GenderChip> {
               ),
               child: Center(
                 child: Text(
-                  "Female",
+                  JTexts.female,
                   style: TextStyle(
                     color: _selectedGender == 'Female' ? Colors.white : Colors.black,
                   ),

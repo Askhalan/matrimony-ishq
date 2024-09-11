@@ -3,6 +3,7 @@ import 'package:ishq/core/common/widgets/spaces/gap.dart';
 import 'package:ishq/core/routes/routes.dart';
 
 import 'package:ishq/utils/constants/colors.dart';
+import 'package:ishq/utils/constants/text_strings.dart';
 
 
 class ProfileAppbarFooter extends StatelessWidget {
@@ -27,7 +28,7 @@ class ProfileAppbarFooter extends StatelessWidget {
               style: ButtonStyle(
                   backgroundColor: WidgetStatePropertyAll(JColor.white)),
               child: Text(
-                "Edit Profile",
+                JTexts.editProfile,
                 style: Theme.of(context).textTheme.bodyLarge,
               ),
             ),
@@ -45,7 +46,7 @@ class ProfileAppbarFooter extends StatelessWidget {
               style: ButtonStyle(
                   backgroundColor: WidgetStatePropertyAll(JColor.white)),
               child: Text(
-                "Edit Preferences",
+                JTexts.editPreferences,
                 style: Theme.of(context).textTheme.bodyLarge,
               ),
             ),

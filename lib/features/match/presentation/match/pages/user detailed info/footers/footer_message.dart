@@ -6,11 +6,12 @@ import 'package:ishq/features/match/presentation/chat/bloc/chat_bloc.dart';
 import 'package:ishq/features/match/presentation/chat/pages/scn_chat_ui.dart';
 
 import 'package:ishq/utils/constants/colors.dart';
+import 'package:ishq/utils/constants/text_strings.dart';
 
 class MessageUserDetailsFooter extends StatelessWidget {
   const MessageUserDetailsFooter({
-    super.key, required this.user,
-    
+    super.key,
+    required this.user,
   });
   final UserEntity user;
   @override
@@ -25,8 +26,12 @@ class MessageUserDetailsFooter extends StatelessWidget {
             flex: 3,
             child: BlocConsumer<ChatBloc, ChatState>(
               listener: (context, state) {
-                if(state is ChatFound){
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => ScnChatUi(user: user),));
+                if (state is ChatFound) {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ScnChatUi(user: user),
+                      ));
                 }
               },
               builder: (context, state) {
@@ -37,7 +42,7 @@ class MessageUserDetailsFooter extends StatelessWidget {
                   style: ButtonStyle(
                       backgroundColor: WidgetStatePropertyAll(JColor.white)),
                   child: Text(
-                    "Message",
+                    JTexts.Message,
                     style: Theme.of(context).textTheme.bodyLarge,
                   ),
                 );
@@ -55,7 +60,7 @@ class MessageUserDetailsFooter extends StatelessWidget {
               style: ButtonStyle(
                   backgroundColor: WidgetStatePropertyAll(JColor.white)),
               child: Text(
-                "Share",
+                JTexts.Share,
                 style: Theme.of(context).textTheme.bodyLarge,
               ),
             ),
