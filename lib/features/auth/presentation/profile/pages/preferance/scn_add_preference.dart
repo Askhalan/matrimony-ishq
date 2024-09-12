@@ -13,7 +13,7 @@ import 'package:ishq/features/auth/presentation/profile/pages/preferance/widgets
 import 'package:ishq/features/auth/presentation/profile/pages/preferance/widgets/add/w_job.dart';
 import 'package:ishq/features/auth/presentation/profile/pages/preferance/widgets/add/w_marital_status.dart';
 import 'package:ishq/core/common/widgets/containers/w_section_wraper_container.dart';
-import 'package:ishq/features/match/presentation/match/widgets/w_appbar_title.dart';
+import 'package:ishq/features/app/presentation/match/widgets/w_appbar_title.dart';
 import 'package:ishq/utils/constants/sizes.dart';
 import 'package:ishq/utils/constants/text_strings.dart';
 import 'package:multi_dropdown/multi_dropdown.dart';

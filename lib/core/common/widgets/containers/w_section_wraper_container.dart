@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 
-import 'package:ishq/features/match/presentation/match/widgets/w_section_label.dart';
+import 'package:ishq/features/app/presentation/match/widgets/w_section_label.dart';
 import 'package:ishq/utils/constants/colors.dart';
 import 'package:ishq/utils/constants/sizes.dart';
 import 'package:ishq/utils/helpers/helper_functions.dart';

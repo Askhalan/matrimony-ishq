@@ -7,7 +7,7 @@ import 'package:ishq/core/common/widgets/spaces/gap.dart';
 import 'package:ishq/core/common/widgets/form/dob_picker.dart';
 import 'package:ishq/features/auth/presentation/profile/pages/edit_profile/widgets/forms/edit_basic_details/w_edit_processing_button.dart';
 import 'package:ishq/features/auth/presentation/profile/widgets/gender_chip.dart';
-import 'package:ishq/features/match/presentation/match/widgets/w_appbar_title.dart';
+import 'package:ishq/features/app/presentation/match/widgets/w_appbar_title.dart';
 import 'package:ishq/utils/constants/sizes.dart';
 import 'package:ishq/utils/constants/text_strings.dart';
 import 'package:ishq/utils/validators/validation.dart';

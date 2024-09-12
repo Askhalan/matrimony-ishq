@@ -1,5 +1,5 @@
 import 'package:dash_chat_2/dash_chat_2.dart';
-import 'package:ishq/features/match/domain/entities/message_entity.dart';
+import 'package:ishq/features/app/domain/entities/message_entity.dart';
 
 class DataHelper {
   static int calculateAge(DateTime dateOfBirth) {

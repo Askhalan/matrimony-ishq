@@ -6,7 +6,7 @@ import 'package:ishq/core/common/widgets/form/dropdown.dart';
 import 'package:ishq/core/common/widgets/spaces/gap.dart';
 import 'package:ishq/features/auth/presentation/profile/pages/add_details/career_details/processing_buttons.dart';
 import 'package:ishq/features/auth/presentation/profile/widgets/progress_indicator.dart';
-import 'package:ishq/features/match/presentation/match/widgets/w_appbar_title.dart';
+import 'package:ishq/features/app/presentation/match/widgets/w_appbar_title.dart';
 import 'package:ishq/utils/constants/sizes.dart';
 import 'package:ishq/utils/constants/text_strings.dart';
 import 'package:ishq/utils/validators/validation.dart';

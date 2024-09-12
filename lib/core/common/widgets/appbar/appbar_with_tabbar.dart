@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:ishq/features/match/presentation/match/bloc/match_bloc/match_bloc.dart';
+import 'package:ishq/features/app/presentation/match/bloc/request_bloc/request_bloc.dart';
 import 'package:ishq/utils/constants/colors.dart';
 import 'package:ishq/utils/constants/sizes.dart';
 
@@ -104,13 +104,13 @@ class _JAppbarWithTabsState extends State<JAppbarWithTabs>
               TabBar(
                 onTap: (value) {
                   if(value==0){
-                     context.read<MatchBloc>().add(GetSentRequest());
+                     context.read<RequestBloc>().add(GetSentRequest());
                   }
                   if(value==1){
-                     context.read<MatchBloc>().add(GetReceivedRequest());
+                     context.read<RequestBloc>().add(GetReceivedRequest());
                   }
                    if(value==2){
-                     context.read<MatchBloc>().add(GetAcceptedRequest());
+                     context.read<RequestBloc>().add(GetAcceptedRequest());
                   }
                 },
                 isScrollable: false,

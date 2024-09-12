@@ -14,7 +14,7 @@ import 'package:ishq/core/common/widgets/spaces/gap_inside_card.dart';
 import 'package:ishq/core/routes/routes.dart';
 import 'package:ishq/features/auth/presentation/profile/bloc/profile_bloc.dart';
 import 'package:ishq/core/common/widgets/containers/w_section_wraper_container.dart';
-import 'package:ishq/features/match/presentation/match/widgets/w_appbar_title.dart';
+import 'package:ishq/features/app/presentation/match/widgets/w_appbar_title.dart';
 import 'package:ishq/utils/constants/sizes.dart';
 import 'package:ishq/utils/constants/text_strings.dart';
 import 'package:ishq/utils/helpers/io_helper.dart';

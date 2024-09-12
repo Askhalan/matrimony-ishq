@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_floating_bottom_bar/flutter_floating_bottom_bar.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:ishq/features/auth/presentation/profile/pages/profile/scn_profile.dart';
-import 'package:ishq/features/match/presentation/chat/pages/scn_chat_list.dart';
-import 'package:ishq/features/match/presentation/match/pages/home/scn_home.dart';
-import 'package:ishq/features/match/presentation/match/pages/matches/scn_matches.dart';
+import 'package:ishq/features/app/presentation/chat/pages/scn_chat_list.dart';
+import 'package:ishq/features/app/presentation/match/pages/home/scn_home.dart';
+import 'package:ishq/features/app/presentation/match/pages/matches/scn_matches.dart';
 import 'package:ishq/utils/constants/colors.dart';
 import 'package:ishq/utils/constants/sizes.dart';
 
