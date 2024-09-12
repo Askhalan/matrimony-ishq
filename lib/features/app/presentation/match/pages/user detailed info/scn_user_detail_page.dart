@@ -77,8 +77,8 @@ class ScnUserDetails extends StatelessWidget {
             child: Column(
               children: [
                 //-------------------------- Photos -----------------------------
-                // JGap(),
-                // SMoreUserPhotos(user: user),
+
+
                 //----------------------- Basic Details--------------------------
                 JGap2(),
                 SUserbasicDetails(user: user),

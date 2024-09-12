@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:ishq/core/common/widgets/spaces/gap.dart';
 import 'package:ishq/core/routes/routes.dart';
 
 import 'package:ishq/utils/constants/colors.dart';
 import 'package:ishq/utils/constants/text_strings.dart';
-
 
 class ProfileAppbarFooter extends StatelessWidget {
   const ProfileAppbarFooter({
@@ -17,23 +15,7 @@ class ProfileAppbarFooter extends StatelessWidget {
       padding: EdgeInsets.symmetric(horizontal: 35),
       child: Row(
         children: [
-          //------------------------- EDIT PROFILE -------------------------
-
-          Flexible(
-            flex: 3,
-            child: ElevatedButton(
-              onPressed: () {
-                 Navigator.pushNamed(context, Routes.editProfileScn);
-              },
-              style: ButtonStyle(
-                  backgroundColor: WidgetStatePropertyAll(JColor.white)),
-              child: Text(
-                JTexts.editProfile,
-                style: Theme.of(context).textTheme.bodyLarge,
-              ),
-            ),
-          ),
-          JGap(),
+          //--------------------------- EDIT PROFILE ---------------------------
 
           //------------------------- EDIT Preferences -------------------------
 
@@ -51,45 +33,6 @@ class ProfileAppbarFooter extends StatelessWidget {
               ),
             ),
           ),
-          // JGap(),
-
-          //-------------------------- UPGRADE PLAN --------------------------
-
-          // Flexible(
-          //   flex: 3,
-          //   child: InkWell(
-          //     onTap: () {},
-          //     child: Container(
-          //       height: 50,
-          //       width: double.infinity,
-          //       decoration: BoxDecoration(
-          //           gradient: JColor.goldGradient,
-          //           borderRadius: BorderRadius.circular(JSize.borderRadLg)),
-          //       child: Center(
-          //         child: Text(
-          //           "Upgrade plan",
-          //           style: Theme.of(context).textTheme.bodyLarge,
-          //         ),
-          //       ),
-          //     ),
-          //   ),
-          // ),
-          // JGap(),
-
-          //------------------------------ SHARE ------------------------------
-
-          // Flexible(
-          //   flex: 2,
-          //   child: ElevatedButton(
-          //     onPressed: () {},
-          //     style: ButtonStyle(
-          //         backgroundColor: WidgetStatePropertyAll(JColor.white)),
-          //     child: Text(
-          //       "Share",
-          //       style: Theme.of(context).textTheme.bodyLarge,
-          //     ),
-          //   ),
-          // )
         ],
       ),
     );

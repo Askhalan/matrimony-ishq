@@ -5,11 +5,9 @@ import 'package:ishq/core/common/widgets/appbar/appbar.dart';
 import 'package:ishq/core/common/widgets/spaces/gap.dart';
 import 'package:ishq/features/app/presentation/match/bloc/match_bloc/match_bloc.dart';
 import 'package:ishq/features/app/presentation/match/pages/home/sections/appbar/s_appbar_title.dart';
-import 'package:ishq/features/app/presentation/match/pages/home/sections/s_family_matches.dart';
 import 'package:ishq/features/app/presentation/match/pages/home/sections/s_job_matches.dart';
 import 'package:ishq/features/app/presentation/match/pages/home/sections/s_marital_status_matches.dart';
 import 'package:ishq/features/app/presentation/match/pages/home/sections/s_age_matches.dart';
-import 'package:ishq/features/app/presentation/match/pages/home/sections/s_success_story.dart';
 import 'package:ishq/features/app/presentation/match/pages/home/sections/s_top_matches.dart';
 import 'package:ishq/features/app/presentation/match/widgets/w_action_button.dart';
 
@@ -61,14 +59,11 @@ class _ScnHomeState extends State<ScnHome> {
 
             //------------------------ SUCCESS STORY ------------------------
 
-            SecSuccessStory(),
+            
 
             //------------------------ FAMILY MATCHES -----------------------
 
-            SecFamilyMatches(),
-            JGap(
-              h: 70,
-            )
+           
           ],
         ),
       ),
@@ -76,5 +71,4 @@ class _ScnHomeState extends State<ScnHome> {
   }
 }
 
-class InitializeMatchesEvent {
-}
+

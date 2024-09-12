@@ -37,37 +37,11 @@ class ScnAuthSelection extends StatelessWidget {
 
                 //--------------------------------- GOOGLE AUTH -------------------------------
 
-                JGap(
-                  h: JSize.spaceBtwSections * 8,
-                ),
-                OutlinedButton(
-                    onPressed: () {
-                      Navigator.pushNamed(context, Routes.addProfessionalDetailsScn);
-                    },
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Image.asset(JImages.logoGoogle),
-                        JGap(w: 10),
-                        Text(JTexts.authGoogle,
-                            style: Theme.of(context).textTheme.bodyLarge)
-                      ],
-                    )),
+                
 
                 //-----------------------------------APPLE AUTH -------------------------------
 
-                JGap(),
-                OutlinedButton(
-                    onPressed: () {},
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Image.asset(JImages.logoApple),
-                        JGap(w: 10),
-                        Text(JTexts.authApple,
-                            style: Theme.of(context).textTheme.bodyLarge)
-                      ],
-                    )),
+              
 
                 //------------------------------------- LOGIN -----------------------------------
 
